@@ -400,20 +400,27 @@
   </section>
 
 <section id="contact" class="section contact-section">
-  <h2>Contact Me</h2>
-  <form
+<h2>Contact Me</h2>
+<form
   action="https://formspree.io/f/xzzbgqon"
   method="POST"
 >
   <label>
+    Your name:
+    <input type="text" name="name" required>
+  </label>
+  <label>
     Your email:
-    <input type="email" name="email">
+    <input type="email" name="email" required>
+  </label>
+  <label>
+    Subject:
+    <input type="text" name="subject" required>
   </label>
   <label>
     Your message:
-    <textarea name="message"></textarea>
+    <textarea name="message" required></textarea>
   </label>
-  <!-- your other form fields go here -->
   <button type="submit">Send</button>
 </form>
   <p>Or reach out via <a href="https://www.linkedin.com/in/jerry-huang-1462581a0">LinkedIn</a></p>
