@@ -1,3 +1,4 @@
+ (cd "$(git rev-parse --show-toplevel)" && git apply --3way <<'EOF' 
 diff --git a/styles.css b/styles.css
 index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..f88b0e869634dcdd95c7ae92d6acf72bb4cd219e 100644
 --- a/styles.css
@@ -693,3 +694,6 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..f88b0e869634dcdd95c7ae92d6acf72b
 +        transition: none !important;
 +    }
  }
+ 
+EOF
+)
