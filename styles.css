@@ -1,20 +1,23 @@
 diff --git a/styles.css b/styles.css
-index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b26451019cfff036 100644
+index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..f88b0e869634dcdd95c7ae92d6acf72bb4cd219e 100644
 --- a/styles.css
 +++ b/styles.css
-@@ -1,304 +1,396 @@
+@@ -1,304 +1,527 @@
 -/* General Reset */
 +@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 +
 +:root {
 +    --ink: #1f2c3d;
 +    --ink-soft: #4c6078;
++    --ink-muted: #6f7d92;
 +    --canvas: #f7f5ff;
 +    --canvas-strong: #fff6ec;
 +    --accent: #ff7b4a;
 +    --accent-dark: #d15e33;
++    --accent-soft: rgba(255, 123, 74, 0.08);
 +    --card: #ffffff;
 +    --border: rgba(31, 44, 61, 0.08);
++    --shadow-xl: 0 40px 80px rgba(15, 19, 29, 0.12);
 +}
 +
  * {
@@ -35,6 +38,7 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +    min-height: 100vh;
 +    position: relative;
 +    line-height: 1.7;
++    -webkit-font-smoothing: antialiased;
 +}
 +
 +body::before {
@@ -59,6 +63,11 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +img {
 +    max-width: 100%;
 +    display: block;
++}
++
++::selection {
++    background: rgba(255, 123, 74, 0.2);
++    color: var(--ink);
  }
  
 -/* Navbar */
@@ -124,10 +133,8 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +    font-size: 0.95rem;
 +    padding-bottom: 0.15rem;
 +    transition: color 0.25s ease;
- }
- 
--.nav-links a:hover {
--    color: #dba964;
++}
++
 +.nav-links a::after {
 +    content: "";
 +    position: absolute;
@@ -144,8 +151,10 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +.nav-links a:hover,
 +.nav-links a:focus-visible {
 +    color: var(--accent);
-+}
-+
+ }
+ 
+-.nav-links a:hover {
+-    color: #dba964;
 +.nav-links a:hover::after,
 +.nav-links a:focus-visible::after {
 +    transform: scaleX(1);
@@ -173,7 +182,18 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +    border: 1px solid var(--border);
 +    padding: clamp(1.5rem, 5vw, 3rem);
 +    border-radius: 24px;
-+    box-shadow: 0 40px 80px rgba(15, 19, 29, 0.08);
++    box-shadow: var(--shadow-xl);
++    position: relative;
++    overflow: hidden;
++}
++
++.hero .item-box::after {
++    content: "";
++    position: absolute;
++    inset: 0;
++    background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.4), transparent 45%),
++        radial-gradient(circle at 80% 10%, rgba(255, 123, 74, 0.15), transparent 55%);
++    pointer-events: none;
  }
  
  .hero h1 {
@@ -233,9 +253,9 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +    color: var(--ink);
      text-align: center;
 -    font-weight: 600;
--    position: relative;
 +    margin-bottom: 2rem;
 +    letter-spacing: -0.01em;
+     position: relative;
  }
  
  .section h2::after {
@@ -350,12 +370,19 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 -    font-size: 1em;
 -    color: #666666;
 -    line-height: 1.5;
--}
--
++.item-box ul {
++    padding-left: 1.2rem;
++    color: var(--ink-muted);
+ }
+ 
 -.item-box .skills {
 -    font-size: 0.9em;
 -    color: #dba964;
 -    font-weight: 500;
++.item-box ul li {
++    margin-bottom: 0.4rem;
++}
++
 +.skills {
 +    font-weight: 600;
 +    color: var(--accent);
@@ -368,17 +395,17 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
  .volunteer-logo {
 -    width: 50px;
 -    height: 50px;
-+    width: 58px;
-+    height: 58px;
++    width: 62px;
++    height: 62px;
      object-fit: contain;
 -    margin-right: 15px;
 -    vertical-align: middle;
 -    border-radius: 8px;
 -    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-+    border-radius: 14px;
-+    margin-bottom: 1rem;
++    border-radius: 16px;
++    margin-bottom: 0;
 +    background: #fff4ee;
-+    padding: 0.4rem;
++    padding: 0.5rem;
 +    box-shadow: inset 0 0 0 1px rgba(255, 123, 74, 0.15);
 +}
 +
@@ -386,14 +413,40 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +.education-item,
 +.certification-item,
 +.volunteer-item,
++.volunteering-item,
 +.project-item,
 +.course-item,
 +.honor-item,
 +.test-score-item,
 +.language-item {
++    display: grid;
++    grid-template-columns: auto 1fr;
++    gap: 1rem;
++    align-items: flex-start;
++}
++
++.experience-list,
++.education-list,
++.certification-list,
++.project-list,
++.volunteering-list,
++.courses-list,
++.honors-list,
++.test-scores-list {
 +    display: flex;
 +    flex-direction: column;
-+    gap: 0.4rem;
++    gap: 1.25rem;
++}
++
++.experience-item h3,
++.education-item h3,
++.certification-item h3,
++.project-item h3,
++.volunteer-item h3,
++.volunteering-item h3,
++.course-item h3,
++.honor-item h3 {
++    margin-top: -0.1rem;
  }
  
 -/* Skills Section */
@@ -431,6 +484,18 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 -    color: #ffffff;
 +    background: linear-gradient(135deg, var(--accent), #ffa65d);
 +    color: #fff;
++}
++
++#languages {
++    text-align: center;
++}
++
++#languages h2 {
++    width: 100%;
++}
++
++#languages .item-box {
++    text-align: center;
  }
  
 -/* Contact Section */
@@ -453,6 +518,9 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
  }
  
  form label {
++    display: flex;
++    flex-direction: column;
++    gap: 0.35rem;
      font-weight: 600;
 -    color: #333333;
 +    color: var(--ink);
@@ -476,6 +544,11 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +    color: var(--ink);
 +    background: rgba(255, 255, 255, 0.8);
 +    transition: border 0.25s ease, box-shadow 0.25s ease;
++}
++
++form textarea {
++    min-height: 160px;
++    resize: vertical;
  }
  
  form input:focus,
@@ -510,6 +583,11 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 -    background-color: #c38c56;
 +    transform: translateY(-2px);
 +    box-shadow: 0 35px 65px rgba(255, 123, 74, 0.4);
++}
++
++form button:focus-visible {
++    outline: 3px solid rgba(255, 123, 74, 0.4);
++    outline-offset: 2px;
  }
  
 -/* Link Styling */
@@ -530,6 +608,12 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 -@media (max-width: 768px) {
 -    .hero h1 {
 -        font-size: 2.5em;
++.contact-section p {
++    margin-top: 1.5rem;
++    text-align: center;
++    color: var(--ink-soft);
++}
++
 +@media (max-width: 992px) {
 +    .nav-links {
 +        justify-content: flex-start;
@@ -551,7 +635,6 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
      }
  
      header {
--        text-align: center;
 +        position: static;
 +    }
 +
@@ -560,9 +643,53 @@ index c17b29f92d3632f4d404f37fe8ecbf4633e398c9..b343077ceb9711d110050120b2645101
 +    }
 +}
 +
++@media (max-width: 640px) {
++    .experience-item,
++    .education-item,
++    .certification-item,
++    .volunteer-item,
++    .volunteering-item,
++    .project-item,
++    .course-item,
++    .honor-item,
++    .test-score-item,
++    .language-item {
++        grid-template-columns: 1fr;
+         text-align: center;
+     }
++
++    .company-logo,
++    .school-logo,
++    .certification-logo,
++    .volunteer-logo {
++        margin: 0 auto 0.8rem;
++    }
++}
++
++@media (min-width: 992px) {
++    .project-list,
++    .courses-list,
++    .honors-list,
++    .test-scores-list {
++        display: grid;
++        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
++        gap: 1.5rem;
++    }
++
++    #languages {
++        display: grid;
++        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
++        gap: 1.5rem;
++    }
++
++    #languages h2 {
++        grid-column: 1 / -1;
++    }
++}
++
 +@media (prefers-reduced-motion: reduce) {
 +    *, *::before, *::after {
 +        animation: none !important;
 +        transition: none !important;
-     }
++    }
  }
