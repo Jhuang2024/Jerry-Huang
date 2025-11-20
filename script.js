@@ -1,68 +1,87 @@
-// Add event listener to the contact form
-document.getElementById('contact-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission behavior
-  
+// Get the contact form
+const form = document.getElementById('contact-form');
+
+if (form) {
+  const contactSection = document.getElementById('contact');
+
+  // Create a reusable status message element
+  const statusMessage = document.createElement('p');
+  statusMessage.style.textAlign = 'center';
+  statusMessage.style.fontWeight = 'bold';
+  statusMessage.style.marginTop = '1rem';
+  contactSection.appendChild(statusMessage);
+
+  // Submit handler
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault(); // We'll handle sending manually
+
     // Get form field values
     const name = document.getElementById('name').value.trim();
     const email = document.getElementById('email').value.trim();
     const subject = document.getElementById('subject').value.trim();
     const message = document.getElementById('message').value.trim();
-  
-    // Validate form fields
+
+    // Basic validation
     if (!name || !email || !subject || !message) {
-      alert('Please fill out all fields before submitting.');
+      statusMessage.textContent = 'Please fill out all fields before submitting.';
+      statusMessage.style.color = 'red';
       return;
     }
-  
-    // Email validation pattern
+
     const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     if (!emailPattern.test(email)) {
-      alert('Please enter a valid email address.');
+      statusMessage.textContent = 'Please enter a valid email address.';
+      statusMessage.style.color = 'red';
       return;
     }
-  
-    // Optionally validate subject length
+
     if (subject.length < 3) {
-      alert('Subject must be at least 3 characters long.');
+      statusMessage.textContent = 'Subject must be at least 3 characters long.';
+      statusMessage.style.color = 'red';
       return;
     }
-  
-    // Optionally validate message length
+
     if (message.length < 10) {
-      alert('Message must be at least 10 characters long.');
+      statusMessage.textContent = 'Message must be at least 10 characters long.';
+      statusMessage.style.color = 'red';
       return;
     }
-  
-    // Log form data (for debugging or optional server integration)
-    console.log('Contact form submitted!');
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Subject:', subject);
-    console.log('Message:', message);
-  
-    // Create a success message element
-    const successMessage = document.createElement('p');
-    successMessage.textContent = `Thank you, ${name}! Your message has been sent successfully.`;
-    successMessage.style.color = 'green';
-    successMessage.style.textAlign = 'center';
-    successMessage.style.fontWeight = 'bold';
-  
-    // Append success message to the contact section
-    const contactSection = document.getElementById('contact');
-    contactSection.appendChild(successMessage);
-  
-    // Automatically remove success message after 5 seconds
-    setTimeout(() => {
-      contactSection.removeChild(successMessage);
-    }, 5000);
-  
-    // Reset the form fields
-    document.getElementById('contact-form').reset();
+
+    // Show sending state
+    statusMessage.textContent = 'Sending your message...';
+    statusMessage.style.color = '#666';
+
+    try {
+      // Use FormData to send to Formspree
+      const formData = new FormData(form);
+
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        statusMessage.textContent = `Thank you, ${name}! Your message has been sent successfully.`;
+        statusMessage.style.color = 'green';
+        form.reset();
+      } else {
+        statusMessage.textContent = 'Something went wrong. Please try again later.';
+        statusMessage.style.color = 'red';
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      statusMessage.textContent = 'Network error. Please check your connection and try again.';
+      statusMessage.style.color = 'red';
+    }
   });
-  
-  // Accessibility improvements: Add real-time validation feedback
+
+  // Real-time validation styles
   const fields = document.querySelectorAll('#contact-form input, #contact-form textarea');
-  fields.forEach(field => {
+
+  fields.forEach((field) => {
     field.addEventListener('blur', () => {
       if (field.value.trim() === '') {
         field.style.borderColor = 'red';
@@ -72,17 +91,18 @@ document.getElementById('contact-form').addEventListener('submit', function(even
         field.setAttribute('aria-invalid', 'false');
       }
     });
-  
+
     field.addEventListener('input', () => {
-      field.style.borderColor = ''; // Reset border color during typing
+      field.style.borderColor = ''; // Reset during typing
     });
   });
-  
-  // Add event listener to reset button (if included)
-  document.getElementById('contact-form').addEventListener('reset', () => {
-    fields.forEach(field => {
-      field.style.borderColor = ''; // Clear validation styles
+
+  // Reset handler (if you ever add a reset button)
+  form.addEventListener('reset', () => {
+    fields.forEach((field) => {
+      field.style.borderColor = '';
       field.setAttribute('aria-invalid', 'false');
     });
+    statusMessage.textContent = '';
   });
-  
+}
