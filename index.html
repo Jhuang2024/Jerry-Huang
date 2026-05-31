@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jerry Huang · Founder · UC Berkeley '30 · Entrepreneur</title>
+  <meta name="description" content="Jerry Huang. UC Berkeley '30, founder of a stealth ML startup, founder of EmpowerAIM, former UN Youth Delegate and Yale-mentored ML researcher. Building AI for real-world impact.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <div class="aurora"></div>
+  <div class="grid-noise"></div>
+  <div class="scroll-progress" id="progress"></div>
+
+  <!-- ============ HEADER ============ -->
+  <header id="header">
+    <a class="brand" href="#home">
+      <span class="mark">JH</span>
+      <span>Jerry&nbsp;Huang</span>
+    </a>
+    <div class="top-actions">
+      <nav class="top-links">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#awards">Awards</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="icon-btn" href="https://www.linkedin.com/in/jerryhuang08/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.04h4.5V24H.24V8.04zM8.34 8.04h4.31v2.18h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V24h-4.5v-6.32c0-1.51-.03-3.45-2.1-3.45-2.1 0-2.42 1.64-2.42 3.34V24h-4.5V8.04z"/></svg>
+      </a>
+      <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ DOT RAIL ============ -->
+  <nav class="rail" id="rail">
+    <a href="#home"><span class="label">Home</span><span class="dot"></span></a>
+    <a href="#about"><span class="label">About</span><span class="dot"></span></a>
+    <a href="#experience"><span class="label">Experience</span><span class="dot"></span></a>
+    <a href="#projects"><span class="label">Projects</span><span class="dot"></span></a>
+    <a href="#education"><span class="label">Education</span><span class="dot"></span></a>
+    <a href="#awards"><span class="label">Awards</span><span class="dot"></span></a>
+    <a href="#skills"><span class="label">Skills</span><span class="dot"></span></a>
+    <a href="#contact"><span class="label">Contact</span><span class="dot"></span></a>
+  </nav>
+
+  <!-- ============ HERO ============ -->
+  <section id="home" class="hero" data-screen-label="Hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-spotlight" id="spotlight"></div>
+    <div class="hero-status reveal in-view">
+      <span class="pulse"></span> UC Berkeley '30 · Building a stealth startup · SF Bay Area
+    </div>
+    <h1 class="reveal in-view" data-delay="1">Jerry<br><span class="accent">Huang.</span></h1>
+    <div class="roles reveal in-view" data-delay="2">
+      <span class="prefix">I'm a</span>
+      <span class="rotator" id="rotator">Founder</span>
+    </div>
+    <p class="hero-lead reveal in-view" data-delay="3">
+      I build AI that solves real-world problems. Now at UC Berkeley,
+      working on a stealth ML startup after founding EmpowerAIM and
+      delivering speeches at the United Nations.
+    </p>
+    <div class="hero-cta reveal in-view" data-delay="4">
+      <a class="btn btn-primary" href="#experience">
+        Explore my work
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/jerryhuang08/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.04h4.5V24H.24V8.04zM8.34 8.04h4.31v2.18h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V24h-4.5v-6.32c0-1.51-.03-3.45-2.1-3.45-2.1 0-2.42 1.64-2.42 3.34V24h-4.5V8.04z"/></svg>
+        Connect on LinkedIn
+      </a>
+    </div>
+
+    <div class="hero-stats reveal" id="heroStats">
+      <div class="stat"><div class="num" data-count="550" data-suffix="+">0</div><div class="lbl">Students empowered</div></div>
+      <div class="stat"><div class="num" data-prefix="$" data-count="40" data-suffix="K+">0</div><div class="lbl">Raised for youth</div></div>
+      <div class="stat"><div class="num" data-count="5" data-suffix="+">0</div><div class="lbl">UN forums presented</div></div>
+      <div class="stat"><div class="num" data-count="1000" data-suffix="+">0</div><div class="lbl">Youth impacted</div></div>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section id="about" class="section" data-screen-label="About">
+    <div class="section-head reveal">
+      <span class="eyebrow">About</span>
+      <h2>Building AI for real-world impact.</h2>
+    </div>
+    <div class="about-grid">
+      <div>
+        <p class="about-lead reveal">
+          Hey, I'm Jerry. I'm passionate about using AI to make the tools we
+          rely on smarter, simpler, and more human, and about putting that
+          technology in the hands of people who need it most.
+        </p>
+        <div class="about-body reveal" data-delay="1">
+          <p>
+            I'm currently at <b>UC Berkeley</b> ('30) and working on a stealth
+            ML startup in the San Francisco Bay Area. Before that I founded
+            <b>EmpowerAIM</b>, bringing AI tools and education to the Global
+            South; led <b>KidsToKids</b>, an international STEM non-profit; and
+            represented youth voices as a <b>UN Youth Delegate</b> at forums
+            around the world.
+          </p>
+          <p>Always looking to meet new people and potential co-workers, so reach out.</p>
+        </div>
+      </div>
+      <div class="reveal" data-delay="2">
+        <div class="photo-card">
+          <img src="assets/images/profile_picture.png" alt="Jerry Huang">
+        </div>
+        <div class="facts">
+          <div class="fact"><span class="k">based</span><span class="v">San Francisco Bay Area</span></div>
+          <div class="fact"><span class="k">school</span><span class="v">UC Berkeley · Class of '30</span></div>
+          <div class="fact"><span class="k">focus</span><span class="v">AI · ML · Entrepreneurship</span></div>
+          <div class="fact"><span class="k">languages</span><span class="v">EN · 中文 · FR · 한</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experience" class="section" data-screen-label="Experience">
+    <div class="section-head reveal">
+      <span class="eyebrow">Experience</span>
+      <h2>Leading, building, presenting.</h2>
+      <p>From founding ventures in Toronto to building a stealth startup in San Francisco, with a seat at the UN table along the way.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-fill" aria-hidden="true"></div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo" style="background:linear-gradient(135deg,var(--accent),var(--accent-2));border:none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--accent-ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:60%;height:60%;"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09zM12 15l-3-3a22 22 0 0 1 8-10 22 22 0 0 1 2 10 22 22 0 0 1-10 8z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>
+        </div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">Founder <span class="tl-org">· Stealth Startup</span></div>
+            <div class="tl-meta">SINCE 2026</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Building a machine-learning&ndash;adjacent stealth startup in San Francisco.</li>
+            <li>Always looking to meet new people and potential co-workers.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Machine Learning</span><span class="tag">0→1</span><span class="tag">San Francisco</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/empoweraim_logo.png" alt="EmpowerAIM"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">Founder &amp; President <span class="tl-org">· EmpowerAIM</span></div>
+            <div class="tl-meta">2024–2026</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Built a platform empowering the Global South with AI tools &amp; education to solve real-world issues.</li>
+            <li>Engaged <b>550+ students</b>; prototyped with 20+ AI platforms &amp; open-source tools.</li>
+            <li>Presented at <b>5+ UN forums</b> and the UNESCO Forum on Education × AI (1 of 10 chosen).</li>
+            <li>Created the 10-step <b>STREAMLINE</b> framework for scalable AI-driven solutions.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Leadership</span><span class="tag">AI/ML</span><span class="tag">Public Speaking</span></div>
+          <div class="card-links">
+            <a href="https://empoweraim.wixsite.com/empoweraim" target="_blank" rel="noopener">Website <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+            <a href="https://www.learning-planet.org/event/empoweraim-presents-enabling-an-empowered-and-ethical-ai-evolution/" target="_blank" rel="noopener">UNESCO talk <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+            <a href="https://www.youtube.com/watch?v=Qa7qLCWqa70" target="_blank" rel="noopener">Feature video <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/un_logo.png" alt="United Nations"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">UN Youth Delegate <span class="tl-org">· United Nations</span></div>
+            <div class="tl-meta">2025–2026</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Presented EmpowerAIM at the UN STI Forum, Asia-Pacific Forum on Sustainable Development &amp; Climate Week NYC.</li>
+            <li>Contributed youth perspectives on digital equity and AI for the Sustainable Development Goals.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Policy</span><span class="tag">Digital Equity</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/future_of_technology_logo.png" alt="Future of Technology"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">Team Leader &amp; Presenter <span class="tl-org">· Future of Technology</span></div>
+            <div class="tl-meta">2025–2026</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Forum backed by MIT, Microsoft &amp; the UN focused on AI × climate education.</li>
+            <li>Built &amp; presented a prototype app delivering offline AI learning tools for kids displaced by conflict and climate change.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Product</span><span class="tag">Climate</span></div>
+          <div class="card-links">
+            <a href="https://www.futureoftechnology.org/jerry-huang" target="_blank" rel="noopener">My profile <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+            <a href="https://www.futureoftechnology.org/ggw?pgid=lmpltrpg-97711f66-8d0a-4abd-b908-893feaf3ae6f" target="_blank" rel="noopener">Campaign <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/kids_to_kids_logo.png" alt="KidsToKids"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">Founding Member &amp; President <span class="tl-org">· KidsToKids</span></div>
+            <div class="tl-meta">2022–2026</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Int'l non-profit delivering STEM education to underserved youth across Canada, the UK &amp; China.</li>
+            <li>Led <b>15+ execs</b> &amp; 100+ volunteers; taught 75+ students per semester.</li>
+            <li>Organized 10+ fundraisers &amp; 3 summits. <b>$40K+ raised</b>, <b>1,000+ youth impacted</b>.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Non-Profit</span><span class="tag">Operations</span><span class="tag">Education</span></div>
+          <div class="card-links">
+            <a href="http://kidstokids.ca/" target="_blank" rel="noopener">Website <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+            <a href="https://www.youtube.com/@KidstoKidsNPO" target="_blank" rel="noopener">YouTube <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/aws_logo.png" alt="Amazon Web Services"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">Machine Learning Intern <span class="tl-org">· Amazon Web Services</span></div>
+            <div class="tl-meta">2025</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Built <b>3+ ML models</b> &amp; cloud workflows; explored real-world AI applications.</li>
+            <li>Joined pro-dev &amp; networking with AWS engineers and product managers.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Cloud</span><span class="tag">ML Ops</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/upenn_logo.png" alt="University of Pennsylvania"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">ESAP &amp; Social Innovators <span class="tl-org">· UPenn</span></div>
+            <div class="tl-meta">2024–2025</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Built neural nets, NLP pipelines &amp; AI agents in teams of 4.</li>
+            <li>Conducted 20+ interviews, cold-emailed 200+ users, designed an MVP &amp; pitched a scalable solution.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">NLP</span><span class="tag">Entrepreneurship</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/shad_logo.png" alt="SHAD Canada"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">SHAD Fellow &amp; Project Lead <span class="tl-org">· SHAD Canada</span></div>
+            <div class="tl-meta">2024</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Led a team of 6 to design a smart-thermometer prototype &amp; website.</li>
+            <li>Placed <b>2nd of 12</b> for best solution at the National Innovation Program.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Engineering</span><span class="tag">Teamwork</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/ucc_logo.png" alt="Upper Canada College"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">Swim Captain &amp; Club Founder <span class="tl-org">· Upper Canada College</span></div>
+            <div class="tl-meta">2021–2026</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Captain of a <b>90+ member varsity swim team</b>; OFSAA &amp; CISAA medalist.</li>
+            <li>Founded the Digital Design Club (+25% membership, 100+ competition entrants).</li>
+            <li>Product Innovators Club: designed a wearable alert buzzer for the elderly.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Leadership</span><span class="tag">Athletics</span><span class="tag">Design</span></div>
+        </div>
+      </div>
+
+      <div class="tl-item reveal">
+        <div class="tl-logo"><img src="assets/images/ctrl_z_logo.png" alt="Ctrl-Z Team 5831"></div>
+        <div class="tl-card">
+          <div class="tl-top">
+            <div class="tl-role">Team Member <span class="tl-org">· Ctrl-Z (FLL Team 5831)</span></div>
+            <div class="tl-meta">2019–2020</div>
+          </div>
+          <ul class="tl-bullets">
+            <li>Member of the reigning <b>world champion</b> Team 5831 in the FIRST LEGO League.</li>
+            <li>Built and programmed competition robots; where it all started.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Robotics</span><span class="tag">FLL</span><span class="tag">Engineering</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section id="projects" class="section" data-screen-label="Projects">
+    <div class="section-head reveal">
+      <span class="eyebrow">Selected Projects</span>
+      <h2>Things I've built.</h2>
+    </div>
+    <div class="proj-grid">
+      <article class="proj reveal">
+        <div class="proj-num">01 · Published research</div>
+        <h3>AI Fish Identification</h3>
+        <div class="when">2024–2025</div>
+        <p>CNN model that identifies freshwater species from a camera feed to quantify biodiversity and track invasive populations. Published in the UNESCO Academy Journal.</p>
+        <div class="tag-row"><span class="tag">CNNs</span><span class="tag">Python</span><span class="tag">Ecology</span></div>
+        <div class="card-links">
+          <a href="https://projects.learning-planet.org/projects/automated-fish-species-identification-using-co/summary" target="_blank" rel="noopener">Read the paper <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        </div>
+      </article>
+
+      <article class="proj reveal" data-delay="1">
+        <div class="proj-num">02 · UPenn ESAP</div>
+        <h3>AI Social Media Analytics</h3>
+        <div class="when">2025</div>
+        <p>Full-stack platform pairing a Selenium TikTok/YouTube scraper with an LLM pipeline that generates channel signatures, content ideas &amp; growth strategies. React frontend, real-time insights.</p>
+        <div class="tag-row"><span class="tag">LLMs</span><span class="tag">React</span><span class="tag">Selenium</span></div>
+      </article>
+
+      <article class="proj reveal" data-delay="2">
+        <div class="proj-num">03 · Founder build</div>
+        <h3>Swedule</h3>
+        <div class="when">2024</div>
+        <p>A calendar built for competitive high-school swimmers to balance academics with practices and meets, helping athletes manage time around their training load.</p>
+        <div class="tag-row"><span class="tag">JavaScript</span><span class="tag">Product</span></div>
+      </article>
+
+      <article class="proj reveal" data-delay="3">
+        <div class="proj-num">04 · MYP Personal Project</div>
+        <h3>Smart Water-Param Tester</h3>
+        <div class="when">2023–2024</div>
+        <p>Automatic fish-tank monitor tracking ammonia, nitrites, nitrates, pH &amp; temperature, alerting users through a mobile app when readings drift out of range. Programmed in C.</p>
+        <div class="tag-row"><span class="tag">Embedded C</span><span class="tag">IoT</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION + CREDENTIALS ============ -->
+  <section id="education" class="section" data-screen-label="Education">
+    <div class="section-head reveal">
+      <span class="eyebrow">Education &amp; Credentials</span>
+      <h2>Where I'm learning.</h2>
+    </div>
+    <div class="split">
+      <div class="reveal">
+        <div class="col-title">Education</div>
+        <div class="mini">
+          <div class="mini-logo" style="background:#003262;display:grid;place-items:center;"><span style="font-family:var(--font-display);font-weight:700;color:#FDB515;font-size:0.95rem;">Cal</span></div>
+          <div><h4>UC Berkeley</h4><p>Undergraduate · expected 2030</p></div>
+          <span class="badge">'30</span>
+        </div>
+        <div class="mini">
+          <div class="mini-logo"><img src="assets/images/ucc_logo.png" alt="UCC"></div>
+          <div><h4>Upper Canada College</h4><p>IB + OSSD Diploma · 2020–2026</p></div>
+          <span class="badge">Grad '26</span>
+        </div>
+        <div class="mini">
+          <div class="mini-logo"><img src="assets/images/johns_hopkins_logo.png" alt="JHU CTY"></div>
+          <div><h4>Johns Hopkins CTY</h4><p>3 accelerated math courses · Distinction</p></div>
+        </div>
+        <div class="mini">
+          <div class="mini-logo"><img src="assets/images/bayview_glen_logo.png" alt="Bayview Glen"></div>
+          <div><h4>Bayview Glen</h4><p>2018–2020</p></div>
+        </div>
+      </div>
+      <div class="reveal" data-delay="1">
+        <div class="col-title">Test Scores &amp; Licenses</div>
+        <div class="mini"><div><h4>SSAT (Middle Level)</h4><p>Standardized admission test</p></div><span class="badge">2090 / 2130</span></div>
+        <div class="mini">
+          <div class="mini-logo"><img src="assets/images/lifesaving_society_logo.png" alt="Lifesaving Society"></div>
+          <div><h4>National Lifeguard</h4><p>+ Swim/Lifesaving Instructor, First Aid</p></div>
+        </div>
+        <div class="mini">
+          <div class="mini-logo"><img src="assets/images/csia_logo.png" alt="CSIA"></div>
+          <div><h4>CSIA Level 1</h4><p>Canadian Ski Instructors' Alliance</p></div>
+        </div>
+        <div class="mini"><div><h4>RCM Piano</h4><p>Level 8 · Theory 95/100</p></div><span class="badge">Level 8</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ AWARDS ============ -->
+  <section id="awards" class="section" data-screen-label="Awards">
+    <div class="section-head reveal">
+      <span class="eyebrow">Honors &amp; Awards</span>
+      <h2>Recognition.</h2>
+    </div>
+    <div class="filter-bar reveal" id="awardFilter">
+      <button class="chip active" data-cat="all">All</button>
+      <button class="chip" data-cat="global">Global</button>
+      <button class="chip" data-cat="math">Mathematics</button>
+      <button class="chip" data-cat="athletics">Athletics</button>
+      <button class="chip" data-cat="academic">Academic</button>
+    </div>
+    <div class="award-grid" id="awardGrid">
+      <div class="award reveal" data-cat="global">
+        <div class="a-top"><span class="a-cat">Global Finalist</span><span class="a-date">Nov 2025</span></div>
+        <h4>UN × Netflix Youth Global Creative Challenge</h4>
+        <p>Top 13 of 2,280 applicants across 89 countries (top 0.5%). Interviewed at UN HQ, New York.</p>
+        <div class="card-links">
+          <a href="https://www.youthstudios.org/challenge" target="_blank" rel="noopener">Challenge <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg></a>
+        </div>
+      </div>
+      <div class="award reveal" data-cat="athletics">
+        <div class="a-top"><span class="a-cat">Athletics</span><span class="a-date">2024–25</span></div>
+        <h4>OFSAA Varsity Swimming</h4>
+        <p>Top 3 in Ontario, 200m Freestyle Relay; Top 16, 100m Freestyle.</p>
+      </div>
+      <div class="award reveal" data-cat="math">
+        <div class="a-top"><span class="a-cat">Mathematics</span><span class="a-date">Mar 2025</span></div>
+        <h4>Waterloo Fermat Contest</h4>
+        <p>Group 4 Honour Roll, top 219 / 65,000.</p>
+      </div>
+      <div class="award reveal" data-cat="academic">
+        <div class="a-top"><span class="a-cat">Academic</span><span class="a-date">Oct 2024</span></div>
+        <h4>General Proficiency Award</h4>
+        <p>Awarded for 94%+ in every subject at Upper Canada College.</p>
+      </div>
+      <div class="award reveal" data-cat="academic">
+        <div class="a-top"><span class="a-cat">Academic</span><span class="a-date">Sep 2024</span></div>
+        <h4>Principal's List</h4>
+        <p>Top 10% of the UCC class of 2026.</p>
+      </div>
+      <div class="award reveal" data-cat="athletics">
+        <div class="a-top"><span class="a-cat">Athletics</span><span class="a-date">Feb 2024</span></div>
+        <h4>CISAA Varsity Swimming</h4>
+        <p>1st in Toronto, 100m Freestyle; Top 3, 50m Freestyle.</p>
+      </div>
+      <div class="award reveal" data-cat="math">
+        <div class="a-top"><span class="a-cat">Mathematics</span><span class="a-date">Feb 2024</span></div>
+        <h4>Waterloo Cayley Contest</h4>
+        <p>Group 4 Honour Roll, top 266 / 65,000.</p>
+      </div>
+      <div class="award reveal" data-cat="math">
+        <div class="a-top"><span class="a-cat">Mathematics</span><span class="a-date">Mar 2023</span></div>
+        <h4>Waterloo Fryer Contest</h4>
+        <p>Group 2 Honour Roll, top 25 / 6,000.</p>
+      </div>
+      <div class="award reveal" data-cat="academic">
+        <div class="a-top"><span class="a-cat">Academic</span><span class="a-date">Jun 2021</span></div>
+        <h4>Chadsey Prize for Literature</h4>
+        <p>Plus the Symons '47 Prize for Canadian Studies, UCC.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SKILLS + LANGUAGES ============ -->
+  <section id="skills" class="section" data-screen-label="Skills">
+    <div class="section-head reveal">
+      <span class="eyebrow">Skills &amp; Languages</span>
+      <h2>The toolkit.</h2>
+    </div>
+    <div class="skills-wrap">
+      <div class="reveal">
+        <div class="col-title">Skills</div>
+        <div class="skill-cloud">
+          <span>Machine Learning</span><span>Python</span><span>JavaScript</span>
+          <span>HTML / CSS</span><span>Embedded C</span><span>Neural Networks</span>
+          <span>NLP</span><span>Startup Leadership</span><span>Entrepreneurship</span>
+          <span>Product Design</span><span>Mathematics</span><span>Public Speaking</span>
+        </div>
+      </div>
+      <div class="reveal" data-delay="1">
+        <div class="col-title">Languages</div>
+        <div class="lang-list" id="langList">
+          <div class="lang"><div class="lang-top"><span>Chinese (Mandarin)</span><span class="lvl">Native</span></div><div class="lang-bar"><i data-w="100"></i></div></div>
+          <div class="lang"><div class="lang-top"><span>English</span><span class="lvl">Native</span></div><div class="lang-bar"><i data-w="100"></i></div></div>
+          <div class="lang"><div class="lang-top"><span>French</span><span class="lvl">Professional</span></div><div class="lang-bar"><i data-w="70"></i></div></div>
+          <div class="lang"><div class="lang-top"><span>Korean</span><span class="lvl">Limited</span></div><div class="lang-bar"><i data-w="40"></i></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="section contact" data-screen-label="Contact">
+    <div class="section-head reveal" style="text-align:center;">
+      <span class="eyebrow" style="margin-inline:auto;">Get in touch</span>
+      <h2>Let's build something.</h2>
+    </div>
+    <div class="contact-card reveal">
+      <form id="contact-form" action="https://formspree.io/f/xzzbgqon" method="POST">
+        <label>Name<input type="text" id="name" name="name" required></label>
+        <label>Email<input type="email" id="email" name="email" required></label>
+        <label class="full">Subject<input type="text" id="subject" name="subject" required></label>
+        <label class="full">Message<textarea id="message" name="message" required></textarea></label>
+        <button type="submit" class="btn btn-primary full">
+          Send message
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+        </button>
+        <p class="status" id="status"></p>
+      </form>
+      <p class="contact-alt">Or email
+        <button class="copy-email" id="copyEmail" data-email="jerryhuang.hjr@gmail.com">
+          <span class="label">jerryhuang.hjr@gmail.com</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+        </button>
+        &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/jerryhuang08/" target="_blank" rel="noopener">Connect on LinkedIn →</a></p>
+    </div>
+  </section>
+
+  <button class="to-top" id="toTop" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <footer>
+    <div class="socials">
+      <a class="icon-btn" href="https://www.linkedin.com/in/jerryhuang08/" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.04h4.5V24H.24V8.04zM8.34 8.04h4.31v2.18h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V24h-4.5v-6.32c0-1.51-.03-3.45-2.1-3.45-2.1 0-2.42 1.64-2.42 3.34V24h-4.5V8.04z"/></svg>
+      </a>
+    </div>
+    © <span id="year"></span> Jerry Huang · Built with curiosity in Toronto.
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
