@@ -121,6 +121,13 @@
     }, { threshold: 0.5 });
     cvObs.observe(contactVisual);
   }
+  const buildFeature = $('.build-feature');
+  if (buildFeature && !reduce) {
+    const bfObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('jh-animate'); bfObs.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    bfObs.observe(buildFeature);
+  }
 
   /* ---------- LANGUAGE BARS ---------- */
   const langList = $('#langList');
@@ -178,6 +185,17 @@
     window.addEventListener('scroll', updateTraj, { passive: true });
     window.addEventListener('resize', updateTraj);
     updateTraj();
+
+    /* click a stop to pin/emphasize it, independent of scroll position */
+    trajNodes.forEach(node => {
+      node.querySelectorAll('.traj-card, .traj-dot').forEach(el => {
+        el.addEventListener('click', () => {
+          const wasPinned = node.classList.contains('pinned');
+          trajNodes.forEach(n => n.classList.remove('pinned'));
+          if (!wasPinned) node.classList.add('pinned');
+        });
+      });
+    });
   }
 
   /* ---------- HERO SPOTLIGHT ---------- */
@@ -202,6 +220,32 @@
     };
     window.addEventListener('scroll', onParallax, { passive: true });
     onParallax();
+  }
+
+  /* ---------- TRAVELING SCROLL GLOW (page-wide ambient, non-interactive) ---------- */
+  const scrollGlow = $('#scrollGlow');
+  if (scrollGlow && !reduce) {
+    const onGlow = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = h > 0 ? window.scrollY / h : 0;
+      const travel = document.documentElement.scrollHeight - window.innerWidth * 0.7;
+      scrollGlow.style.transform = `translate(-50%, ${(pct * travel).toFixed(0)}px)`;
+    };
+    window.addEventListener('scroll', onGlow, { passive: true });
+    window.addEventListener('resize', onGlow);
+    onGlow();
+  }
+
+  /* ---------- CURSOR GLOW (very noticeable, pointer-driven) ---------- */
+  const cursorGlow = $('#cursorGlow');
+  if (cursorGlow && !reduce && fine) {
+    let shown = false;
+    window.addEventListener('pointermove', (e) => {
+      cursorGlow.style.transform = `translate(${e.clientX - 130}px, ${e.clientY - 130}px)`;
+      if (!shown) { shown = true; cursorGlow.classList.add('show'); }
+    });
+    document.addEventListener('mouseleave', () => cursorGlow.classList.remove('show'));
+    document.addEventListener('mouseenter', () => { if (shown) cursorGlow.classList.add('show'); });
   }
 
   /* ---------- PROJECT CARD POINTER GLOW + 3D TILT ---------- */
@@ -448,6 +492,23 @@
     });
   }
 
+  /* ---------- CLICK RIPPLE (buttons, chips, nodes) ---------- */
+  if (!reduce) {
+    document.addEventListener('click', (e) => {
+      const el = e.target.closest('.ripple');
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const size = Math.max(r.width, r.height) * 1.6;
+      const dot = document.createElement('span');
+      dot.className = 'ripple-dot';
+      dot.style.width = dot.style.height = size + 'px';
+      dot.style.left = (e.clientX - r.left - size / 2) + 'px';
+      dot.style.top = (e.clientY - r.top - size / 2) + 'px';
+      el.appendChild(dot);
+      setTimeout(() => dot.remove(), 700);
+    });
+  }
+
   /* ---------- CONTACT FORM ---------- */
   const form = $('#contact-form');
   if (form) {
@@ -467,7 +528,15 @@
         const res = await fetch(form.action, {
           method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }
         });
-        if (res.ok) { setStatus(`Thanks, ${name}! Your message has been sent.`, 'var(--accent-success)'); form.reset(); }
+        if (res.ok) {
+          setStatus(`Thanks, ${name}! Your message has been sent.`, 'var(--accent-success)');
+          form.reset();
+          const submitBtn = form.querySelector('button[type="submit"]');
+          if (submitBtn && !reduce) {
+            submitBtn.classList.remove('burst'); void submitBtn.offsetWidth; submitBtn.classList.add('burst');
+            setTimeout(() => submitBtn.classList.remove('burst'), 750);
+          }
+        }
         else setStatus('Something went wrong, please try again later.', 'var(--accent-2)');
       } catch (err) {
         console.error(err);
@@ -482,7 +551,13 @@
     window.addEventListener('scroll', () => {
       toTop.classList.toggle('show', window.scrollY > 600);
     }, { passive: true });
-    toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' }));
+    toTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+      if (!reduce) {
+        toTop.classList.remove('spin'); void toTop.offsetWidth; toTop.classList.add('spin');
+        setTimeout(() => toTop.classList.remove('spin'), 550);
+      }
+    });
   }
 
   /* ---------- COPY EMAIL ---------- */

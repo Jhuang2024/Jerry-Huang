@@ -20,6 +20,8 @@
 <body>
   <div class="aurora"></div>
   <div class="grid-noise"></div>
+  <div class="scroll-glow" id="scrollGlow" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="scroll-progress" id="progress"></div>
 
   <!-- ============ HEADER ============ -->
@@ -123,47 +125,50 @@
             <span class="hs-core-ring" aria-hidden="true"></span>
           </div>
         </div>
-        <p class="hs-caption">A map of what I'm building, learning, and presenting. Pick a node to jump there.</p>
       </div>
 
-      <!-- Hero copy -->
+      <!-- Hero copy: trimmed to the identity beat only -->
       <div class="hero-copy">
         <div class="hero-status reveal in-view">
           <span class="pulse"></span> Founder at Helicyn · UC Berkeley '30 · SF Bay Area
         </div>
         <h1 class="reveal in-view" data-delay="1">Jerry<br><span class="accent">Huang.</span></h1>
         <p class="hero-position reveal in-view" data-delay="2">AI founder and builder at UC Berkeley.</p>
-        <p class="hero-lead reveal in-view" data-delay="3">
-          Currently building <a class="lead-link" href="https://helicyn.com" target="_blank" rel="noopener">Helicyn</a>,
-          a machine-learning startup in San Francisco, after founding EmpowerAIM, leading KidsToKids,
-          and presenting at UN and global forums along the way.
-        </p>
-        <div class="hero-cta reveal in-view" data-delay="4">
-          <a class="btn btn-primary magnetic" href="#work">
-            View work
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-          </a>
-          <a class="btn btn-ghost magnetic" href="https://helicyn.com" target="_blank" rel="noopener">
-            Visit Helicyn
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
-          </a>
-          <a class="btn btn-ghost magnetic" href="#contact">
-            Contact
-          </a>
-        </div>
-
-        <div class="hero-stats reveal" id="heroStats">
-          <div class="stat"><div class="num" data-count="550" data-suffix="+">550<span class="suffix">+</span></div><div class="lbl">Students empowered</div></div>
-          <div class="stat"><div class="num" data-prefix="$" data-count="40" data-suffix="K+">$40<span class="suffix">K+</span></div><div class="lbl">Raised for youth</div></div>
-          <div class="stat"><div class="num" data-count="5" data-suffix="+">5<span class="suffix">+</span></div><div class="lbl">UN forums presented</div></div>
-          <div class="stat"><div class="num" data-count="1000" data-suffix="+">1,000<span class="suffix">+</span></div><div class="lbl">Youth impacted</div></div>
-        </div>
       </div>
     </div>
 
-    <a class="scroll-cue" href="#trajectory" aria-label="Scroll to Trajectory">
+    <a class="scroll-cue" href="#overview" aria-label="Scroll for more">
       <span></span>
     </a>
+  </section>
+
+  <!-- ============ OVERVIEW (the wordier hero beat: lead, CTAs, stats) ============ -->
+  <section id="overview" class="overview" data-screen-label="Overview">
+    <p class="hero-lead reveal in-view">
+      Currently building <a class="lead-link" href="https://helicyn.com" target="_blank" rel="noopener">Helicyn</a>,
+      a machine-learning startup in San Francisco, after founding EmpowerAIM, leading KidsToKids,
+      and presenting at UN and global forums along the way.
+    </p>
+    <div class="hero-cta reveal in-view">
+      <a class="btn btn-primary magnetic ripple" href="#work">
+        View work
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+      <a class="btn btn-ghost magnetic ripple" href="https://helicyn.com" target="_blank" rel="noopener">
+        Visit Helicyn
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
+      </a>
+      <a class="btn btn-ghost magnetic ripple" href="#contact">
+        Contact
+      </a>
+    </div>
+
+    <div class="hero-stats reveal in-view" id="heroStats">
+      <div class="stat"><div class="num" data-count="550" data-suffix="+">550<span class="suffix">+</span></div><div class="lbl">Students empowered</div></div>
+      <div class="stat"><div class="num" data-prefix="$" data-count="40" data-suffix="K+">$40<span class="suffix">K+</span></div><div class="lbl">Raised for youth</div></div>
+      <div class="stat"><div class="num" data-count="5" data-suffix="+">5<span class="suffix">+</span></div><div class="lbl">UN forums presented</div></div>
+      <div class="stat"><div class="num" data-count="1000" data-suffix="+">1,000<span class="suffix">+</span></div><div class="lbl">Youth impacted</div></div>
+    </div>
   </section>
 
   <!-- ============ IDENTITY STRIP ============ -->
@@ -203,7 +208,7 @@
   </div>
 
   <!-- ============ TRAJECTORY ============ -->
-  <section id="trajectory" class="section traj" data-screen-label="Trajectory">
+  <section id="trajectory" class="section traj" data-screen-label="Trajectory" data-num="01">
     <div class="section-head reveal">
       <span class="eyebrow">Trajectory</span>
       <h2>A path from Toronto to Berkeley.</h2>
@@ -257,17 +262,17 @@
   </section>
 
   <!-- ============ CURRENT BUILD: HELICYN ============ -->
-  <section id="build" class="section build-feature" data-screen-label="Current Build">
+  <section id="build" class="section build-feature" data-screen-label="Current Build" data-num="02">
     <div class="bf-panel reveal">
       <div class="bf-graphic" aria-hidden="true">
         <svg viewBox="0 0 400 300" class="bf-svg">
           <g class="bf-orbit">
-            <line class="bf-link" x1="200" y1="150" x2="200" y2="40" pathLength="1"/>
-            <line class="bf-link" x1="200" y1="150" x2="320" y2="110" pathLength="1"/>
-            <line class="bf-link" x1="200" y1="150" x2="320" y2="200" pathLength="1"/>
-            <line class="bf-link" x1="200" y1="150" x2="200" y2="262" pathLength="1"/>
-            <line class="bf-link" x1="200" y1="150" x2="80" y2="200" pathLength="1"/>
-            <line class="bf-link" x1="200" y1="150" x2="80" y2="110" pathLength="1"/>
+            <line class="bf-link" style="--i:0" x1="200" y1="150" x2="200" y2="40" pathLength="1"/>
+            <line class="bf-link" style="--i:1" x1="200" y1="150" x2="320" y2="110" pathLength="1"/>
+            <line class="bf-link" style="--i:2" x1="200" y1="150" x2="320" y2="200" pathLength="1"/>
+            <line class="bf-link" style="--i:3" x1="200" y1="150" x2="200" y2="262" pathLength="1"/>
+            <line class="bf-link" style="--i:4" x1="200" y1="150" x2="80" y2="200" pathLength="1"/>
+            <line class="bf-link" style="--i:5" x1="200" y1="150" x2="80" y2="110" pathLength="1"/>
           </g>
           <circle class="bf-node" cx="200" cy="40" r="7"/>
           <circle class="bf-node" cx="320" cy="110" r="7"/>
@@ -296,7 +301,7 @@
   </section>
 
   <!-- ============ SELECTED WORK ============ -->
-  <section id="work" class="section" data-screen-label="Selected Work">
+  <section id="work" class="section" data-screen-label="Selected Work" data-num="03">
     <div class="section-head reveal">
       <span class="eyebrow">Selected work</span>
       <h2>Things I've built.</h2>
@@ -429,7 +434,7 @@
   </aside>
 
   <!-- ============ PROJECT CONSTELLATION ============ -->
-  <section id="constellation" class="section" data-screen-label="Build Graph">
+  <section id="constellation" class="section" data-screen-label="Build Graph" data-num="04">
     <div class="section-head reveal">
       <span class="eyebrow">Build graph</span>
       <h2>Projects and skills, connected.</h2>
@@ -439,29 +444,29 @@
       <svg class="cst-edges" id="cstEdges" aria-hidden="true"></svg>
       <div class="cst-col cst-col--projects">
         <div class="cst-col-title">Projects &amp; ventures</div>
-        <button class="cst-node cst-node--project" data-node="helicyn" data-skills="ml,product,startup">Helicyn</button>
-        <button class="cst-node cst-node--project" data-node="fish-id" data-skills="python,cnn,ml">AI Fish Identification</button>
-        <button class="cst-node cst-node--project" data-node="social-analytics" data-skills="llm,react,selenium">AI Social Media Analytics</button>
-        <button class="cst-node cst-node--project" data-node="swedule" data-skills="js,product">Swedule</button>
-        <button class="cst-node cst-node--project" data-node="water-tester" data-skills="embedded,hardware">Smart Water-Param Tester</button>
-        <button class="cst-node cst-node--project" data-node="empoweraim" data-skills="startup,speaking,leadership,ml">EmpowerAIM</button>
-        <button class="cst-node cst-node--project" data-node="kidstokids" data-skills="leadership">KidsToKids</button>
+        <button class="cst-node cst-node--project ripple" data-node="helicyn" data-skills="ml,product,startup">Helicyn</button>
+        <button class="cst-node cst-node--project ripple" data-node="fish-id" data-skills="python,cnn,ml">AI Fish Identification</button>
+        <button class="cst-node cst-node--project ripple" data-node="social-analytics" data-skills="llm,react,selenium">AI Social Media Analytics</button>
+        <button class="cst-node cst-node--project ripple" data-node="swedule" data-skills="js,product">Swedule</button>
+        <button class="cst-node cst-node--project ripple" data-node="water-tester" data-skills="embedded,hardware">Smart Water-Param Tester</button>
+        <button class="cst-node cst-node--project ripple" data-node="empoweraim" data-skills="startup,speaking,leadership,ml">EmpowerAIM</button>
+        <button class="cst-node cst-node--project ripple" data-node="kidstokids" data-skills="leadership">KidsToKids</button>
       </div>
       <div class="cst-col cst-col--skills">
         <div class="cst-col-title">Skills</div>
-        <button class="cst-node cst-node--skill" data-node="ml" data-projects="helicyn,fish-id,empoweraim">Machine Learning</button>
-        <button class="cst-node cst-node--skill" data-node="python" data-projects="fish-id">Python</button>
-        <button class="cst-node cst-node--skill" data-node="cnn" data-projects="fish-id">CNNs</button>
-        <button class="cst-node cst-node--skill" data-node="llm" data-projects="social-analytics">LLMs</button>
-        <button class="cst-node cst-node--skill" data-node="react" data-projects="social-analytics">React</button>
-        <button class="cst-node cst-node--skill" data-node="selenium" data-projects="social-analytics">Selenium</button>
-        <button class="cst-node cst-node--skill" data-node="js" data-projects="swedule">JavaScript</button>
-        <button class="cst-node cst-node--skill" data-node="embedded" data-projects="water-tester">Embedded C</button>
-        <button class="cst-node cst-node--skill" data-node="hardware" data-projects="water-tester">Hardware / IoT</button>
-        <button class="cst-node cst-node--skill" data-node="product" data-projects="helicyn,swedule">Product</button>
-        <button class="cst-node cst-node--skill" data-node="startup" data-projects="helicyn,empoweraim">Startup Leadership</button>
-        <button class="cst-node cst-node--skill" data-node="leadership" data-projects="empoweraim,kidstokids">Leadership</button>
-        <button class="cst-node cst-node--skill" data-node="speaking" data-projects="empoweraim">Public Speaking</button>
+        <button class="cst-node cst-node--skill ripple" data-node="ml" data-projects="helicyn,fish-id,empoweraim">Machine Learning</button>
+        <button class="cst-node cst-node--skill ripple" data-node="python" data-projects="fish-id">Python</button>
+        <button class="cst-node cst-node--skill ripple" data-node="cnn" data-projects="fish-id">CNNs</button>
+        <button class="cst-node cst-node--skill ripple" data-node="llm" data-projects="social-analytics">LLMs</button>
+        <button class="cst-node cst-node--skill ripple" data-node="react" data-projects="social-analytics">React</button>
+        <button class="cst-node cst-node--skill ripple" data-node="selenium" data-projects="social-analytics">Selenium</button>
+        <button class="cst-node cst-node--skill ripple" data-node="js" data-projects="swedule">JavaScript</button>
+        <button class="cst-node cst-node--skill ripple" data-node="embedded" data-projects="water-tester">Embedded C</button>
+        <button class="cst-node cst-node--skill ripple" data-node="hardware" data-projects="water-tester">Hardware / IoT</button>
+        <button class="cst-node cst-node--skill ripple" data-node="product" data-projects="helicyn,swedule">Product</button>
+        <button class="cst-node cst-node--skill ripple" data-node="startup" data-projects="helicyn,empoweraim">Startup Leadership</button>
+        <button class="cst-node cst-node--skill ripple" data-node="leadership" data-projects="empoweraim,kidstokids">Leadership</button>
+        <button class="cst-node cst-node--skill ripple" data-node="speaking" data-projects="empoweraim">Public Speaking</button>
       </div>
     </div>
     <div class="cst-detail" id="cstDetail" aria-live="polite">
@@ -470,7 +475,7 @@
   </section>
 
   <!-- ============ EXPERIENCE TIMELINE ============ -->
-  <section id="timeline" class="section" data-screen-label="Experience">
+  <section id="timeline" class="section" data-screen-label="Experience" data-num="05">
     <div class="section-head reveal">
       <span class="eyebrow">Experience</span>
       <h2>Leading, building, presenting.</h2>
@@ -600,13 +605,13 @@
   </section>
 
   <!-- ============ PUBLIC STAGE / GLOBAL FORUMS ============ -->
-  <section id="stage" class="section" data-screen-label="Public Stage">
+  <section id="stage" class="section" data-screen-label="Public Stage" data-num="06">
     <div class="section-head reveal">
       <span class="eyebrow">Public stage</span>
       <h2>Presenting the work, globally.</h2>
       <p>Selected forums where EmpowerAIM's work on AI and digital equity was presented, as a UN Youth Delegate.</p>
     </div>
-    <div class="stage-wall" id="stageWall">
+    <div class="stage-wall stagger" id="stageWall">
       <article class="stage-card reveal">
         <div class="sc-top"><span class="sc-org">United Nations</span><span class="sc-date">2025</span></div>
         <h3>UN STI Forum</h3>
@@ -641,20 +646,20 @@
   </section>
 
   <!-- ============ PROOF MATRIX ============ -->
-  <section id="proof" class="section" data-screen-label="Proof">
+  <section id="proof" class="section" data-screen-label="Proof" data-num="07">
     <div class="section-head reveal">
       <span class="eyebrow">Proof</span>
       <h2>Signal, not filler.</h2>
     </div>
     <div class="filter-bar reveal" id="proofFilter">
-      <button class="chip active" data-cat="all">All</button>
-      <button class="chip" data-cat="academic">Academic</button>
-      <button class="chip" data-cat="global">Global</button>
-      <button class="chip" data-cat="athletics">Athletics</button>
-      <button class="chip" data-cat="credentials">Credentials</button>
-      <button class="chip" data-cat="technical">Technical</button>
+      <button class="chip active ripple" data-cat="all">All</button>
+      <button class="chip ripple" data-cat="academic">Academic</button>
+      <button class="chip ripple" data-cat="global">Global</button>
+      <button class="chip ripple" data-cat="athletics">Athletics</button>
+      <button class="chip ripple" data-cat="credentials">Credentials</button>
+      <button class="chip ripple" data-cat="technical">Technical</button>
     </div>
-    <div class="proof-grid" id="proofGrid">
+    <div class="proof-grid stagger" id="proofGrid">
       <div class="proof-card reveal" data-cat="global"><div class="pc-top"><span class="pc-cat">Global</span><span class="pc-date">Nov 2025</span></div><h4>UN × Netflix Youth Global Creative Challenge</h4><p>Top 13 of 2,280 applicants across 89 countries (top 0.5%). Interviewed at UN HQ, New York.</p></div>
       <div class="proof-card reveal" data-cat="academic"><div class="pc-top"><span class="pc-cat">Academic</span></div><h4>SAT</h4><p class="pc-metric">1560 / 1600</p><p>Reading 760 · Math 800</p></div>
       <div class="proof-card reveal" data-cat="academic"><div class="pc-top"><span class="pc-cat">Academic</span></div><h4>SSAT (Middle Level)</h4><p class="pc-metric">2090 / 2130</p></div>
@@ -675,7 +680,7 @@
   </section>
 
   <!-- ============ BUILDER STACK ============ -->
-  <section id="skills" class="section" data-screen-label="Builder Stack">
+  <section id="skills" class="section" data-screen-label="Builder Stack" data-num="08">
     <div class="section-head reveal">
       <span class="eyebrow">Builder stack</span>
       <h2>What I build with.</h2>
@@ -686,40 +691,40 @@
         <div class="bs-cat">
           <div class="col-title">AI / ML</div>
           <div class="bs-skills">
-            <button class="bs-skill" data-evidence="fish-id,build,aws,upenn-esap">Machine Learning</button>
-            <button class="bs-skill" data-evidence="fish-id">Python</button>
-            <button class="bs-skill" data-evidence="fish-id">CNNs</button>
-            <button class="bs-skill" data-evidence="upenn-esap">NLP</button>
-            <button class="bs-skill" data-evidence="social-analytics">LLMs</button>
+            <button class="bs-skill ripple" data-evidence="fish-id,build,aws,upenn-esap">Machine Learning</button>
+            <button class="bs-skill ripple" data-evidence="fish-id">Python</button>
+            <button class="bs-skill ripple" data-evidence="fish-id">CNNs</button>
+            <button class="bs-skill ripple" data-evidence="upenn-esap">NLP</button>
+            <button class="bs-skill ripple" data-evidence="social-analytics">LLMs</button>
           </div>
         </div>
         <div class="bs-cat">
           <div class="col-title">Software</div>
           <div class="bs-skills">
-            <button class="bs-skill" data-evidence="swedule,social-analytics">JavaScript</button>
-            <button class="bs-skill" data-evidence="social-analytics">React</button>
-            <button class="bs-skill" data-evidence="social-analytics">Selenium</button>
+            <button class="bs-skill ripple" data-evidence="swedule,social-analytics">JavaScript</button>
+            <button class="bs-skill ripple" data-evidence="social-analytics">React</button>
+            <button class="bs-skill ripple" data-evidence="social-analytics">Selenium</button>
           </div>
         </div>
         <div class="bs-cat">
           <div class="col-title">Embedded / Hardware</div>
           <div class="bs-skills">
-            <button class="bs-skill" data-evidence="water-tester">Embedded C</button>
-            <button class="bs-skill" data-evidence="water-tester,shad">IoT / Sensors</button>
+            <button class="bs-skill ripple" data-evidence="water-tester">Embedded C</button>
+            <button class="bs-skill ripple" data-evidence="water-tester,shad">IoT / Sensors</button>
           </div>
         </div>
         <div class="bs-cat">
           <div class="col-title">Product / Startup</div>
           <div class="bs-skills">
-            <button class="bs-skill" data-evidence="build,swedule">Product</button>
-            <button class="bs-skill" data-evidence="build,empoweraim">Startup Leadership</button>
+            <button class="bs-skill ripple" data-evidence="build,swedule">Product</button>
+            <button class="bs-skill ripple" data-evidence="build,empoweraim">Startup Leadership</button>
           </div>
         </div>
         <div class="bs-cat">
           <div class="col-title">Leadership / Speaking</div>
           <div class="bs-skills">
-            <button class="bs-skill" data-evidence="stage,empoweraim">Public Speaking</button>
-            <button class="bs-skill" data-evidence="kidstokids,ucc,empoweraim">Leadership</button>
+            <button class="bs-skill ripple" data-evidence="stage,empoweraim">Public Speaking</button>
+            <button class="bs-skill ripple" data-evidence="kidstokids,ucc,empoweraim">Leadership</button>
           </div>
         </div>
       </div>
