@@ -1,14 +1,16 @@
 /* =========================================================
    Jerry Huang :: Portfolio interactions
-   theme · rotating roles · count-up · scroll reveal ·
-   dot-rail spy · progress bar · hero spotlight ·
-   award filter · language bars · contact form
+   theme · scroll reveal · count-up · hero identity scene ·
+   trajectory scroll-drive · project drawer · build graph ·
+   proof filter · builder-stack evidence · magnetic buttons ·
+   dot-rail / nav spy · contact form
    ========================================================= */
 (function () {
   'use strict';
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fine = window.matchMedia('(pointer:fine)').matches;
 
   /* ---------- THEME ---------- */
   const root = document.documentElement;
@@ -51,25 +53,6 @@
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
 
-  /* ---------- ROTATING ROLES ---------- */
-  const roles = [
-    'Founder', 'UC Berkeley \'30', 'Entrepreneur', 'UN Youth Delegate',
-    'ML Researcher'
-  ];
-  const rotator = $('#rotator');
-  if (rotator && !reduce) {
-    let i = 0, j = 0, deleting = false;
-    const tick = () => {
-      const word = roles[i];
-      rotator.textContent = deleting ? word.slice(0, j--) : word.slice(0, j++);
-      let delay = deleting ? 45 : 90;
-      if (!deleting && j > word.length) { deleting = true; delay = 1400; }
-      else if (deleting && j < 0) { deleting = false; j = 0; i = (i + 1) % roles.length; delay = 350; }
-      setTimeout(tick, delay);
-    };
-    tick();
-  }
-
   /* ---------- SCROLL REVEAL ---------- */
   const revealItems = $$('.reveal:not(.in-view)');
   if (reduce) {
@@ -83,7 +66,8 @@
     revealItems.forEach(el => io.observe(el));
   }
 
-  /* ---------- COUNT-UP STATS ---------- */
+  /* ---------- COUNT-UP STATS (HTML already renders the final value; this
+     progressively animates over it and always lands back on that value) ---------- */
   const animateCount = (el) => {
     const target = parseFloat(el.dataset.count);
     const prefix = el.dataset.prefix || '';
@@ -100,25 +84,42 @@
     requestAnimationFrame(step);
   };
   const statWrap = $('#heroStats');
-  if (statWrap) {
-    if (reduce) {
-      statWrap.classList.add('in-view');
-      $$('.num', statWrap).forEach(el => {
-        const pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
-        el.innerHTML = pre + parseFloat(el.dataset.count).toLocaleString() + (suf ? `<span class="suffix">${suf}</span>` : '');
+  if (statWrap && !reduce) {
+    const so = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in-view');
+          $$('.num', e.target).forEach(animateCount);
+          so.unobserve(e.target);
+        }
       });
-    } else {
-      const so = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            e.target.classList.add('in-view');
-            $$('.num', e.target).forEach(animateCount);
-            so.unobserve(e.target);
-          }
-        });
-      }, { threshold: 0.4 });
-      so.observe(statWrap);
+    }, { threshold: 0.4 });
+    so.observe(statWrap);
+  } else if (statWrap) {
+    statWrap.classList.add('in-view');
+  }
+
+  /* ---------- HERO IDENTITY SCENE ---------- */
+  const heroScene = $('#heroScene');
+  if (heroScene) {
+    if (!reduce) requestAnimationFrame(() => heroScene.classList.add('jh-animate'));
+    if (!reduce && fine) {
+      const wrap = $('#heroSceneWrap');
+      wrap.addEventListener('pointermove', (e) => {
+        const r = wrap.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        heroScene.style.transform = `rotateX(${(-py * 4).toFixed(2)}deg) rotateY(${(px * 5).toFixed(2)}deg)`;
+      });
+      wrap.addEventListener('pointerleave', () => { heroScene.style.transform = ''; });
     }
+  }
+  const contactVisual = $('.contact-finale-visual');
+  if (contactVisual && !reduce) {
+    const cvObs = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('jh-animate'); cvObs.unobserve(e.target); } });
+    }, { threshold: 0.5 });
+    cvObs.observe(contactVisual);
   }
 
   /* ---------- LANGUAGE BARS ---------- */
@@ -157,25 +158,32 @@
     }
   }
 
-  /* ---------- DOT RAIL SCROLL-SPY ---------- */
-  const railLinks = $$('#rail a');
-  const sections = railLinks.map(a => $(a.getAttribute('href'))).filter(Boolean);
-  if (sections.length) {
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          const id = '#' + e.target.id;
-          railLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === id));
-        }
+  /* ---------- TRAJECTORY MAP: scroll-driven line fill + node activation ---------- */
+  const trajTrack = $('#trajTrack');
+  const trajFill = $('#trajFill');
+  if (trajTrack && trajFill) {
+    const trajNodes = $$('.traj-node', trajTrack);
+    const updateTraj = () => {
+      const r = trajTrack.getBoundingClientRect();
+      const anchor = window.innerHeight * 0.7;
+      const total = r.height || 1;
+      const progressPx = Math.min(Math.max(anchor - r.top, 0), total);
+      const pct = (progressPx / total) * 100;
+      trajFill.style.width = pct + '%';
+      trajNodes.forEach(node => {
+        const pos = parseFloat(node.dataset.pos) || 0;
+        node.classList.toggle('active', pct >= pos - 4);
       });
-    }, { threshold: 0, rootMargin: '-45% 0px -50% 0px' });
-    sections.forEach(s => spy.observe(s));
+    };
+    window.addEventListener('scroll', updateTraj, { passive: true });
+    window.addEventListener('resize', updateTraj);
+    updateTraj();
   }
 
   /* ---------- HERO SPOTLIGHT ---------- */
   const hero = $('#home');
   const spot = $('#spotlight');
-  if (hero && spot && !reduce && window.matchMedia('(pointer:fine)').matches) {
+  if (hero && spot && !reduce && fine) {
     hero.addEventListener('pointermove', (e) => {
       const r = hero.getBoundingClientRect();
       spot.style.opacity = '1';
@@ -185,25 +193,247 @@
     hero.addEventListener('pointerleave', () => { spot.style.opacity = '0'; });
   }
 
-  /* ---------- PROJECT CARD POINTER GLOW ---------- */
-  $$('.proj').forEach(card => {
+  /* ---------- PROJECT CARD POINTER GLOW + 3D TILT ---------- */
+  $$('.work-card').forEach(card => {
     card.addEventListener('pointermove', (e) => {
       const r = card.getBoundingClientRect();
       card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
     });
   });
+  if (!reduce && fine) {
+    $$('.work-card').forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `translateY(-6px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg)`;
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    });
+  }
 
-  /* ---------- AWARD FILTER ---------- */
-  const filterBar = $('#awardFilter');
-  if (filterBar) {
-    const cards = $$('#awardGrid .award');
-    filterBar.addEventListener('click', (e) => {
+  /* ---------- Generic "evidence" lookup shared by the Build Graph and
+     Builder Stack: finds the real on-page element a short id refers to,
+     so every relationship reads from a single source of truth. ---------- */
+  function findEvidenceEl(id) {
+    return document.getElementById(id)
+      || document.querySelector(`[data-project="${id}"]`)
+      || document.querySelector(`[data-ev-id="${id}"]`);
+  }
+  function evidenceSummary(el) {
+    if (!el) return null;
+    const h = el.querySelector('h1,h2,h3,h4') || (el.matches('h1,h2,h3,h4') ? el : null);
+    const roleEl = el.querySelector('.tl-role');
+    const pEl = el.querySelector('p');
+    const title = (roleEl ? roleEl.textContent : (h ? h.textContent : el.getAttribute('aria-label') || el.id)).trim();
+    const text = pEl ? pEl.textContent.trim() : '';
+    const targetId = el.id || (el.closest('section[id]') || {}).id || '';
+    return { title, text, targetId };
+  }
+  function flashScrollTo(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+    el.classList.remove('jh-flash'); void el.offsetWidth; el.classList.add('jh-flash');
+    setTimeout(() => el.classList.remove('jh-flash'), 1400);
+  }
+
+  /* ---------- PROJECT DETAIL DRAWER ---------- */
+  const overlay = $('#drawerOverlay');
+  const drawer = $('#workDrawer');
+  const drawerBody = $('#drawerBody');
+  const drawerClose = $('#drawerClose');
+  let lastFocused = null;
+  function openDrawer(projectId, triggerEl) {
+    const tpl = $('#tpl-' + projectId);
+    if (!tpl || !drawer) return;
+    drawerBody.innerHTML = '';
+    drawerBody.appendChild(tpl.content.cloneNode(true));
+    lastFocused = triggerEl || document.activeElement;
+    overlay.hidden = false; drawer.hidden = false;
+    requestAnimationFrame(() => { overlay.classList.add('show'); drawer.classList.add('show'); });
+    document.body.style.overflow = 'hidden';
+    drawerClose.focus();
+  }
+  function closeDrawer() {
+    if (!drawer || drawer.hidden) return;
+    overlay.classList.remove('show'); drawer.classList.remove('show');
+    document.body.style.overflow = '';
+    setTimeout(() => { overlay.hidden = true; drawer.hidden = true; }, reduce ? 0 : 380);
+    if (lastFocused) lastFocused.focus();
+  }
+  $$('.work-card').forEach(card => {
+    const open = () => openDrawer(card.dataset.project, card);
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); }
+    });
+  });
+  drawerClose?.addEventListener('click', closeDrawer);
+  overlay?.addEventListener('click', closeDrawer);
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !drawer || drawer.hidden) return;
+    closeDrawer();
+  });
+  drawer?.addEventListener('keydown', (e) => {
+    if (e.key !== 'Tab') return;
+    const focusables = $$('button, a[href]', drawer).filter(el => el.offsetParent !== null);
+    if (!focusables.length) return;
+    const first = focusables[0], last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  /* ---------- PROJECT CONSTELLATION / BUILD GRAPH ---------- */
+  const cstEl = $('#constellationEl');
+  const cstEdges = $('#cstEdges');
+  const cstDetail = $('#cstDetail');
+  if (cstEl) {
+    const allNodes = $$('.cst-node', cstEl);
+    const projectNodes = $$('.cst-node--project', cstEl);
+    const skillNodes = $$('.cst-node--skill', cstEl);
+
+    function drawEdges(sourceEl, relatedEls) {
+      if (!cstEdges || !fine) return;
+      cstEdges.innerHTML = '';
+      const box = cstEl.getBoundingClientRect();
+      cstEdges.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+      const sr = sourceEl.getBoundingClientRect();
+      const sx = sr.left - box.left + sr.width / 2;
+      const sy = sr.top - box.top + sr.height / 2;
+      relatedEls.forEach(el => {
+        const r = el.getBoundingClientRect();
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', sx); line.setAttribute('y1', sy);
+        line.setAttribute('x2', r.left - box.left + r.width / 2);
+        line.setAttribute('y2', r.top - box.top + r.height / 2);
+        cstEdges.appendChild(line);
+      });
+    }
+    function clearEdges() { if (cstEdges) cstEdges.innerHTML = ''; }
+
+    function relatedFor(node) {
+      const isProject = node.classList.contains('cst-node--project');
+      const ids = (isProject ? node.dataset.skills : node.dataset.projects || '').split(',').map(s => s.trim()).filter(Boolean);
+      const pool = isProject ? skillNodes : projectNodes;
+      return pool.filter(n => ids.includes(n.dataset.node));
+    }
+
+    function highlight(node) {
+      const related = relatedFor(node);
+      allNodes.forEach(n => {
+        if (n === node || related.includes(n)) { n.classList.add('cst-active'); n.classList.remove('cst-dim'); }
+        else { n.classList.remove('cst-active'); n.classList.add('cst-dim'); }
+      });
+      drawEdges(node, related);
+    }
+    function clearHighlight() {
+      allNodes.forEach(n => n.classList.remove('cst-active', 'cst-dim'));
+      clearEdges();
+    }
+
+    function showDetail(node) {
+      const isProject = node.classList.contains('cst-node--project');
+      const id = node.dataset.node;
+      const el = findEvidenceEl(id);
+      const summary = evidenceSummary(el);
+      if (!summary) { cstDetail.innerHTML = '<p class="cst-hint">Select a node to see its connections here.</p>'; return; }
+      const related = relatedFor(node).map(n => n.textContent.trim()).join(' · ');
+      cstDetail.innerHTML = `
+        <div class="cst-detail-title">${summary.title}</div>
+        <p>${summary.text}</p>
+        <p class="cst-detail-links"><span class="cst-hint">${isProject ? 'Skills' : 'Projects'}: ${related || '—'}</span></p>
+      `;
+    }
+
+    let activeNode = null;
+    allNodes.forEach(node => {
+      node.addEventListener('mouseenter', () => { if (!activeNode) highlight(node); });
+      node.addEventListener('mouseleave', () => { if (!activeNode) clearHighlight(); });
+      node.addEventListener('focus', () => highlight(node));
+      node.addEventListener('click', () => {
+        if (activeNode === node) { activeNode = null; clearHighlight(); cstDetail.innerHTML = '<p class="cst-hint">Select a node to see its connections here.</p>'; return; }
+        activeNode = node; highlight(node); showDetail(node);
+      });
+    });
+    window.addEventListener('resize', () => { if (activeNode) drawEdges(activeNode, relatedFor(activeNode)); });
+  }
+
+  /* ---------- PROOF MATRIX FILTER ---------- */
+  const proofFilter = $('#proofFilter');
+  if (proofFilter) {
+    const cards = $$('#proofGrid .proof-card');
+    proofFilter.addEventListener('click', (e) => {
       const btn = e.target.closest('.chip');
       if (!btn) return;
-      $$('.chip', filterBar).forEach(c => c.classList.remove('active'));
+      $$('.chip', proofFilter).forEach(c => c.classList.remove('active'));
       btn.classList.add('active');
       const cat = btn.dataset.cat;
       cards.forEach(c => c.classList.toggle('hide', cat !== 'all' && c.dataset.cat !== cat));
+    });
+  }
+
+  /* ---------- BUILDER STACK: skill -> evidence ---------- */
+  const bsPanel = $('#bsEvidencePanel');
+  if (bsPanel) {
+    const skillBtns = $$('.bs-skill');
+    skillBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const wasActive = btn.classList.contains('bs-active');
+        skillBtns.forEach(b => b.classList.remove('bs-active'));
+        if (wasActive) {
+          bsPanel.innerHTML = '<p class="bs-evidence-hint">Select a skill to see where it\'s used.</p>';
+          return;
+        }
+        btn.classList.add('bs-active');
+        const ids = btn.dataset.evidence.split(',').map(s => s.trim()).filter(Boolean);
+        const items = ids.map(id => {
+          const el = findEvidenceEl(id);
+          const s = evidenceSummary(el);
+          if (!s) return '';
+          return `<div class="bs-evidence-item"><a href="#${s.targetId}" data-jump="${s.targetId}">${s.title}</a><p>${s.text}</p></div>`;
+        }).join('');
+        bsPanel.innerHTML = `<div class="bs-evidence-title">${btn.textContent.trim()} — shows up in</div>${items}`;
+        $$('a[data-jump]', bsPanel).forEach(a => {
+          a.addEventListener('click', (e) => { e.preventDefault(); flashScrollTo(a.dataset.jump); });
+        });
+      });
+    });
+  }
+
+  /* ---------- NAV SCROLL-SPY (dot rail + top links) ---------- */
+  const railLinks = $$('#rail a');
+  const topLinkEls = $$('#topLinks a');
+  const spySections = new Map();
+  railLinks.forEach(a => { const s = $(a.getAttribute('href')); if (s) spySections.set(s, [a]); });
+  topLinkEls.forEach(a => {
+    const s = $(a.getAttribute('href'));
+    if (s) { const arr = spySections.get(s) || []; arr.push(a); spySections.set(s, arr); }
+  });
+  if (spySections.size) {
+    const spy = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          const links = spySections.get(e.target) || [];
+          const activeHref = '#' + e.target.id;
+          railLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === activeHref));
+          topLinkEls.forEach(a => a.classList.toggle('active', a.getAttribute('href') === activeHref));
+        }
+      });
+    }, { threshold: 0, rootMargin: '-45% 0px -50% 0px' });
+    spySections.forEach((_, section) => spy.observe(section));
+  }
+
+  /* ---------- MAGNETIC BUTTONS ---------- */
+  if (!reduce && fine) {
+    $$('.magnetic').forEach(btn => {
+      btn.addEventListener('pointermove', (e) => {
+        const r = btn.getBoundingClientRect();
+        const mx = (e.clientX - r.left - r.width / 2) * 0.25;
+        const my = (e.clientY - r.top - r.height / 2) * 0.35;
+        btn.style.transform = `translate(${mx.toFixed(1)}px, ${my.toFixed(1)}px)`;
+      });
+      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
     });
   }
 
@@ -226,34 +456,12 @@
         const res = await fetch(form.action, {
           method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' }
         });
-        if (res.ok) { setStatus(`Thanks, ${name}! Your message has been sent.`, 'oklch(0.78 0.16 150)'); form.reset(); }
+        if (res.ok) { setStatus(`Thanks, ${name}! Your message has been sent.`, 'var(--accent-success)'); form.reset(); }
         else setStatus('Something went wrong, please try again later.', 'var(--accent-2)');
       } catch (err) {
         console.error(err);
         setStatus('Network error. Check your connection and retry.', 'var(--accent-2)');
       }
-    });
-  }
-  /* ---------- PROJECT CARD 3D TILT + MAGNETIC CTAS ---------- */
-  if (!reduce && window.matchMedia('(pointer:fine)').matches) {
-    $$('.proj').forEach(card => {
-      card.addEventListener('pointermove', (e) => {
-        const r = card.getBoundingClientRect();
-        const px = (e.clientX - r.left) / r.width - 0.5;
-        const py = (e.clientY - r.top) / r.height - 0.5;
-        card.style.transform = `translateY(-6px) rotateX(${(-py * 5).toFixed(2)}deg) rotateY(${(px * 6).toFixed(2)}deg)`;
-      });
-      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
-    });
-
-    $$('.hero-cta .btn').forEach(btn => {
-      btn.addEventListener('pointermove', (e) => {
-        const r = btn.getBoundingClientRect();
-        const mx = (e.clientX - r.left - r.width / 2) * 0.25;
-        const my = (e.clientY - r.top - r.height / 2) * 0.35;
-        btn.style.transform = `translate(${mx.toFixed(1)}px, ${my.toFixed(1)}px)`;
-      });
-      btn.addEventListener('pointerleave', () => { btn.style.transform = ''; });
     });
   }
 
