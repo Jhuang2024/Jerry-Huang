@@ -342,7 +342,7 @@
       cstDetail.innerHTML = `
         <div class="cst-detail-title">${summary.title}</div>
         <p>${summary.text}</p>
-        <p class="cst-detail-links"><span class="cst-hint">${isProject ? 'Skills' : 'Projects'}: ${related || '—'}</span></p>
+        <p class="cst-detail-links"><span class="cst-hint">${isProject ? 'Skills' : 'Projects'}: ${related || 'none'}</span></p>
       `;
     }
 
@@ -393,7 +393,7 @@
           if (!s) return '';
           return `<div class="bs-evidence-item"><a href="#${s.targetId}" data-jump="${s.targetId}">${s.title}</a><p>${s.text}</p></div>`;
         }).join('');
-        bsPanel.innerHTML = `<div class="bs-evidence-title">${btn.textContent.trim()} — shows up in</div>${items}`;
+        bsPanel.innerHTML = `<div class="bs-evidence-title">Where ${btn.textContent.trim()} shows up</div>${items}`;
         $$('a[data-jump]', bsPanel).forEach(a => {
           a.addEventListener('click', (e) => { e.preventDefault(); flashScrollTo(a.dataset.jump); });
         });
