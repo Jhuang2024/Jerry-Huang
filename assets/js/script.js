@@ -193,6 +193,17 @@
     hero.addEventListener('pointerleave', () => { spot.style.opacity = '0'; });
   }
 
+  /* ---------- HERO BACKGROUND PARALLAX (large-scale scroll motion) ---------- */
+  const heroBg = $('.hero-bg');
+  if (heroBg && !reduce) {
+    const onParallax = () => {
+      const y = Math.min(window.scrollY, window.innerHeight);
+      heroBg.style.transform = `translateX(-50%) translateY(${(y * 0.18).toFixed(1)}px) scale(1.06)`;
+    };
+    window.addEventListener('scroll', onParallax, { passive: true });
+    onParallax();
+  }
+
   /* ---------- PROJECT CARD POINTER GLOW + 3D TILT ---------- */
   $$('.work-card').forEach(card => {
     card.addEventListener('pointermove', (e) => {
