@@ -454,6 +454,7 @@ body.menu-open .mobile-menu-nav a:nth-child(7) { animation-delay: 0.30s; }
   to { clip-path: inset(0 0% 0 0); }
 }
 .hero h1 .accent {
+  display: inline-block; line-height: 1.2; padding-bottom: 0.06em; margin-bottom: -0.06em;
   background: linear-gradient(120deg, var(--accent) 30%, var(--accent-2) 85%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
 }
