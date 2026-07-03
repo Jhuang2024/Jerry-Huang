@@ -1490,16 +1490,6 @@ body.announce-dismissed .announce-bar { transform: translateY(-100%); opacity: 0
 .tag-secondary { background: var(--surface-3); color: var(--ink); border-color: transparent; }
 .tag-outline { background: transparent; border-color: var(--border-strong); color: var(--ink-soft); }
 
-/* ---------- HIGHLIGHT SWEEP (marker highlight over key phrase) ---------- */
-mark.highlight-sweep {
-  background-color: transparent;
-  background-image: linear-gradient(120deg, var(--glow) 0%, var(--glow) 100%);
-  background-repeat: no-repeat; background-size: 0% 88%; background-position: 0 62%;
-  color: inherit; padding: 0 0.15em;
-  transition: background-size 0.9s var(--ease-premium) 0.35s;
-}
-.build-feature.jh-animate mark.highlight-sweep { background-size: 100% 88%; }
-
 /* ---------- TRAJECTORY COMET (traveling dot along the progress line) ---------- */
 .traj-comet {
   position: absolute; top: 50%; left: 0; width: 8px; height: 8px; border-radius: 50%;
@@ -1613,9 +1603,15 @@ mark.highlight-sweep {
   .traj-node:last-child::before { display: none; }
   .traj-dot { position: absolute; left: 0; top: 0; }
 }
-@media (max-width: 680px) {
+/* nav switches to the hamburger earlier than the rest of the 680px
+   breakpoint: past 4 header icons plus the Helicyn button, top-links
+   started crowding out the header on tablet widths (768-900px) */
+@media (max-width: 900px) {
   .top-links { display: none; }
   .menu-toggle { display: grid; }
+}
+
+@media (max-width: 680px) {
   .hero-stats { grid-template-columns: 1fr 1fr; gap: 1.2rem 1rem; }
   .stage-wall { grid-template-columns: 1fr; }
   .proof-grid { grid-template-columns: repeat(2, 1fr); }
