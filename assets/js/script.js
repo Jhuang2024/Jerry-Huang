@@ -713,7 +713,7 @@
         });
         if (res.ok) {
           setStatus(`Thanks, ${name}! Your message has been sent.`, 'var(--accent-success)');
-          showToast('Message sent — thanks for reaching out');
+          showToast('Message sent, thanks for reaching out');
           form.reset();
           const submitBtn = form.querySelector('button[type="submit"]');
           if (submitBtn && !reduce) {
