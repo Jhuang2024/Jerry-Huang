@@ -248,13 +248,21 @@
     document.addEventListener('mouseenter', () => { if (shown) cursorGlow.classList.add('show'); });
   }
 
-  /* ---------- PROJECT CARD POINTER GLOW + 3D TILT ---------- */
-  $$('.work-card').forEach(card => {
-    card.addEventListener('pointermove', (e) => {
+  /* ---------- SPOTLIGHT HOVER (pointer-tracked glow shared by every
+     hoverable card: work, proof, stage, timeline, mini). Delegated to a
+     single listener rather than one per card. ---------- */
+  if (!reduce && fine) {
+    const spotlightSel = '.work-card, .proof-card, .stage-card, .tl-card, .mini';
+    document.addEventListener('pointermove', (e) => {
+      const card = e.target.closest(spotlightSel);
+      if (!card) return;
       const r = card.getBoundingClientRect();
-      card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
-    });
-  });
+      card.style.setProperty('--sx', (((e.clientX - r.left) / r.width) * 100).toFixed(1) + '%');
+      card.style.setProperty('--sy', (((e.clientY - r.top) / r.height) * 100).toFixed(1) + '%');
+    }, { passive: true });
+  }
+
+  /* ---------- PROJECT CARD 3D TILT ---------- */
   if (!reduce && fine) {
     $$('.work-card').forEach(card => {
       card.addEventListener('pointermove', (e) => {
@@ -570,6 +578,103 @@
       label.textContent = 'Copied to clipboard';
       label.classList.add('copied');
       setTimeout(() => { label.textContent = original; label.classList.remove('copied'); }, 1500);
+    });
+  }
+
+  /* ---------- COMMAND MENU (⌘K) ---------- */
+  const cmdkTrigger = $('#cmdkTrigger');
+  const cmdkOverlay = $('#cmdkOverlay');
+  const cmdk = $('#cmdk');
+  const cmdkInput = $('#cmdkInput');
+  const cmdkList = $('#cmdkList');
+  if (cmdkTrigger && cmdkOverlay && cmdk && cmdkInput && cmdkList) {
+    const jump = (hash) => () => flashScrollTo(hash.slice(1));
+    const commands = [
+      { group: 'Navigate', label: 'Home', action: jump('#home') },
+      { group: 'Navigate', label: 'Trajectory', action: jump('#trajectory') },
+      { group: 'Navigate', label: 'Current build · Helicyn', action: jump('#build') },
+      { group: 'Navigate', label: 'Selected work', action: jump('#work') },
+      { group: 'Navigate', label: 'Build graph', action: jump('#constellation') },
+      { group: 'Navigate', label: 'Experience timeline', action: jump('#timeline') },
+      { group: 'Navigate', label: 'Public stage', action: jump('#stage') },
+      { group: 'Navigate', label: 'Proof', action: jump('#proof') },
+      { group: 'Navigate', label: 'Builder stack', action: jump('#skills') },
+      { group: 'Navigate', label: 'Contact', action: jump('#contact') },
+      { group: 'Actions', label: 'Toggle light / dark theme', action: () => $('#themeToggle')?.click() },
+      { group: 'Actions', label: 'Visit Helicyn ↗', action: () => window.open('https://helicyn.com', '_blank', 'noopener') },
+      { group: 'Actions', label: 'Connect on LinkedIn ↗', action: () => window.open('https://www.linkedin.com/in/jerryhuang08/', '_blank', 'noopener') },
+      { group: 'Actions', label: 'Copy email address', action: () => $('#copyEmail')?.click() },
+    ];
+
+    let visible = commands.slice();
+    let activeIdx = 0;
+    let lastCmdkFocus = null;
+
+    function renderList() {
+      if (!visible.length) {
+        cmdkList.innerHTML = '<div class="cmdk-empty">No matching command.</div>';
+        return;
+      }
+      let html = '';
+      let lastGroup = null;
+      visible.forEach((cmd, i) => {
+        if (cmd.group !== lastGroup) { html += `<div class="cmdk-group-label">${cmd.group}</div>`; lastGroup = cmd.group; }
+        html += `<div class="cmdk-item${i === activeIdx ? ' active' : ''}" role="option" data-idx="${i}" aria-selected="${i === activeIdx}">
+          <span>${cmd.label}</span>
+          <svg class="cmdk-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </div>`;
+      });
+      cmdkList.innerHTML = html;
+    }
+
+    function filterCommands() {
+      const q = cmdkInput.value.trim().toLowerCase();
+      visible = q ? commands.filter(c => c.label.toLowerCase().includes(q)) : commands.slice();
+      activeIdx = 0;
+      renderList();
+    }
+
+    function runCommand(idx) {
+      const cmd = visible[idx];
+      if (!cmd) return;
+      closeCmdk();
+      cmd.action();
+    }
+
+    function openCmdk() {
+      lastCmdkFocus = document.activeElement;
+      cmdkOverlay.hidden = false; cmdk.hidden = false;
+      cmdkInput.value = ''; filterCommands();
+      requestAnimationFrame(() => { cmdkOverlay.classList.add('show'); cmdk.classList.add('show'); });
+      document.body.style.overflow = 'hidden';
+      cmdkInput.focus();
+    }
+    function closeCmdk() {
+      if (cmdk.hidden) return;
+      cmdkOverlay.classList.remove('show'); cmdk.classList.remove('show');
+      document.body.style.overflow = '';
+      setTimeout(() => { cmdkOverlay.hidden = true; cmdk.hidden = true; }, reduce ? 0 : 220);
+      if (lastCmdkFocus) lastCmdkFocus.focus();
+    }
+
+    cmdkTrigger.addEventListener('click', openCmdk);
+    cmdkOverlay.addEventListener('click', closeCmdk);
+    cmdkInput.addEventListener('input', filterCommands);
+    cmdkList.addEventListener('click', (e) => {
+      const item = e.target.closest('.cmdk-item');
+      if (item) runCommand(parseInt(item.dataset.idx, 10));
+    });
+    cmdk.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); activeIdx = Math.min(activeIdx + 1, visible.length - 1); renderList(); cmdkList.querySelector('.active')?.scrollIntoView({ block: 'nearest' }); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); activeIdx = Math.max(activeIdx - 1, 0); renderList(); cmdkList.querySelector('.active')?.scrollIntoView({ block: 'nearest' }); }
+      else if (e.key === 'Enter') { e.preventDefault(); runCommand(activeIdx); }
+      else if (e.key === 'Escape') { e.preventDefault(); closeCmdk(); }
+    });
+    document.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        cmdk.hidden ? openCmdk() : closeCmdk();
+      }
     });
   }
 })();

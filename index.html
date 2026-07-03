@@ -25,6 +25,17 @@
   <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
   <div class="scroll-progress" id="progress"></div>
 
+  <!-- ============ COMMAND MENU (⌘K) ============ -->
+  <div class="cmdk-overlay" id="cmdkOverlay" hidden></div>
+  <div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Command menu" hidden>
+    <div class="cmdk-input-row">
+      <svg class="cmdk-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="cmdkInput" type="text" placeholder="Jump to a section or run a command…" autocomplete="off" spellcheck="false" aria-label="Search commands">
+      <kbd class="kbd">Esc</kbd>
+    </div>
+    <div class="cmdk-list" id="cmdkList" role="listbox"></div>
+  </div>
+
   <!-- ============ HEADER ============ -->
   <header id="header">
     <a class="brand" href="#home">
@@ -43,6 +54,9 @@
         <span class="hb-text">Visit&nbsp;<b>Helicyn</b></span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
       </a>
+      <button class="icon-btn cmdk-btn" id="cmdkTrigger" aria-label="Open command menu (Ctrl/Cmd K)" aria-haspopup="dialog" title="Search &amp; jump (Ctrl/Cmd K)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      </button>
       <a class="icon-btn" href="https://www.linkedin.com/in/jerryhuang08/" target="_blank" rel="noopener" aria-label="LinkedIn">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.04h4.5V24H.24V8.04zM8.34 8.04h4.31v2.18h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V24h-4.5v-6.32c0-1.51-.03-3.45-2.1-3.45-2.1 0-2.42 1.64-2.42 3.34V24h-4.5V8.04z"/></svg>
       </a>
@@ -264,7 +278,7 @@
 
   <!-- ============ CURRENT BUILD: HELICYN ============ -->
   <section id="build" class="section build-feature" data-screen-label="Current Build" data-num="02">
-    <div class="bf-panel reveal">
+    <div class="bf-panel border-beam reveal">
       <div class="bf-graphic" aria-hidden="true">
         <svg viewBox="0 0 400 300" class="bf-svg">
           <g class="bf-orbit">
@@ -804,7 +818,7 @@
       <h2>Building something technical, weird, or ambitious?</h2>
       <p style="margin-inline:auto;">Send it.</p>
     </div>
-    <div class="contact-card reveal">
+    <div class="contact-card border-beam reveal">
       <form id="contact-form" action="https://formspree.io/f/xzzbgqon" method="POST">
         <label>Name<input type="text" id="name" name="name" required></label>
         <label>Email<input type="email" id="email" name="email" required></label>
