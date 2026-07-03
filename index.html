@@ -108,6 +108,14 @@
   <section id="home" class="hero" data-screen-label="Hero">
     <div class="hero-bg" aria-hidden="true"></div>
     <div class="hero-spotlight" id="spotlight"></div>
+    <div class="meteors" aria-hidden="true">
+      <span class="meteor" style="--i:0"></span>
+      <span class="meteor" style="--i:1"></span>
+      <span class="meteor" style="--i:2"></span>
+      <span class="meteor" style="--i:3"></span>
+      <span class="meteor" style="--i:4"></span>
+      <span class="meteor" style="--i:5"></span>
+    </div>
 
     <div class="hero-inner">
       <!-- HeroIdentityScene -->
@@ -139,16 +147,21 @@
             <img src="assets/images/profile_picture.png" alt="Jerry Huang">
             <span class="hs-core-ring" aria-hidden="true"></span>
           </div>
+          <div class="orbit-particles" aria-hidden="true">
+            <div class="orbit-ring orbit-ring--1"><i></i></div>
+            <div class="orbit-ring orbit-ring--2"><i></i></div>
+            <div class="orbit-ring orbit-ring--3"><i></i></div>
+          </div>
         </div>
       </div>
 
       <!-- Hero copy: trimmed to the identity beat only -->
       <div class="hero-copy">
         <div class="hero-status reveal in-view">
-          <span class="pulse"></span> Founder at Helicyn · UC Berkeley '30 · SF Bay Area
+          <span class="pulse" data-tooltip="Actively building"></span> <span class="role-rotate" id="roleRotate">Founder</span> at Helicyn · UC Berkeley '30 · SF Bay Area
         </div>
         <h1 class="reveal in-view" data-delay="1">Jerry<br><span class="accent">Huang.</span></h1>
-        <p class="hero-position reveal in-view" data-delay="2">AI founder and builder at UC Berkeley.</p>
+        <p class="hero-position reveal in-view" data-delay="2"><span class="typewriter">AI founder and builder at UC Berkeley.</span></p>
       </div>
     </div>
 
@@ -193,7 +206,7 @@
     <div class="id-pill">AI / ML</div>
     <div class="id-pill">Public work</div>
     <div class="id-pill">Toronto → Bay Area</div>
-    <div class="id-pill">EN · 中文 · FR</div>
+    <div class="id-pill" data-tooltip="Native, Native, Professional">EN · 中文 · FR</div>
   </section>
 
   <!-- ============ SIGNAL MARQUEE ============ -->
@@ -218,6 +231,39 @@
         <span>Research</span><span class="dot">·</span>
         <span>San Francisco</span><span class="dot">·</span>
         <span>Toronto to Berkeley</span><span class="dot">·</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LOGO MARQUEE (presented / built alongside) ============ -->
+  <div class="logo-marquee-wrap">
+    <p class="logo-marquee-label">Presented, trained &amp; built alongside</p>
+    <div class="logo-marquee" aria-hidden="true">
+      <div class="logo-marquee-track">
+        <div class="logo-marquee-set">
+          <img src="assets/images/helicyn_logo.png" alt="Helicyn" loading="lazy">
+          <img src="assets/images/un_logo.png" alt="United Nations" loading="lazy">
+          <img src="assets/images/aws_logo.png" alt="Amazon Web Services" loading="lazy">
+          <img src="assets/images/upenn_logo.png" alt="UPenn" loading="lazy">
+          <img src="assets/images/johns_hopkins_logo.png" alt="Johns Hopkins CTY" loading="lazy">
+          <img src="assets/images/shad_logo.png" alt="SHAD Canada" loading="lazy">
+          <img src="assets/images/ucc_logo.png" alt="Upper Canada College" loading="lazy">
+          <img src="assets/images/empoweraim_logo.png" alt="EmpowerAIM" loading="lazy">
+          <img src="assets/images/kids_to_kids_logo.png" alt="KidsToKids" loading="lazy">
+          <img src="assets/images/ib_logo.png" alt="IB" loading="lazy">
+        </div>
+        <div class="logo-marquee-set" aria-hidden="true">
+          <img src="assets/images/helicyn_logo.png" alt="" loading="lazy">
+          <img src="assets/images/un_logo.png" alt="" loading="lazy">
+          <img src="assets/images/aws_logo.png" alt="" loading="lazy">
+          <img src="assets/images/upenn_logo.png" alt="" loading="lazy">
+          <img src="assets/images/johns_hopkins_logo.png" alt="" loading="lazy">
+          <img src="assets/images/shad_logo.png" alt="" loading="lazy">
+          <img src="assets/images/ucc_logo.png" alt="" loading="lazy">
+          <img src="assets/images/empoweraim_logo.png" alt="" loading="lazy">
+          <img src="assets/images/kids_to_kids_logo.png" alt="" loading="lazy">
+          <img src="assets/images/ib_logo.png" alt="" loading="lazy">
+        </div>
       </div>
     </div>
   </div>
@@ -276,9 +322,11 @@
     </div>
   </section>
 
+  <div class="separator" role="separator" aria-hidden="true"><span></span></div>
+
   <!-- ============ CURRENT BUILD: HELICYN ============ -->
   <section id="build" class="section build-feature" data-screen-label="Current Build" data-num="02">
-    <div class="bf-panel border-beam reveal">
+    <div class="bf-panel border-beam blur-in reveal">
       <div class="bf-graphic" aria-hidden="true">
         <svg viewBox="0 0 400 300" class="bf-svg">
           <g class="bf-orbit">
@@ -300,7 +348,10 @@
       </div>
       <div class="bf-content">
         <span class="eyebrow">Current build</span>
-        <h2>Helicyn.</h2>
+        <h2 class="sparkle-wrap">Helicyn.
+          <i class="sparkle" aria-hidden="true"></i><i class="sparkle" aria-hidden="true"></i>
+          <i class="sparkle" aria-hidden="true"></i><i class="sparkle" aria-hidden="true"></i>
+        </h2>
         <p class="bf-lead">A machine-learning startup based in San Francisco. Early, technical, and building in the open.</p>
         <ul class="bf-bullets">
           <li>0→1 machine-learning infrastructure work in the Bay Area.</li>
@@ -450,6 +501,7 @@
 
   <!-- ============ PROJECT CONSTELLATION ============ -->
   <section id="constellation" class="section" data-screen-label="Build Graph" data-num="04">
+    <div class="flicker-grid" aria-hidden="true"></div>
     <div class="section-head reveal">
       <span class="eyebrow">Build graph</span>
       <h2>Projects and skills, connected.</h2>
@@ -621,7 +673,7 @@
 
   <!-- ============ PUBLIC STAGE / GLOBAL FORUMS ============ -->
   <section id="stage" class="section" data-screen-label="Public Stage" data-num="06">
-    <div class="section-head reveal">
+    <div class="section-head blur-in reveal">
       <span class="eyebrow">Public stage</span>
       <h2>Presenting the work, globally.</h2>
       <p>Selected forums where EmpowerAIM's work on AI and digital equity was presented, as a UN Youth Delegate.</p>
@@ -758,6 +810,8 @@
     </div>
   </section>
 
+  <div class="separator" role="separator" aria-hidden="true"><span></span></div>
+
   <!-- ============ EDUCATION ============ -->
   <section id="education" class="section" data-screen-label="Education">
     <div class="section-head reveal">
@@ -768,12 +822,12 @@
       <div class="mini reveal">
         <div class="mini-logo" style="background:#003262;display:grid;place-items:center;"><span style="font-family:var(--font-display);font-weight:700;color:#FDB515;font-size:0.95rem;">Cal</span></div>
         <div><h4>UC Berkeley</h4><p>Undergraduate · expected 2030</p></div>
-        <span class="badge">'30</span>
+        <span class="badge" data-tooltip="Expected graduation year">'30</span>
       </div>
       <div class="mini reveal" data-delay="1">
         <div class="mini-logo"><img src="assets/images/ucc_logo.png" alt="UCC"></div>
         <div><h4>Upper Canada College</h4><p>IB + OSSD Diploma · 2020–2026</p></div>
-        <span class="badge">Grad '26</span>
+        <span class="badge" data-tooltip="Expected graduation year">Grad '26</span>
       </div>
       <div class="mini reveal" data-delay="2">
         <div class="mini-logo"><img src="assets/images/johns_hopkins_logo.png" alt="JHU CTY"></div>

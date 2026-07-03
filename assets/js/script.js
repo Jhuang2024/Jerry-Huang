@@ -198,6 +198,41 @@
     });
   }
 
+  /* ---------- WORD ROTATE (rotating role label in hero status) ---------- */
+  const roleRotate = $('#roleRotate');
+  if (roleRotate && !reduce) {
+    const roles = ['Founder', 'Builder', 'Researcher', 'Speaker'];
+    let ri = 0;
+    setInterval(() => {
+      ri = (ri + 1) % roles.length;
+      roleRotate.classList.add('rotate-out');
+      setTimeout(() => {
+        roleRotate.textContent = roles[ri];
+        roleRotate.classList.remove('rotate-out');
+      }, 260);
+    }, 2800);
+  }
+
+  /* ---------- CONFETTI BURST (magic-mcp-style success delight) ---------- */
+  function burstConfetti(x, y) {
+    if (reduce) return;
+    const colors = ['var(--accent)', 'var(--accent-2)', 'var(--accent-success)'];
+    for (let i = 0; i < 22; i++) {
+      const p = document.createElement('span');
+      p.className = 'confetti-piece';
+      const angle = Math.random() * Math.PI * 2;
+      const dist = 70 + Math.random() * 90;
+      p.style.setProperty('--tx', (Math.cos(angle) * dist).toFixed(0) + 'px');
+      p.style.setProperty('--ty', (Math.sin(angle) * dist - 40).toFixed(0) + 'px');
+      p.style.setProperty('--r', (Math.random() * 480 - 240).toFixed(0) + 'deg');
+      p.style.left = x + 'px';
+      p.style.top = y + 'px';
+      p.style.background = colors[i % colors.length];
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 900);
+    }
+  }
+
   /* ---------- HERO SPOTLIGHT ---------- */
   const hero = $('#home');
   const spot = $('#spotlight');
@@ -543,6 +578,8 @@
           if (submitBtn && !reduce) {
             submitBtn.classList.remove('burst'); void submitBtn.offsetWidth; submitBtn.classList.add('burst');
             setTimeout(() => submitBtn.classList.remove('burst'), 750);
+            const r = submitBtn.getBoundingClientRect();
+            burstConfetti(r.left + r.width / 2, r.top + r.height / 2);
           }
         }
         else setStatus('Something went wrong, please try again later.', 'var(--accent-2)');
