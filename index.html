@@ -18,6 +18,13 @@
   <link rel="apple-touch-icon" href="assets/images/favicon.png">
 </head>
 <body>
+  <div class="announce-bar" id="announceBar" role="note">
+    <span class="announce-text">🚀 Building <b>Helicyn</b> in San Francisco &mdash; open to collaborators &amp; conversations &nbsp;·&nbsp; UC Berkeley '30</span>
+    <button class="announce-close" id="announceClose" aria-label="Dismiss announcement">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </div>
+  <div class="toast-viewport" id="toastViewport" aria-live="polite" aria-atomic="true"></div>
   <div class="aurora"></div>
   <div class="grid-noise"></div>
   <div class="grain" aria-hidden="true"></div>
@@ -38,9 +45,16 @@
 
   <!-- ============ HEADER ============ -->
   <header id="header">
-    <a class="brand" href="#home">
+    <a class="brand hover-card-trigger" href="#home">
       <span class="mark">JH</span>
       <span>Jerry&nbsp;Huang</span>
+      <div class="hover-card" role="tooltip">
+        <span class="avatar"><img src="assets/images/profile_picture.png" alt=""><span class="avatar-status" aria-hidden="true"></span></span>
+        <div class="hover-card-body">
+          <strong>Jerry Huang</strong>
+          <p>Founder, Helicyn · UC Berkeley '30</p>
+        </div>
+      </div>
     </a>
     <div class="top-actions">
       <nav class="top-links" id="topLinks">
@@ -84,6 +98,12 @@
       <a href="#contact"><span class="mm-num">08</span> Contact</a>
     </nav>
     <div class="mobile-menu-foot">
+      <div class="switch-row">
+        <span>Dark mode</span>
+        <button class="switch" id="mmThemeSwitch" role="switch" aria-checked="true" aria-label="Toggle dark mode">
+          <span class="switch-thumb"></span>
+        </button>
+      </div>
       <a class="btn btn-ghost" href="https://www.linkedin.com/in/jerryhuang08/" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.49 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.24 8.04h4.5V24H.24V8.04zM8.34 8.04h4.31v2.18h.06c.6-1.14 2.07-2.34 4.26-2.34 4.56 0 5.4 3 5.4 6.9V24h-4.5v-6.32c0-1.51-.03-3.45-2.1-3.45-2.1 0-2.42 1.64-2.42 3.34V24h-4.5V8.04z"/></svg>
         Connect on LinkedIn
@@ -268,6 +288,33 @@
     </div>
   </div>
 
+  <!-- ============ FACETS (Tabs) ============ -->
+  <section class="section facets" data-screen-label="Facets">
+    <div class="section-head reveal">
+      <span class="eyebrow">Beyond the resume</span>
+      <h2>A few different lenses.</h2>
+    </div>
+    <div class="tabs reveal" id="facetsTabs">
+      <div class="tabs-list" role="tablist" aria-label="Facets">
+        <button class="tabs-trigger active" role="tab" aria-selected="true" data-tab="builder" id="tab-builder">Builder</button>
+        <button class="tabs-trigger" role="tab" aria-selected="false" data-tab="speaker" id="tab-speaker">Speaker</button>
+        <button class="tabs-trigger" role="tab" aria-selected="false" data-tab="athlete" id="tab-athlete">Athlete</button>
+        <span class="tabs-indicator" aria-hidden="true"></span>
+      </div>
+      <div class="tabs-panels">
+        <div class="tabs-panel active" role="tabpanel" aria-labelledby="tab-builder" data-panel="builder">
+          <p>Founding <b>Helicyn</b> in San Francisco, shipping 0→1 machine-learning infrastructure, and building CNN and LLM pipelines from AI Fish Identification to AI Social Media Analytics.</p>
+        </div>
+        <div class="tabs-panel" role="tabpanel" aria-labelledby="tab-speaker" data-panel="speaker" hidden>
+          <p>UN Youth Delegate presenting <b>EmpowerAIM</b> at 5+ global forums, including the UN STI Forum, Climate Week NYC, and the UNESCO Forum on Education × AI.</p>
+        </div>
+        <div class="tabs-panel" role="tabpanel" aria-labelledby="tab-athlete" data-panel="athlete" hidden>
+          <p>Varsity swim captain with <b>OFSAA</b> and <b>CISAA</b> medals, a National Lifeguard, and a certified swim/lifesaving instructor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ TRAJECTORY ============ -->
   <section id="trajectory" class="section traj" data-screen-label="Trajectory" data-num="01">
     <div class="section-head reveal">
@@ -275,8 +322,12 @@
       <h2>A path from Toronto to Berkeley.</h2>
       <p>Five stops, each one adding a new system to build in.</p>
     </div>
+    <div class="range-block reveal">
+      <div class="range-top"><span>Scrub the timeline</span><span id="rangeYearLabel">2018–2022</span></div>
+      <input type="range" class="jh-slider" id="trajSlider" min="0" max="4" step="1" value="0" aria-label="Scrub trajectory year">
+    </div>
     <div class="traj-track" id="trajTrack">
-      <div class="traj-line" aria-hidden="true"><i class="traj-line-fill" id="trajFill"></i></div>
+      <div class="traj-line" aria-hidden="true"><i class="traj-line-fill" id="trajFill"></i><i class="traj-comet"></i></div>
       <div class="traj-nodes" id="trajNodes">
         <div class="traj-node reveal" data-pos="0">
           <span class="traj-dot" aria-hidden="true"></span>
@@ -352,13 +403,19 @@
           <i class="sparkle" aria-hidden="true"></i><i class="sparkle" aria-hidden="true"></i>
           <i class="sparkle" aria-hidden="true"></i><i class="sparkle" aria-hidden="true"></i>
         </h2>
-        <p class="bf-lead">A machine-learning startup based in San Francisco. Early, technical, and building in the open.</p>
+        <p class="bf-lead">A machine-learning startup based in San Francisco. Early, technical, and <mark class="highlight-sweep">building in the open</mark>.</p>
         <ul class="bf-bullets">
           <li>0→1 machine-learning infrastructure work in the Bay Area.</li>
           <li>Always looking to meet new people and potential collaborators.</li>
         </ul>
-        <div class="tag-row"><span class="tag">Machine Learning</span><span class="tag">0→1</span><span class="tag">San Francisco</span></div>
-        <a class="btn btn-primary magnetic" href="https://helicyn.com" target="_blank" rel="noopener">
+        <div class="tag-row"><span class="tag tag-secondary">Machine Learning</span><span class="tag tag-outline">0→1</span><span class="tag">San Francisco</span></div>
+        <div class="progress-block">
+          <div class="progress-top"><span>Build stage</span><span>Early · 0→1</span></div>
+          <div class="progress" role="progressbar" aria-valuenow="22" aria-valuemin="0" aria-valuemax="100" aria-label="Helicyn build progress">
+            <div class="progress-fill" style="--val:22%"></div>
+          </div>
+        </div>
+        <a class="btn btn-primary magnetic pulse-cta" href="https://helicyn.com" target="_blank" rel="noopener">
           Visit Helicyn
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"/></svg>
         </a>
@@ -727,7 +784,12 @@
       <button class="chip ripple" data-cat="technical">Technical</button>
     </div>
     <div class="proof-grid stagger" id="proofGrid">
-      <div class="proof-card reveal" data-cat="global"><div class="pc-top"><span class="pc-cat">Global</span><span class="pc-date">Nov 2025</span></div><h4>UN × Netflix Youth Global Creative Challenge</h4><p>Top 13 of 2,280 applicants across 89 countries (top 0.5%). Interviewed at UN HQ, New York.</p></div>
+      <div class="proof-card proof-card--ring reveal" data-cat="global"><div class="pc-top"><span class="pc-cat">Global</span><span class="pc-date">Nov 2025</span></div><h4>UN × Netflix Youth Global Creative Challenge</h4>
+        <div class="ring-stat" data-ring="99.4">
+          <svg viewBox="0 0 60 60"><circle class="ring-track" cx="30" cy="30" r="26"/><circle class="ring-fill" cx="30" cy="30" r="26" pathLength="100"/></svg>
+          <span class="ring-label">Top<br>0.5%</span>
+        </div>
+      <p>Top 13 of 2,280 applicants across 89 countries (top 0.5%). Interviewed at UN HQ, New York.</p></div>
       <div class="proof-card reveal" data-cat="academic"><div class="pc-top"><span class="pc-cat">Academic</span></div><h4>SAT</h4><p class="pc-metric">1560 / 1600</p><p>Reading 760 · Math 800</p></div>
       <div class="proof-card reveal" data-cat="academic"><div class="pc-top"><span class="pc-cat">Academic</span></div><h4>SSAT (Middle Level)</h4><p class="pc-metric">2090 / 2130</p></div>
       <div class="proof-card reveal" data-cat="athletics"><div class="pc-top"><span class="pc-cat">Athletics</span><span class="pc-date">2024–25</span></div><h4>OFSAA Varsity Swimming</h4><p>Top 3 in Ontario, 200m Freestyle Relay; Top 16, 100m Freestyle.</p></div>
@@ -862,8 +924,40 @@
     </div>
   </div>
 
+  <!-- ============ FAQ (Accordion) ============ -->
+  <section class="section faq" data-screen-label="FAQ">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>Quick answers.</h2>
+    </div>
+    <div class="accordion reveal" id="faqAccordion">
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false">
+          <span>What are you building at Helicyn?</span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-panel"><div class="accordion-panel-inner"><p>Early, technical, 0→1 machine-learning infrastructure work in San Francisco. Details are still under wraps, but <a class="lead-link" href="https://helicyn.com" target="_blank" rel="noopener">helicyn.com</a> is where it'll land.</p></div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false">
+          <span>Are you open to internships or collaborations?</span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-panel"><div class="accordion-panel-inner"><p>Yes — always glad to meet founders, researchers, and collaborators. The contact form below is the fastest way to reach me.</p></div></div>
+      </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger" aria-expanded="false">
+          <span>What's the best way to reach you?</span>
+          <svg class="accordion-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+        </button>
+        <div class="accordion-panel"><div class="accordion-panel-inner"><p>Email or LinkedIn, both linked below, or just send the form directly.</p></div></div>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ CONTACT FINALE ============ -->
   <section id="contact" class="section contact" data-screen-label="Contact">
+    <div class="blob-glow" aria-hidden="true"></div>
     <div class="contact-finale-visual reveal" aria-hidden="true">
       <svg viewBox="0 0 400 40"><path d="M0 20 C 100 20, 140 4, 200 20 S 300 36, 400 20" pathLength="1"/></svg>
     </div>
@@ -872,7 +966,17 @@
       <h2>Building something technical, weird, or ambitious?</h2>
       <p style="margin-inline:auto;">Send it.</p>
     </div>
+    <div class="callout reveal" role="note">
+      <span class="callout-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+      </span>
+      <div><strong>Currently open to internships &amp; collaborations</strong><p>Reply time is usually under 48 hours.</p></div>
+    </div>
     <div class="contact-card border-beam reveal">
+      <div class="persona-row">
+        <span class="avatar"><img src="assets/images/profile_picture.png" alt=""><span class="avatar-status" aria-hidden="true"></span></span>
+        <div><strong>Jerry Huang</strong><span>Usually replies within 48 hours</span></div>
+      </div>
       <form id="contact-form" action="https://formspree.io/f/xzzbgqon" method="POST">
         <label>Name<input type="text" id="name" name="name" required></label>
         <label>Email<input type="email" id="email" name="email" required></label>

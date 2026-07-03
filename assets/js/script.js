@@ -12,14 +12,49 @@
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = window.matchMedia('(pointer:fine)').matches;
 
-  /* ---------- THEME ---------- */
+  /* ---------- TOAST NOTIFICATIONS (shadcn/sonner-style) ---------- */
+  function showToast(message) {
+    const viewport = $('#toastViewport');
+    if (!viewport) return;
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `<span>${message}</span>`;
+    viewport.appendChild(toast);
+    requestAnimationFrame(() => toast.classList.add('show'));
+    setTimeout(() => {
+      toast.classList.remove('show');
+      setTimeout(() => toast.remove(), 300);
+    }, 2600);
+  }
+
+  /* ---------- THEME (synced across the header icon + the mobile Switch) ---------- */
   const root = document.documentElement;
+  const mmThemeSwitch = $('#mmThemeSwitch');
   const saved = localStorage.getItem('jh-theme');
   if (saved) root.setAttribute('data-theme', saved);
-  $('#themeToggle')?.addEventListener('click', () => {
-    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+  function syncThemeSwitch() {
+    if (mmThemeSwitch) mmThemeSwitch.setAttribute('aria-checked', root.getAttribute('data-theme') !== 'light' ? 'true' : 'false');
+  }
+  function setTheme(next, announce) {
     root.setAttribute('data-theme', next);
     localStorage.setItem('jh-theme', next);
+    syncThemeSwitch();
+    if (announce) showToast(`Switched to ${next} theme`);
+  }
+  syncThemeSwitch();
+  $('#themeToggle')?.addEventListener('click', () => {
+    setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light', true);
+  });
+  mmThemeSwitch?.addEventListener('click', () => {
+    setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light', true);
+  });
+
+  /* ---------- ANNOUNCEMENT BAR ---------- */
+  const announceClose = $('#announceClose');
+  if (localStorage.getItem('jh-announce-dismissed') === '1') document.body.classList.add('announce-dismissed');
+  announceClose?.addEventListener('click', () => {
+    document.body.classList.add('announce-dismissed');
+    localStorage.setItem('jh-announce-dismissed', '1');
   });
 
   /* ---------- MOBILE MENU ---------- */
@@ -196,6 +231,28 @@
         });
       });
     });
+
+    /* ---------- SLIDER (shadcn Slider, decorative timeline scrub) ---------- */
+    const trajSlider = $('#trajSlider');
+    const rangeYearLabel = $('#rangeYearLabel');
+    if (trajSlider && rangeYearLabel) {
+      const yearLabels = ['2018–2022', '2024', '2024–2025', '2025', '2026 →'];
+      const updateSliderTrack = () => {
+        const pct = (trajSlider.value / trajSlider.max) * 100;
+        trajSlider.style.background = `linear-gradient(90deg, var(--accent), var(--accent-2) ${pct}%, var(--surface-2) ${pct}%)`;
+      };
+      trajSlider.addEventListener('input', () => {
+        const idx = parseInt(trajSlider.value, 10);
+        rangeYearLabel.textContent = yearLabels[idx] || '';
+        updateSliderTrack();
+        trajNodes.forEach(n => n.classList.remove('pinned'));
+        if (trajNodes[idx]) {
+          trajNodes[idx].classList.add('pinned');
+          trajNodes[idx].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center', inline: 'nearest' });
+        }
+      });
+      updateSliderTrack();
+    }
   }
 
   /* ---------- WORD ROTATE (rotating role label in hero status) ---------- */
@@ -310,6 +367,80 @@
     });
   }
 
+  /* ---------- STAGE CARD DRAMATIC 3D TILT (bigger than the work-card tilt) ---------- */
+  if (!reduce && fine) {
+    $$('.stage-card').forEach(card => {
+      card.addEventListener('pointermove', (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        card.style.transform = `translateY(-8px) scale(1.03) rotateX(${(-py * 14).toFixed(2)}deg) rotateY(${(px * 16).toFixed(2)}deg)`;
+      });
+      card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+    });
+  }
+
+  /* ---------- CIRCULAR PROGRESS RING (flagship stat) ---------- */
+  const ringEls = $$('.ring-stat');
+  if (ringEls.length) {
+    ringEls.forEach(el => el.style.setProperty('--ring-val', el.dataset.ring || 0));
+    if (reduce) ringEls.forEach(el => el.classList.add('in-view'));
+    else {
+      const ringObs = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in-view'); ringObs.unobserve(e.target); } });
+      }, { threshold: 0.5 });
+      ringEls.forEach(el => ringObs.observe(el));
+    }
+  }
+
+  /* ---------- TABS (shadcn Tabs with a sliding indicator) ---------- */
+  const facetsTabs = $('#facetsTabs');
+  if (facetsTabs) {
+    const tabTriggers = $$('.tabs-trigger', facetsTabs);
+    const tabPanels = $$('.tabs-panel', facetsTabs);
+    const tabIndicator = $('.tabs-indicator', facetsTabs);
+    const setIndicator = (trigger) => {
+      if (!tabIndicator || !trigger) return;
+      tabIndicator.style.width = trigger.offsetWidth + 'px';
+      tabIndicator.style.transform = `translateX(${trigger.offsetLeft}px)`;
+    };
+    const activateTab = (tab) => {
+      tabTriggers.forEach(t => {
+        const on = t.dataset.tab === tab;
+        t.classList.toggle('active', on);
+        t.setAttribute('aria-selected', on ? 'true' : 'false');
+        if (on) setIndicator(t);
+      });
+      tabPanels.forEach(p => { p.hidden = p.dataset.panel !== tab; });
+    };
+    tabTriggers.forEach(t => t.addEventListener('click', () => activateTab(t.dataset.tab)));
+    window.addEventListener('resize', () => {
+      const active = tabTriggers.find(t => t.classList.contains('active'));
+      if (active) setIndicator(active);
+    });
+    requestAnimationFrame(() => setIndicator(tabTriggers.find(t => t.classList.contains('active'))));
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => setIndicator(tabTriggers.find(t => t.classList.contains('active'))));
+    }
+  }
+
+  /* ---------- ACCORDION (shadcn Accordion, FAQ) ---------- */
+  $$('.accordion-trigger').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.accordion-item');
+      const isOpen = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    });
+  });
+
+  /* ---------- SKELETON LOADERS (shadcn Skeleton, logo/avatar images) ---------- */
+  $$('.tl-logo, .mini-logo').forEach(wrap => {
+    const img = wrap.querySelector('img');
+    if (!img || img.complete) return;
+    wrap.classList.add('img-skeleton');
+    img.addEventListener('load', () => wrap.classList.remove('img-skeleton'), { once: true });
+  });
+
   /* ---------- Generic "evidence" lookup shared by the Build Graph and
      Builder Stack: finds the real on-page element a short id refers to,
      so every relationship reads from a single source of truth. ---------- */
@@ -346,7 +477,16 @@
     const tpl = $('#tpl-' + projectId);
     if (!tpl || !drawer) return;
     drawerBody.innerHTML = '';
-    drawerBody.appendChild(tpl.content.cloneNode(true));
+    const frag = tpl.content.cloneNode(true);
+    const catText = (frag.querySelector('.drawer-cat')?.textContent || 'Project').split('·')[0].trim();
+    const titleText = frag.querySelector('h2')?.textContent || '';
+    const crumb = document.createElement('nav');
+    crumb.className = 'breadcrumb';
+    crumb.setAttribute('aria-label', 'Breadcrumb');
+    crumb.innerHTML = `<a href="#work">Work</a><span class="breadcrumb-sep">/</span><span>${catText}</span><span class="breadcrumb-sep">/</span><span class="breadcrumb-current">${titleText}</span>`;
+    crumb.querySelector('a').addEventListener('click', (e) => { e.preventDefault(); closeDrawer(); });
+    drawerBody.appendChild(crumb);
+    drawerBody.appendChild(frag);
     lastFocused = triggerEl || document.activeElement;
     overlay.hidden = false; drawer.hidden = false;
     requestAnimationFrame(() => { overlay.classList.add('show'); drawer.classList.add('show'); });
@@ -573,6 +713,7 @@
         });
         if (res.ok) {
           setStatus(`Thanks, ${name}! Your message has been sent.`, 'var(--accent-success)');
+          showToast('Message sent — thanks for reaching out');
           form.reset();
           const submitBtn = form.querySelector('button[type="submit"]');
           if (submitBtn && !reduce) {
@@ -614,6 +755,7 @@
       try { await navigator.clipboard.writeText(copyBtn.dataset.email); } catch (e) { /* noop */ }
       label.textContent = 'Copied to clipboard';
       label.classList.add('copied');
+      showToast('Email address copied to clipboard');
       setTimeout(() => { label.textContent = original; label.classList.remove('copied'); }, 1500);
     });
   }

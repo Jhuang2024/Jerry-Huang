@@ -1321,6 +1321,279 @@ footer .socials { display: flex; gap: 0.6rem; justify-content: center; margin-bo
   100% { opacity: 0; transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) rotate(var(--r)); }
 }
 
+/* =========================================================
+   PREMIUM PASS 3: big, obvious magic-mcp-style motion +
+   a broader set of shadcn-inspired components.
+   ========================================================= */
+
+/* ---------- ANNOUNCEMENT BAR (slide-down banner, shimmer, dismissible) ---------- */
+body { --announce-h: 44px; padding-top: var(--announce-h); transition: padding-top 0.4s ease; }
+body.announce-dismissed { --announce-h: 0px; }
+header { top: var(--announce-h); transition: top 0.4s ease; }
+.scroll-progress { top: var(--announce-h); transition: top 0.4s ease; }
+.announce-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 96; height: 44px;
+  display: flex; align-items: center; justify-content: center; gap: 0.9rem;
+  padding: 0 3rem 0 1rem; text-align: center;
+  background: linear-gradient(110deg, var(--accent) 30%, var(--accent-2) 50%, var(--accent) 70%);
+  background-size: 220% 100%; animation: shiny-sweep 6s linear infinite;
+  color: var(--accent-ink); font-family: var(--font-mono); font-size: 0.82rem; font-weight: 600;
+  transform: translateY(0); opacity: 1; transition: transform 0.45s var(--ease-emphatic), opacity 0.35s ease;
+}
+.announce-text {
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%;
+}
+body.announce-dismissed .announce-bar { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+.announce-close {
+  position: absolute; right: 0.7rem; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; border-radius: 50%; border: none; cursor: pointer;
+  display: grid; place-items: center; background: oklch(1 0 0 / 0.18); color: inherit;
+  transition: background 0.2s ease;
+}
+.announce-close:hover { background: oklch(1 0 0 / 0.3); }
+.announce-close svg { width: 13px; height: 13px; }
+@media (max-width: 620px) { .announce-text { font-size: 0.72rem; } }
+
+/* ---------- TOAST NOTIFICATIONS (shadcn/sonner-style) ---------- */
+.toast-viewport {
+  position: fixed; top: calc(var(--nav-h) + var(--announce-h) + 14px); right: clamp(0.8rem, 3vw, 1.5rem);
+  z-index: 300; display: flex; flex-direction: column; gap: 0.6rem; pointer-events: none;
+}
+.toast {
+  pointer-events: auto; display: flex; align-items: center; gap: 0.6rem;
+  background: var(--surface-3); border: 1px solid var(--border-strong); border-radius: 12px;
+  padding: 0.75rem 1.1rem; box-shadow: var(--shadow-hover); font-size: 0.88rem; color: var(--ink);
+  min-width: 220px; max-width: 320px;
+  opacity: 0; transform: translateX(24px) scale(0.96);
+  transition: opacity 0.3s var(--ease-emphatic), transform 0.3s var(--ease-emphatic);
+}
+.toast.show { opacity: 1; transform: translateX(0) scale(1); }
+.toast::before { content: "✓"; flex: none; color: var(--accent-success); font-weight: 700; }
+
+/* ---------- HOVER CARD (avatar popover on the header brand) ---------- */
+.hover-card-trigger { position: relative; }
+.hover-card {
+  position: absolute; top: calc(100% + 12px); left: 0; z-index: 97; width: 240px;
+  display: flex; gap: 0.7rem; align-items: center;
+  background: var(--surface-3); border: 1px solid var(--border-strong); border-radius: 14px;
+  padding: 0.9rem; box-shadow: var(--shadow-hover);
+  opacity: 0; visibility: hidden; transform: translateY(4px) scale(0.97);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+.hover-card-trigger:hover .hover-card, .hover-card-trigger:focus-within .hover-card {
+  opacity: 1; visibility: visible; transform: translateY(0) scale(1); transition-delay: 0.25s;
+}
+.hover-card-body strong { display: block; font-size: 0.92rem; }
+.hover-card-body p { color: var(--ink-muted); font-size: 0.78rem; margin-top: 0.15rem; }
+
+/* ---------- AVATAR ---------- */
+.avatar { position: relative; flex: none; width: 42px; height: 42px; border-radius: 50%; display: block; }
+.avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-strong); }
+.avatar-status {
+  position: absolute; right: -1px; bottom: -1px; width: 12px; height: 12px; border-radius: 50%;
+  background: var(--accent-success); border: 2px solid var(--surface-3);
+  box-shadow: 0 0 0 0 oklch(0.78 0.16 150 / 0.6); animation: pulse 2.2s infinite;
+}
+.persona-row { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 1.3rem; }
+.persona-row strong { display: block; font-size: 0.98rem; }
+.persona-row span { color: var(--ink-muted); font-size: 0.8rem; }
+
+/* ---------- SWITCH (shadcn Switch, dark-mode row in mobile menu) ---------- */
+.switch-row {
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--font-body); font-size: 0.95rem; color: var(--ink);
+  padding-bottom: 1.1rem; margin-bottom: 1.1rem; border-bottom: 1px solid var(--border);
+}
+.switch {
+  position: relative; width: 44px; height: 26px; border-radius: 999px; border: none; cursor: pointer;
+  background: var(--surface-3); transition: background 0.25s ease; flex: none;
+}
+.switch[aria-checked="true"] { background: var(--accent); }
+.switch-thumb {
+  position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%;
+  background: var(--ink); box-shadow: 0 2px 6px oklch(0 0 0 / 0.3);
+  transition: transform 0.25s var(--ease-emphatic);
+}
+.switch[aria-checked="true"] .switch-thumb { transform: translateX(18px); background: var(--accent-ink); }
+
+/* ---------- TABS (shadcn Tabs with sliding indicator) ---------- */
+.facets { max-width: var(--content-max); }
+.tabs-list {
+  position: relative; display: inline-flex; gap: 0.2rem; padding: 0.3rem;
+  background: var(--surface-2); border: 1px solid var(--border); border-radius: 12px;
+}
+.tabs-trigger {
+  position: relative; z-index: 1; font: inherit; font-weight: 600; font-size: 0.9rem;
+  padding: 0.55rem 1.2rem; border: none; background: none; cursor: pointer; color: var(--ink-muted);
+  border-radius: 9px; transition: color 0.25s ease;
+}
+.tabs-trigger.active { color: var(--accent-ink); }
+.tabs-indicator {
+  position: absolute; top: 0.3rem; left: 0.3rem; height: calc(100% - 0.6rem); border-radius: 9px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 8px 20px -10px var(--accent);
+  transition: transform 0.35s var(--ease-emphatic), width 0.35s var(--ease-emphatic);
+}
+.tabs-panels { margin-top: 1.4rem; max-width: 62ch; }
+.tabs-panel { color: var(--ink-soft); font-size: 1rem; animation: tab-panel-in 0.4s var(--ease-premium); }
+.tabs-panel b { color: var(--ink); }
+@keyframes tab-panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .tabs-panel { animation: none; } }
+
+/* ---------- SLIDER (shadcn Slider, decorative trajectory scrub) ---------- */
+.range-block { max-width: 360px; margin: 1.6rem 0 0.5rem; }
+.range-top { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted); margin-bottom: 0.5rem; }
+.range-top span:last-child { color: var(--accent); font-weight: 600; }
+.jh-slider {
+  -webkit-appearance: none; appearance: none; width: 100%; height: 4px; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2) 0%, var(--surface-2) 0%);
+  cursor: pointer; outline: none;
+}
+.jh-slider::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 18px; height: 18px; border-radius: 50%;
+  background: var(--accent); border: 3px solid var(--bg); box-shadow: 0 0 0 3px var(--glow);
+  transition: transform 0.2s ease;
+}
+.jh-slider::-webkit-slider-thumb:hover { transform: scale(1.15); }
+.jh-slider::-moz-range-thumb {
+  width: 18px; height: 18px; border-radius: 50%; background: var(--accent); border: 3px solid var(--bg);
+  box-shadow: 0 0 0 3px var(--glow); cursor: pointer;
+}
+.jh-slider::-moz-range-track { height: 4px; border-radius: 999px; background: var(--surface-2); }
+
+/* ---------- PROGRESS BAR (shadcn Progress, Helicyn build stage) ---------- */
+.progress-block { margin: 1.3rem 0; max-width: 320px; }
+.progress-top { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.76rem; color: var(--ink-muted); margin-bottom: 0.5rem; }
+.progress { height: 8px; border-radius: 999px; background: var(--surface-2); overflow: hidden; }
+.progress-fill {
+  height: 100%; width: 0; border-radius: 999px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 12px var(--glow);
+  transition: width 1.3s var(--ease-premium) 0.2s;
+}
+.build-feature.jh-animate .progress-fill { width: var(--val); }
+
+/* ---------- PULSATING CTA (always-on expanding ring, magic-mcp PulsatingButton) ---------- */
+.pulse-cta { position: relative; }
+.pulse-cta::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  animation: pulse-cta-ring 2.4s cubic-bezier(.2,.7,.2,1) infinite;
+}
+@keyframes pulse-cta-ring {
+  0% { opacity: 0.55; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.55); }
+}
+@media (prefers-reduced-motion: reduce) { .pulse-cta::after { animation: none; display: none; } }
+
+/* ---------- BADGE VARIANTS (shadcn secondary / outline) ---------- */
+.tag-secondary { background: var(--surface-3); color: var(--ink); border-color: transparent; }
+.tag-outline { background: transparent; border-color: var(--border-strong); color: var(--ink-soft); }
+
+/* ---------- HIGHLIGHT SWEEP (marker highlight over key phrase) ---------- */
+mark.highlight-sweep {
+  background-image: linear-gradient(120deg, var(--glow) 0%, var(--glow) 100%);
+  background-repeat: no-repeat; background-size: 0% 88%; background-position: 0 62%;
+  color: inherit; padding: 0 0.15em;
+  transition: background-size 0.9s var(--ease-premium) 0.35s;
+}
+.build-feature.jh-animate mark.highlight-sweep { background-size: 100% 88%; }
+
+/* ---------- TRAJECTORY COMET (traveling dot along the progress line) ---------- */
+.traj-comet {
+  position: absolute; top: 50%; left: 0; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--ink); box-shadow: 0 0 10px 2px var(--glow), 0 0 0 3px var(--glow-soft);
+  transform: translate(-50%, -50%); animation: traj-comet-run 4.5s ease-in-out infinite;
+}
+@keyframes traj-comet-run {
+  0% { left: 0%; opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) { .traj-comet { display: none; } }
+
+/* ---------- CIRCULAR PROGRESS RING (flagship stat) ---------- */
+.proof-card--ring { display: flex; flex-direction: column; }
+.ring-stat { position: relative; width: 60px; height: 60px; margin: 0.5rem 0; }
+.ring-stat svg { width: 100%; height: 100%; transform: rotate(-90deg); overflow: visible; }
+.ring-track { fill: none; stroke: var(--surface-2); stroke-width: 5; }
+.ring-fill {
+  fill: none; stroke: var(--accent); stroke-width: 5; stroke-linecap: round;
+  stroke-dasharray: 100; stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1.4s var(--ease-premium);
+}
+.ring-stat.in-view .ring-fill { stroke-dashoffset: calc(100 - var(--ring-val, 0)); }
+.ring-label {
+  position: absolute; inset: 0; display: grid; place-items: center; text-align: center;
+  font-family: var(--font-mono); font-size: 0.6rem; font-weight: 700; line-height: 1.15; color: var(--ink);
+}
+
+/* ---------- ACCORDION (shadcn Accordion, FAQ) ---------- */
+.faq { max-width: 760px; }
+.accordion { display: flex; flex-direction: column; }
+.accordion-item { border-bottom: 1px solid var(--border); }
+.accordion-trigger {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  padding: 1.2rem 0.2rem; background: none; border: none; cursor: pointer;
+  font-family: var(--font-display); font-weight: 600; font-size: 1.02rem; color: var(--ink); text-align: left;
+}
+.accordion-chevron { width: 18px; height: 18px; flex: none; color: var(--ink-muted); transition: transform 0.3s var(--ease-premium); }
+.accordion-item.open .accordion-chevron { transform: rotate(180deg); color: var(--accent); }
+.accordion-panel { max-height: 0; overflow: hidden; transition: max-height 0.35s var(--ease-premium); }
+.accordion-item.open .accordion-panel { max-height: 240px; }
+.accordion-panel-inner { padding: 0 0.2rem 1.2rem; color: var(--ink-soft); font-size: 0.94rem; max-width: 64ch; }
+
+/* ---------- CALLOUT / ALERT (shadcn Alert) ---------- */
+.callout {
+  max-width: 720px; margin: 0 auto 1.6rem; display: flex; align-items: flex-start; gap: 0.8rem;
+  padding: 1rem 1.2rem; border-radius: 14px; text-align: left;
+  background: color-mix(in oklab, var(--accent-success) 10%, var(--surface));
+  border: 1px solid color-mix(in oklab, var(--accent-success) 35%, var(--border));
+}
+.callout-icon { flex: none; width: 22px; height: 22px; color: var(--accent-success); margin-top: 0.1rem; }
+.callout-icon svg { width: 100%; height: 100%; }
+.callout strong { display: block; font-size: 0.94rem; }
+.callout p { color: var(--ink-muted); font-size: 0.85rem; margin-top: 0.15rem; }
+
+/* ---------- BLOB GLOW (large moving gradient orb, contact section) ---------- */
+.contact { position: relative; overflow: hidden; }
+.blob-glow {
+  position: absolute; z-index: 0; top: -20%; left: 50%; width: 70vw; height: 70vw; max-width: 800px; max-height: 800px;
+  transform: translateX(-50%); pointer-events: none;
+  background: radial-gradient(circle, var(--glow) 0%, oklch(0.83 0.13 75 / 0.14) 45%, transparent 70%);
+  filter: blur(20px); animation: blob-move 12s ease-in-out infinite;
+}
+.blob-glow ~ * { position: relative; z-index: 1; }
+@keyframes blob-move {
+  0%, 100% { transform: translateX(-50%) translateY(0) scale(1); }
+  33% { transform: translateX(-38%) translateY(4%) scale(1.12); }
+  66% { transform: translateX(-58%) translateY(-3%) scale(0.94); }
+}
+@media (prefers-reduced-motion: reduce) { .blob-glow { animation: none; } }
+
+/* ---------- SKELETON LOADER (shadcn Skeleton, image placeholders) ---------- */
+.img-skeleton { position: relative; overflow: hidden; background: var(--surface-2); }
+.img-skeleton img { opacity: 0; }
+.tl-logo img, .mini-logo img { transition: opacity 0.3s ease; }
+.img-skeleton::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(110deg, transparent 30%, oklch(1 0 0 / 0.22) 50%, transparent 70%);
+  background-size: 200% 100%; animation: skeleton-shimmer 1.2s linear infinite;
+}
+@keyframes skeleton-shimmer { from { background-position: 200% 0; } to { background-position: -50% 0; } }
+
+/* ---------- BREADCRUMB (shadcn Breadcrumb, inside the project drawer) ---------- */
+.breadcrumb { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.2rem; font-family: var(--font-mono); font-size: 0.78rem; color: var(--ink-muted); }
+.breadcrumb a { color: var(--ink-soft); transition: color 0.2s ease; }
+.breadcrumb a:hover { color: var(--accent); }
+.breadcrumb-sep { opacity: 0.5; }
+.breadcrumb-current { color: var(--ink); font-weight: 600; }
+
+/* ---------- DRAMATIC 3D TILT (stage cards; bigger than the work-card tilt) ---------- */
+.stage-wall { perspective: 1200px; }
+.stage-card { transform-style: preserve-3d; will-change: transform; }
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 940px) {
   .rail { display: none; }
