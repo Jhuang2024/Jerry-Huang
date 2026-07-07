@@ -77,7 +77,7 @@ export default function Hero() {
             <span className={`role-rotate${roleOut ? ' rotate-out' : ''}`}>{role}</span>{' '}
             at Helicyn · UC Berkeley '30 · SF Bay Area
           </div>
-          <h1 className="reveal in-view" data-delay="1">Jerry<br /><span className="accent">Huang.</span></h1>
+          <h1 className="reveal in-view" data-delay="1">Jerry<br /><span className="accent">Huang</span></h1>
           <p className="hero-position reveal in-view" data-delay="2">
             <span className="typewriter">AI founder and builder at UC Berkeley.</span>
           </p>
