@@ -1,9 +1,8 @@
 import EducationList from '../components/EducationList'
 import FacetsTabs from '../components/FacetsTabs'
-import { SignalMarquee } from '../components/Marquees'
+import SectionCta from '../components/SectionCta'
 import Separator from '../components/Separator'
 import Trajectory from '../components/Trajectory'
-import { SIGNAL_MARQUEE_ALT } from '../data/home'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 export default function About() {
@@ -27,7 +26,7 @@ export default function About() {
       <Trajectory />
       <Separator />
       <EducationList />
-      <SignalMarquee items={SIGNAL_MARQUEE_ALT} />
+      <SectionCta to="/projects">See the work</SectionCta>
     </>
   )
 }

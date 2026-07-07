@@ -1,14 +1,10 @@
-import { Link } from 'react-router-dom'
-import BuildFeature from '../components/BuildFeature'
 import ExploreGrid from '../components/ExploreGrid'
 import Hero from '../components/Hero'
-import { ArrowRight } from '../components/Icons'
-import IdentityStrip from '../components/IdentityStrip'
-import { LogoMarquee, SignalMarquee } from '../components/Marquees'
+import { LogoMarquee } from '../components/Marquees'
 import Overview from '../components/Overview'
+import SectionCta from '../components/SectionCta'
 import Separator from '../components/Separator'
 import WorkSection from '../components/WorkSection'
-import { SIGNAL_MARQUEE } from '../data/home'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 export default function Home() {
@@ -22,24 +18,16 @@ export default function Home() {
     <>
       <Hero />
       <Overview />
-      <IdentityStrip />
-      <SignalMarquee items={SIGNAL_MARQUEE} />
       <LogoMarquee />
-      <BuildFeature />
       <Separator />
       <WorkSection
         limit={2}
         num="02"
         eyebrow="Featured work"
         title="Things I've built."
-        lead="Two case studies up front: the full set, plus the build graph, lives on the projects page."
+        lead="Two case studies up front: the full set, plus the current build and the build graph, lives on the projects page."
       >
-        <div className="section-cta reveal">
-          <Link className="btn btn-ghost magnetic ripple" to="/projects">
-            View all projects
-            <ArrowRight />
-          </Link>
-        </div>
+        <SectionCta to="/projects">View all projects</SectionCta>
       </WorkSection>
       <ExploreGrid />
     </>

@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Outlet, useLocation } from 'react-router-dom'
 import AmbientChrome from './AmbientChrome'
-import AnnounceBar from './AnnounceBar'
 import CommandMenu from './CommandMenu'
 import Footer from './Footer'
 import MobileMenu from './MobileMenu'
@@ -14,8 +13,8 @@ import { useInteractionEffects } from '../hooks/useInteractionEffects'
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
 
 /* Persistent shell around every routed page: ambient background layers,
-   announcement bar, header, mobile menu, ⌘K menu, dot rail, back-to-top,
-   and footer. Also hosts the site-wide interaction + reveal effects. */
+   header, mobile menu, ⌘K menu, dot rail, back-to-top, and footer. Also
+   hosts the site-wide interaction + reveal effects. */
 export default function Layout() {
   const location = useLocation()
   const [menuOpen, setMenuOpen] = useState(false)
@@ -45,7 +44,6 @@ export default function Layout() {
   return (
     <>
       <ScrollManager />
-      <AnnounceBar />
       <AmbientChrome />
       <CommandMenu open={cmdkOpen} onClose={closeCmdk} />
       <Navbar

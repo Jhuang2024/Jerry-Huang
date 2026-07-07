@@ -1,5 +1,6 @@
 import BuilderStack from '../components/BuilderStack'
 import ProofGrid from '../components/ProofGrid'
+import SectionCta from '../components/SectionCta'
 import Separator from '../components/Separator'
 import Timeline from '../components/Timeline'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -25,6 +26,7 @@ export default function Experience() {
       <Separator />
       <ProofGrid />
       <BuilderStack />
+      <SectionCta to="/speaking">See the public stage</SectionCta>
     </>
   )
 }

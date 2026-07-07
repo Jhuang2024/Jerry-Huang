@@ -1,5 +1,5 @@
-/* Homepage-specific content: hero scene nodes, stats, marquees, logo strip,
-   identity pills, explore links. */
+/* Homepage-specific content: hero scene nodes, stats, logo strip, explore
+   links. */
 
 export const HERO_NODES = [
   { label: 'Helicyn', to: '/projects#build', style: { left: '50%', top: '11.67%' } },
@@ -19,35 +19,6 @@ export const HERO_STATS = [
   { count: 40, prefix: '$', suffix: 'K+', display: '$40', label: 'Raised for youth' },
   { count: 5, suffix: '+', display: '5', label: 'UN forums presented' },
   { count: 1000, suffix: '+', display: '1,000', label: 'Youth impacted' },
-]
-
-export const IDENTITY_PILLS = [
-  { label: "UC Berkeley '30", dot: true },
-  { label: 'Founder · Helicyn' },
-  { label: 'AI / ML' },
-  { label: 'Public work' },
-  { label: 'Toronto → Bay Area' },
-  { label: 'EN · 中文 · FR', tooltip: 'Native, Native, Professional' },
-]
-
-export const SIGNAL_MARQUEE = [
-  { text: 'Building Helicyn', bold: true },
-  { text: 'AI / ML' },
-  { text: "UC Berkeley '30" },
-  { text: 'Founder' },
-  { text: 'Public Speaking' },
-  { text: 'Research' },
-  { text: 'San Francisco' },
-  { text: 'Toronto to Berkeley' },
-]
-
-export const SIGNAL_MARQUEE_ALT = [
-  { text: 'Jerry Huang', bold: true },
-  { text: 'Selected Work' },
-  { text: 'Proof' },
-  { text: 'Trajectory' },
-  { text: 'Currently Building Helicyn' },
-  { text: "Let's Talk" },
 ]
 
 export const LOGO_MARQUEE = [
@@ -71,26 +42,20 @@ export const EXPLORE_LINKS = [
     text: 'The path from Toronto to Berkeley: trajectory, education, and a few different lenses.',
   },
   {
-    to: '/projects',
-    num: '02',
-    title: 'Projects',
-    text: 'Helicyn plus case studies: CNNs, LLM pipelines, embedded systems, and founder builds.',
-  },
-  {
     to: '/experience',
-    num: '03',
+    num: '02',
     title: 'Experience',
     text: 'Leading, building, presenting: the timeline, the proof, and the builder stack.',
   },
   {
     to: '/speaking',
-    num: '04',
+    num: '03',
     title: 'Public Stage',
     text: 'UN forums, UNESCO, and Climate Week NYC: presenting EmpowerAIM as a UN Youth Delegate.',
   },
   {
     to: '/contact',
-    num: '05',
+    num: '04',
     title: 'Contact',
     text: 'Building something technical, weird, or ambitious? Send it. Replies within 48 hours.',
   },

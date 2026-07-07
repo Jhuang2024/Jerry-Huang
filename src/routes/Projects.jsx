@@ -1,5 +1,6 @@
 import BuildFeature from '../components/BuildFeature'
 import Constellation from '../components/Constellation'
+import SectionCta from '../components/SectionCta'
 import Separator from '../components/Separator'
 import WorkSection from '../components/WorkSection'
 import { usePageMeta } from '../hooks/usePageMeta'
@@ -25,6 +26,7 @@ export default function Projects() {
       <Separator />
       <WorkSection num="02" />
       <Constellation />
+      <SectionCta to="/experience">See the track record</SectionCta>
     </>
   )
 }

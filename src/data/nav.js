@@ -23,7 +23,6 @@ export const RAIL_SECTIONS = {
   '/': [
     { id: 'home', label: 'Home' },
     { id: 'overview', label: 'Overview' },
-    { id: 'build', label: 'Helicyn' },
     { id: 'work', label: 'Work' },
     { id: 'explore', label: 'Explore' },
   ],
