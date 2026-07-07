@@ -4,10 +4,10 @@ import { hasFinePointer, prefersReducedMotion } from '../lib/media'
 /* Pointer-driven microinteractions, ported from script.js and converted to
    delegated document-level listeners so they survive route changes without
    per-element wiring:
-     · spotlight cards  — --sx/--sy glow tracking on hoverable cards
-     · 3D tilt          — work cards (subtle) and stage cards (dramatic)
-     · magnetic buttons — .magnetic pull toward the pointer
-     · click ripple     — .ripple expanding dot
+     · spotlight cards: --sx/--sy glow tracking on hoverable cards
+     · 3D tilt: work cards (subtle) and stage cards (dramatic)
+     · magnetic buttons: .magnetic pull toward the pointer
+     · click ripple: .ripple expanding dot
    Mounted once in Layout; cleanup removes every listener. */
 
 const SPOTLIGHT_SEL = '.work-card, .proof-card, .stage-card, .tl-card, .mini, .explore-card'

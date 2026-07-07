@@ -4,7 +4,7 @@ import { CloseIcon } from './Icons'
 import { prefersReducedMotion } from '../lib/media'
 
 /* Case-study drawer (right slide-in dialog) with overlay, Escape close,
-   focus trap, and the breadcrumb header — ported from script.js. */
+   focus trap, and the breadcrumb header, ported from script.js. */
 export default function ProjectDrawer({ project, onClose }) {
   const [visible, setVisible] = useState(false)
   const [current, setCurrent] = useState(null)

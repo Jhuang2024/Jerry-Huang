@@ -4,7 +4,7 @@ import { ChevronDown } from './Icons'
 import Rich from './Rich'
 import Section from './Section'
 
-/* FAQ accordion — items toggle independently, as before. */
+/* FAQ accordion, items toggle independently, as before. */
 export default function FaqAccordion() {
   const [open, setOpen] = useState(() => FAQ.map(() => false))
 

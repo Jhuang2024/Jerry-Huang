@@ -8,7 +8,7 @@ const BF_LINKS = [
   [200, 40], [320, 110], [320, 200], [200, 262], [80, 200], [80, 110],
 ]
 
-/* "Current build: Helicyn" feature panel — border beam, drawing orbit
+/* "Current build: Helicyn" feature panel, border beam, drawing orbit
    graphic, sparkles, and the animated build-stage progress bar. */
 export default function BuildFeature({ num = '01' }) {
   const sectionRef = useRef(null)

@@ -20,7 +20,7 @@ export default function AnnounceBar() {
   return (
     <div className="announce-bar" role="note">
       <span className="announce-text">
-        🚀 Building <b>Helicyn</b> in San Francisco &mdash; open to collaborators &amp; conversations &nbsp;·&nbsp; UC Berkeley '30
+        🚀 Building <b>Helicyn</b> in San Francisco, open to collaborators &amp; conversations &nbsp;·&nbsp; UC Berkeley '30
       </span>
       <button className="announce-close" onClick={dismiss} aria-label="Dismiss announcement">
         <CloseIcon strokeWidth="2.4" />

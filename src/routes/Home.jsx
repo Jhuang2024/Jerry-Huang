@@ -32,7 +32,7 @@ export default function Home() {
         num="02"
         eyebrow="Featured work"
         title="Things I've built."
-        lead="Two case studies up front — the full set, plus the build graph, lives on the projects page."
+        lead="Two case studies up front: the full set, plus the build graph, lives on the projects page."
       >
         <div className="section-cta reveal">
           <Link className="btn btn-ghost magnetic ripple" to="/projects">

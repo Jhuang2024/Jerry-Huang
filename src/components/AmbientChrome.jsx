@@ -3,7 +3,7 @@ import { hasFinePointer, prefersReducedMotion } from '../lib/media'
 
 /* Page-wide ambient layers: aurora mesh, grid, film grain, the traveling
    scroll-linked glow, the pointer-driven cursor glow, and the top scroll
-   progress bar — all ported from script.js with proper cleanup. */
+   progress bar, all ported from script.js with proper cleanup. */
 export default function AmbientChrome() {
   const progressRef = useRef(null)
   const scrollGlowRef = useRef(null)

@@ -3,7 +3,7 @@ import { EXPLORE_LINKS } from '../data/home'
 import { ArrowUpRight } from './Icons'
 import Section from './Section'
 
-/* Homepage wayfinding into the routed pages — replaces the rest of the old
+/* Homepage wayfinding into the routed pages, replaces the rest of the old
    one-page scroll with clear navigation to each deeper page. */
 export default function ExploreGrid() {
   return (

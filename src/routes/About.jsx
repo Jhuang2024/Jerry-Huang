@@ -19,7 +19,7 @@ export default function About() {
         <span className="eyebrow">About</span>
         <h1>From Toronto to Berkeley.</h1>
         <p className="page-lead">
-          Founder, builder, researcher, speaker — a few different lenses on the same
+          Founder, builder, researcher, speaker: a few different lenses on the same
           path, plus the education and trajectory underneath it.
         </p>
       </div>

@@ -17,7 +17,7 @@ export default function Projects() {
         <span className="eyebrow">Projects</span>
         <h1>Built, shipped, published.</h1>
         <p className="page-lead">
-          The current build and the case studies behind it — problem, build, and
+          The current build and the case studies behind it: problem, build, and
           outcome for each, plus how the projects and skills connect.
         </p>
       </div>

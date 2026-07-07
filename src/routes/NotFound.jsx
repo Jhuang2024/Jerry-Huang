@@ -14,7 +14,7 @@ export default function NotFound() {
       <div className="nf-code" aria-hidden="true">404</div>
       <h1>This page drifted out of orbit.</h1>
       <p>
-        The link may be old — the site recently reorganized into pages. Everything
+        The link may be old. The site recently reorganized into pages. Everything
         that was here still exists; it just has a new home.
       </p>
       <div className="hero-cta">

@@ -1,7 +1,7 @@
 import { prefersReducedMotion } from './media'
 
 /* Confetti burst (contact-form success delight). Imperative DOM particles,
-   self-removing — safe alongside React since they live directly on <body>. */
+   self-removing, safe alongside React since they live directly on <body>. */
 export function burstConfetti(x, y) {
   if (prefersReducedMotion()) return
   const colors = ['var(--accent)', 'var(--accent-2)', 'var(--accent-success)']

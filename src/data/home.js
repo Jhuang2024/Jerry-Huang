@@ -68,7 +68,7 @@ export const EXPLORE_LINKS = [
     to: '/about',
     num: '01',
     title: 'About',
-    text: 'The path from Toronto to Berkeley — trajectory, education, and a few different lenses.',
+    text: 'The path from Toronto to Berkeley: trajectory, education, and a few different lenses.',
   },
   {
     to: '/projects',
@@ -80,13 +80,13 @@ export const EXPLORE_LINKS = [
     to: '/experience',
     num: '03',
     title: 'Experience',
-    text: 'Leading, building, presenting — the timeline, the proof, and the builder stack.',
+    text: 'Leading, building, presenting: the timeline, the proof, and the builder stack.',
   },
   {
     to: '/speaking',
     num: '04',
     title: 'Public Stage',
-    text: 'UN forums, UNESCO, and Climate Week NYC — presenting EmpowerAIM as a UN Youth Delegate.',
+    text: 'UN forums, UNESCO, and Climate Week NYC: presenting EmpowerAIM as a UN Youth Delegate.',
   },
   {
     to: '/contact',

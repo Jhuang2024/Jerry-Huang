@@ -13,7 +13,7 @@ function setMeta(attr, key, content) {
 }
 
 /* Per-route document metadata: title, description, canonical, OG/Twitter.
-   Kept dependency-free (no react-helmet) — the base tags ship in index.html
+   Kept dependency-free (no react-helmet); the base tags ship in index.html
    for crawlers/social scrapers; this keeps them accurate as routes change. */
 export function usePageMeta({ title, description, path = '/' }) {
   useEffect(() => {
