@@ -52,7 +52,7 @@
 @media (max-width: 620px) { .explore-grid { grid-template-columns: 1fr; } }
 
 /* ---------- SECTION-LEVEL "view all" CTA row ---------- */
-.section-cta { display: flex; justify-content: center; margin-top: clamp(1.6rem, 4vw, 2.4rem); }
+.section-cta { display: flex; justify-content: center; margin-top: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: clamp(2rem, 6vw, 4rem); }
 
 /* ---------- FOOTER NAV (site map across routed pages) ---------- */
 .footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem 1.1rem; margin-bottom: 1.2rem; }

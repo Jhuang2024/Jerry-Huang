@@ -1,3 +1,4 @@
+import BuildFeature from '../components/BuildFeature'
 import ExploreGrid from '../components/ExploreGrid'
 import Hero from '../components/Hero'
 import { LogoMarquee } from '../components/Marquees'
@@ -19,6 +20,8 @@ export default function Home() {
       <Hero />
       <Overview />
       <LogoMarquee />
+      <Separator />
+      <BuildFeature num="01" />
       <Separator />
       <WorkSection
         limit={2}
