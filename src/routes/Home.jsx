@@ -21,7 +21,7 @@ export default function Home() {
       <Overview />
       <LogoMarquee />
       <Separator />
-      <BuildFeature num="01" />
+      <BuildFeature num="01" brief />
       <Separator />
       <WorkSection
         limit={2}
