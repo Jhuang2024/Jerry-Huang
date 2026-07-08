@@ -45,25 +45,27 @@ export default function Trajectory() {
         />
       </div>
       <div className="traj-track reveal">
-        <div className="traj-line" aria-hidden="true">
-          <i className="traj-line-fill" ref={fillRef}></i>
-          <i className="traj-comet"></i>
-        </div>
-        <div className="traj-dots">
-          {TRAJECTORY.map((n, i) => (
-            <button
-              key={n.period}
-              type="button"
-              ref={(el) => (dotRefs.current[i] = el)}
-              className="traj-dot-btn"
-              style={{ left: n.pos + '%' }}
-              onClick={() => setCurrent(i)}
-              aria-label={`${n.period}: ${n.title}`}
-              aria-current={current === i ? 'true' : undefined}
-            >
-              <span className="traj-dot" aria-hidden="true"></span>
-            </button>
-          ))}
+        <div className="traj-axis">
+          <div className="traj-line" aria-hidden="true">
+            <i className="traj-line-fill" ref={fillRef}></i>
+            <i className="traj-comet"></i>
+          </div>
+          <div className="traj-dots">
+            {TRAJECTORY.map((n, i) => (
+              <button
+                key={n.period}
+                type="button"
+                ref={(el) => (dotRefs.current[i] = el)}
+                className="traj-dot-btn"
+                style={{ left: n.pos + '%' }}
+                onClick={() => setCurrent(i)}
+                aria-label={`${n.period}: ${n.title}`}
+                aria-current={current === i ? 'true' : undefined}
+              >
+                <span className="traj-dot" aria-hidden="true"></span>
+              </button>
+            ))}
+          </div>
         </div>
         <div className="traj-card-stage">
           <div className="traj-card" key={node.period}>
