@@ -86,7 +86,6 @@ export default function ContactSection() {
         <span className="callout-icon" aria-hidden="true"><CheckCircle /></span>
         <div>
           <strong>Currently open to internships &amp; collaborations</strong>
-          <p>Reply time is usually under 48 hours.</p>
         </div>
       </div>
       <div className="contact-card border-beam reveal">

@@ -15,8 +15,7 @@ export default function Contact() {
         <span className="eyebrow">Contact</span>
         <h1>Let's talk.</h1>
         <p className="page-lead">
-          Form, email, or LinkedIn, whichever is fastest for you. Replies usually
-          within 48 hours.
+          Form, email, or LinkedIn, whichever is fastest for you.
         </p>
       </div>
       <ContactSection />
