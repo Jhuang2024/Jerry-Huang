@@ -3,10 +3,21 @@ import { Link } from 'react-router-dom'
 import { HERO_NODES } from '../data/home'
 import { hasFinePointer, prefersReducedMotion } from '../lib/media'
 
-const LINES = [
-  [300, 70], [462.6, 137.4], [530, 300], [462.6, 462.6],
-  [300, 530], [137.4, 462.6], [70, 300], [137.4, 137.4],
-]
+const VIEWBOX = 600
+const CENTER = VIEWBOX / 2
+const ORBIT_RADIUS = 230
+const INNER_RING_RADIUS = 148
+const START_ANGLE_DEG = -90 // 12 o'clock; angle increases clockwise
+
+/* Polar → cartesian, in the same 0-600 space as the SVG viewBox. Every
+   node is spaced evenly around ORBIT_RADIUS, so it always lands exactly
+   on the outer ring's circumference, at any screen size. */
+function orbitPoint(index, total, radius = ORBIT_RADIUS) {
+  const angle = ((START_ANGLE_DEG + (360 / total) * index) * Math.PI) / 180
+  return { x: CENTER + radius * Math.cos(angle), y: CENTER + radius * Math.sin(angle) }
+}
+
+const NODE_POINTS = HERO_NODES.map((_, i) => orbitPoint(i, HERO_NODES.length))
 
 /* Hero identity scene: radial constellation around the headshot with
    draw-in lines, orbiting particles, and pointer-tilt parallax. Nodes are
@@ -41,20 +52,24 @@ export default function HeroScene() {
   return (
     <div className="hero-scene-wrap reveal in-view" ref={wrapRef}>
       <div className="hero-scene" ref={sceneRef}>
-        <svg className="hs-lines" viewBox="0 0 600 600" aria-hidden="true" focusable="false">
-          <circle className="hs-ring" cx="300" cy="300" r="230" />
-          <circle className="hs-ring hs-ring--inner" cx="300" cy="300" r="148" />
-          {LINES.map(([x2, y2], i) => (
-            <line key={i} className="hs-line" style={{ '--i': i }} x1="300" y1="300" x2={x2} y2={y2} pathLength="1" />
+        <svg className="hs-lines" viewBox={`0 0 ${VIEWBOX} ${VIEWBOX}`} aria-hidden="true" focusable="false">
+          <circle className="hs-ring" cx={CENTER} cy={CENTER} r={ORBIT_RADIUS} />
+          <circle className="hs-ring hs-ring--inner" cx={CENTER} cy={CENTER} r={INNER_RING_RADIUS} />
+          {NODE_POINTS.map((p, i) => (
+            <line key={i} className="hs-line" style={{ '--i': i }} x1={CENTER} y1={CENTER} x2={p.x} y2={p.y} pathLength="1" />
           ))}
         </svg>
 
-        {HERO_NODES.map((node, i) => (
-          <Link key={node.label} className="hs-node" to={node.to} style={{ ...node.style, '--i': i }}>
-            <span className="hs-dot"></span>
-            <span className="hs-label">{node.label.replace(/ /g, ' ')}</span>
-          </Link>
-        ))}
+        {HERO_NODES.map((node, i) => {
+          const p = NODE_POINTS[i]
+          const style = { left: `${(p.x / VIEWBOX) * 100}%`, top: `${(p.y / VIEWBOX) * 100}%`, '--i': i }
+          return (
+            <Link key={node.label} className="hs-node" to={node.to} style={style}>
+              <span className="hs-dot"></span>
+              <span className="hs-label">{node.label}</span>
+            </Link>
+          )
+        })}
 
         <div className="hs-core">
           <img src="/assets/images/jerry-huang-headshot.webp" alt="Jerry Huang" />

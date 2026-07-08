@@ -1,15 +1,18 @@
 /* Homepage-specific content: hero scene nodes, stats, logo strip, explore
    links. */
 
+/* Positions are computed in HeroScene from a fixed orbit radius (polar
+   coordinates), not hardcoded here, so every node lands exactly on the
+   ring regardless of screen size. Order is clockwise from the top. */
 export const HERO_NODES = [
-  { label: 'Helicyn', to: '/projects#build', style: { left: '50%', top: '11.67%' } },
-  { label: 'UC Berkeley', to: '/about#trajectory', style: { left: '77.1%', top: '22.9%' } },
-  { label: 'AI Research', to: '/projects#work', style: { left: '88.33%', top: '50%' } },
-  { label: 'Global Forums', to: '/speaking', style: { left: '77.1%', top: '77.1%' } },
-  { label: 'EmpowerAIM', to: '/experience#exp-empoweraim', style: { left: '50%', top: '88.33%' } },
-  { label: 'KidsToKids', to: '/experience#exp-kidstokids', style: { left: '22.9%', top: '77.1%' } },
-  { label: 'AWS', to: '/experience#exp-aws', style: { left: '11.67%', top: '50%' } },
-  { label: 'Summer Programs', to: '/experience#exp-upenn', style: { left: '22.9%', top: '22.9%' } },
+  { label: 'Helicyn', to: '/projects#build' },
+  { label: 'UC Berkeley', to: '/about#trajectory' },
+  { label: 'AI Research', to: '/projects#work' },
+  { label: 'Global Forums', to: '/speaking' },
+  { label: 'EmpowerAIM', to: '/experience#exp-empoweraim' },
+  { label: 'KidsToKids', to: '/experience#exp-kidstokids' },
+  { label: 'AWS', to: '/experience#exp-aws' },
+  { label: 'Summer Programs', to: '/experience#exp-upenn' },
 ]
 
 export const ROLES = ['Founder', 'Builder', 'Researcher', 'Speaker']
