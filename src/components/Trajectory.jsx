@@ -9,10 +9,13 @@ import Section from './Section'
 export default function Trajectory() {
   const trackRef = useRef(null)
   const fillRef = useRef(null)
+  const nodeRefs = useRef([])
   const [pinned, setPinned] = useState(null)
-  const [activePcts, setActivePcts] = useState(0)
   const [sliderVal, setSliderVal] = useState(0)
 
+  // Active/pinned state is applied via classList (not React className) so it
+  // never clobbers the `in-view` class that useRevealOnScroll's
+  // IntersectionObserver adds directly on these same nodes.
   useEffect(() => {
     const track = trackRef.current
     const fill = fillRef.current
@@ -24,7 +27,9 @@ export default function Trajectory() {
       const progressPx = Math.min(Math.max(anchor - r.top, 0), total)
       const pct = (progressPx / total) * 100
       fill.style.width = pct + '%'
-      setActivePcts(pct)
+      nodeRefs.current.forEach((el, i) => {
+        if (el) el.classList.toggle('active', pct >= TRAJECTORY[i].pos - 4)
+      })
     }
     window.addEventListener('scroll', update, { passive: true })
     window.addEventListener('resize', update)
@@ -35,14 +40,19 @@ export default function Trajectory() {
     }
   }, [])
 
+  useEffect(() => {
+    nodeRefs.current.forEach((el, i) => {
+      if (el) el.classList.toggle('pinned', pinned === i)
+    })
+  }, [pinned])
+
   const togglePin = (idx) => setPinned((prev) => (prev === idx ? null : idx))
 
   const onSlider = (e) => {
     const idx = parseInt(e.target.value, 10)
     setSliderVal(idx)
     setPinned(idx)
-    const node = trackRef.current?.querySelectorAll('.traj-node')[idx]
-    node?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center', inline: 'nearest' })
+    nodeRefs.current[idx]?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center', inline: 'nearest' })
   }
 
   const sliderPct = (sliderVal / (TRAJECTORY.length - 1)) * 100
@@ -72,7 +82,8 @@ export default function Trajectory() {
           {TRAJECTORY.map((node, i) => (
             <div
               key={node.period}
-              className={`traj-node reveal${activePcts >= node.pos - 4 ? ' active' : ''}${pinned === i ? ' pinned' : ''}`}
+              ref={(el) => (nodeRefs.current[i] = el)}
+              className="traj-node reveal"
               data-pos={node.pos}
               data-delay={i > 0 ? Math.min(i, 4) : undefined}
             >
