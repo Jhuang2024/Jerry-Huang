@@ -1,100 +1,76 @@
 import { useEffect, useRef, useState } from 'react'
-import { TRAJECTORY, TRAJECTORY_YEARS } from '../data/about'
-import { prefersReducedMotion } from '../lib/media'
+import { TRAJECTORY } from '../data/about'
 import Rich from './Rich'
 import Section from './Section'
 
-/* Trajectory map: scroll-driven line fill + node activation, click-to-pin
-   cards, and the decorative year-scrub slider. */
+/* Trajectory map: a single stop card driven by the year-scrub slider (or the
+   dots). The card re-mounts (via a period-keyed `key`) on every stop change,
+   which replays its CSS entrance animation so each stop visibly appears as
+   you scrub instead of all five sitting on screen at once. The line fill and
+   dot states track the scrub position itself, not page scroll, so the bar
+   never shows progress that disagrees with the card on screen. */
 export default function Trajectory() {
-  const trackRef = useRef(null)
   const fillRef = useRef(null)
-  const nodeRefs = useRef([])
-  const [pinned, setPinned] = useState(null)
-  const [sliderVal, setSliderVal] = useState(0)
-
-  // Active/pinned state is applied via classList (not React className) so it
-  // never clobbers the `in-view` class that useRevealOnScroll's
-  // IntersectionObserver adds directly on these same nodes.
-  useEffect(() => {
-    const track = trackRef.current
-    const fill = fillRef.current
-    if (!track || !fill) return
-    const update = () => {
-      const r = track.getBoundingClientRect()
-      const anchor = window.innerHeight * 0.7
-      const total = r.height || 1
-      const progressPx = Math.min(Math.max(anchor - r.top, 0), total)
-      const pct = (progressPx / total) * 100
-      fill.style.width = pct + '%'
-      nodeRefs.current.forEach((el, i) => {
-        if (el) el.classList.toggle('active', pct >= TRAJECTORY[i].pos - 4)
-      })
-    }
-    window.addEventListener('scroll', update, { passive: true })
-    window.addEventListener('resize', update)
-    update()
-    return () => {
-      window.removeEventListener('scroll', update)
-      window.removeEventListener('resize', update)
-    }
-  }, [])
+  const dotRefs = useRef([])
+  const [current, setCurrent] = useState(0)
 
   useEffect(() => {
-    nodeRefs.current.forEach((el, i) => {
-      if (el) el.classList.toggle('pinned', pinned === i)
+    dotRefs.current.forEach((el, i) => {
+      if (!el) return
+      el.classList.toggle('passed', i <= current)
+      el.classList.toggle('current', i === current)
     })
-  }, [pinned])
+    if (fillRef.current) fillRef.current.style.width = TRAJECTORY[current].pos + '%'
+  }, [current])
 
-  const togglePin = (idx) => setPinned((prev) => (prev === idx ? null : idx))
+  const onSlider = (e) => setCurrent(parseInt(e.target.value, 10))
 
-  const onSlider = (e) => {
-    const idx = parseInt(e.target.value, 10)
-    setSliderVal(idx)
-    setPinned(idx)
-    nodeRefs.current[idx]?.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth', block: 'center', inline: 'nearest' })
-  }
-
-  const sliderPct = (sliderVal / (TRAJECTORY.length - 1)) * 100
+  const node = TRAJECTORY[current]
+  const sliderPct = (current / (TRAJECTORY.length - 1)) * 100
 
   return (
     <Section id="trajectory" className="traj" screenLabel="Trajectory" num="01" eyebrow="Trajectory" title="A path from Toronto to Berkeley." lead="Five stops, each one adding a new system to build in.">
       <div className="range-block reveal">
-        <div className="range-top"><span>Scrub the timeline</span><span>{TRAJECTORY_YEARS[sliderVal] || ''}</span></div>
+        <div className="range-top"><span>Scrub the timeline</span><span>{node.period}</span></div>
         <input
           type="range"
           className="jh-slider"
           min="0"
           max={TRAJECTORY.length - 1}
           step="1"
-          value={sliderVal}
+          value={current}
           onChange={onSlider}
           aria-label="Scrub trajectory year"
           style={{ background: `linear-gradient(90deg, var(--accent), var(--accent-2) ${sliderPct}%, var(--surface-2) ${sliderPct}%)` }}
         />
       </div>
-      <div className="traj-track" ref={trackRef}>
+      <div className="traj-track reveal">
         <div className="traj-line" aria-hidden="true">
           <i className="traj-line-fill" ref={fillRef}></i>
           <i className="traj-comet"></i>
         </div>
-        <div className="traj-nodes">
-          {TRAJECTORY.map((node, i) => (
-            <div
-              key={node.period}
-              ref={(el) => (nodeRefs.current[i] = el)}
-              className="traj-node reveal"
-              data-pos={node.pos}
-              data-delay={i > 0 ? Math.min(i, 4) : undefined}
+        <div className="traj-dots">
+          {TRAJECTORY.map((n, i) => (
+            <button
+              key={n.period}
+              type="button"
+              ref={(el) => (dotRefs.current[i] = el)}
+              className="traj-dot-btn"
+              style={{ left: n.pos + '%' }}
+              onClick={() => setCurrent(i)}
+              aria-label={`${n.period}: ${n.title}`}
+              aria-current={current === i ? 'true' : undefined}
             >
-              <span className="traj-dot" aria-hidden="true" onClick={() => togglePin(i)}></span>
-              <div className="traj-card" onClick={() => togglePin(i)}>
-                <span className="traj-period">{node.period}</span>
-                <h3>{node.title}</h3>
-                <p><Rich parts={node.text} /></p>
-              </div>
-            </div>
+              <span className="traj-dot" aria-hidden="true"></span>
+            </button>
           ))}
+        </div>
+        <div className="traj-card-stage">
+          <div className="traj-card" key={node.period}>
+            <span className="traj-period">{node.period}</span>
+            <h3>{node.title}</h3>
+            <p><Rich parts={node.text} /></p>
+          </div>
         </div>
       </div>
     </Section>

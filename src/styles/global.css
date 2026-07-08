@@ -689,32 +689,33 @@ body.menu-open .mobile-menu-nav a:nth-child(7) { animation-delay: 0.30s; }
 
 /* ===== TRAJECTORY MAP ===== */
 .traj-track { position: relative; padding-top: 1rem; }
-.traj-line { position: relative; height: 2px; background: var(--border-strong); border-radius: 2px; margin: 0 0 3rem; }
+.traj-line { position: relative; height: 2px; background: var(--border-strong); border-radius: 2px; margin: 0; }
 .traj-line-fill {
   position: absolute; inset: 0; width: 0%; border-radius: 2px;
   background: linear-gradient(90deg, var(--accent), var(--accent-2));
-  box-shadow: 0 0 12px var(--glow); transition: width 0.12s linear;
+  box-shadow: 0 0 12px var(--glow); transition: width 0.4s var(--ease-standard);
 }
-.traj-nodes { display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(0.8rem, 2vw, 1.4rem); position: relative; perspective: 900px; }
-.traj-node { position: relative; }
+.traj-dots { position: relative; height: 14px; margin: -7px 0 2.4rem; z-index: 2; }
+.traj-dot-btn {
+  position: absolute; top: 50%; transform: translate(-50%, -50%);
+  background: none; border: none; padding: 8px; margin: -8px; line-height: 0; cursor: pointer;
+}
 .traj-dot {
-  position: absolute; top: -3.4rem; left: 50%; transform: translateX(-50%);
-  width: 14px; height: 14px; border-radius: 50%;
+  display: block; width: 14px; height: 14px; border-radius: 50%;
   background: var(--surface-2); border: 2px solid var(--border-strong);
-  transition: all var(--dur-standard) var(--ease-standard); z-index: 1; cursor: pointer;
+  transition: all var(--dur-standard) var(--ease-standard);
 }
-.traj-node.active .traj-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 6px var(--glow); transform: translateX(-50%) scale(1.15); }
+.traj-dot-btn.passed .traj-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 0 6px var(--glow); }
+.traj-dot-btn.current .traj-dot { background: var(--accent-2); border-color: var(--accent-2); box-shadow: 0 0 0 7px var(--glow); transform: scale(1.2); }
+.traj-card-stage { position: relative; min-height: clamp(180px, 24vw, 230px); }
 .traj-card {
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-card);
-  padding: 1.2rem 1.1rem; height: 100%; cursor: pointer; transform-style: preserve-3d;
-  transition: border-color var(--dur-standard) var(--ease-standard), transform var(--dur-standard) var(--ease-premium), box-shadow var(--dur-standard) var(--ease-standard);
-}
-.traj-node.active .traj-card { border-color: var(--border-strong); transform: translateY(-4px) rotateX(4deg); box-shadow: var(--shadow-card); }
-.traj-node.pinned .traj-card {
-  border-color: var(--accent); transform: translateY(-9px) scale(1.035) rotateX(0deg);
+  background: var(--surface); border: 1px solid var(--accent); border-radius: var(--r-card);
+  padding: 1.3rem 1.3rem; max-width: 30rem;
   box-shadow: var(--shadow-hover), 0 0 0 1px var(--accent);
+  animation: traj-card-in 0.5s var(--ease-standard);
 }
-.traj-node.pinned .traj-dot { background: var(--accent-2); border-color: var(--accent-2); box-shadow: 0 0 0 7px var(--glow); }
+@keyframes traj-card-in { from { opacity: 0; transform: translateY(16px) scale(0.97); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .traj-card { animation: none; } }
 .traj-period { font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent); letter-spacing: 0.02em; }
 .traj-card h3 { font-family: var(--font-display); font-weight: 600; font-size: 1.05rem; margin: 0.4rem 0 0.5rem; letter-spacing: -0.01em; }
 .traj-card p { color: var(--ink-soft); font-size: 0.86rem; }
@@ -1536,13 +1537,7 @@ footer .socials { display: flex; gap: 0.6rem; justify-content: center; margin-bo
   .stage-wall { grid-template-columns: 1fr 1fr; }
   .constellation { grid-template-columns: 1fr; }
   .cst-edges { display: none; }
-  .traj-nodes { grid-template-columns: 1fr; gap: 1.6rem; }
-  .traj-line { display: none; }
-  .traj-dot { position: relative; top: 0; left: 0; transform: none; margin-bottom: 0.6rem; }
-  .traj-node { display: flex; flex-direction: column; align-items: flex-start; padding-left: 1.4rem; position: relative; }
-  .traj-node::before { content: ""; position: absolute; left: 6px; top: 8px; bottom: -1.6rem; width: 2px; background: var(--border-strong); }
-  .traj-node:last-child::before { display: none; }
-  .traj-dot { position: absolute; left: 0; top: 0; }
+  .traj-card { max-width: 100%; }
 }
 /* nav switches to the hamburger earlier than the rest of the 680px
    breakpoint: past 4 header icons plus the Helicyn button, top-links

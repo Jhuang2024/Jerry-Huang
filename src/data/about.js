@@ -51,8 +51,6 @@ export const TRAJECTORY = [
   },
 ]
 
-export const TRAJECTORY_YEARS = ['2018–2022', '2024', '2024–2025', '2025', '2026 →']
-
 export const EDUCATION = [
   {
     id: 'berkeley',
