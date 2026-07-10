@@ -1,32 +1,16 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { SITE } from '../data/site'
 import { useToast } from '../context/ToastContext'
-import { burstConfetti } from '../lib/confetti'
-import { prefersReducedMotion } from '../lib/media'
 import { CheckCircle, CopyIcon, SendIcon } from './Icons'
 
-/* Contact finale: blob glow, drawn line flourish, availability callout, and
-   the Formspree form with validation, toast, and confetti on success. */
+/* Contact finale: availability callout and the Formspree form with
+   validation and a toast on success. */
 export default function ContactSection() {
   const showToast = useToast()
-  const visualRef = useRef(null)
   const submitRef = useRef(null)
   const [status, setStatus] = useState({ msg: '', color: '' })
   const [copyLabel, setCopyLabel] = useState(SITE.email)
   const [copied, setCopied] = useState(false)
-
-  // line-draw flourish on scroll into view
-  useEffect(() => {
-    const el = visualRef.current
-    if (!el || prefersReducedMotion()) return
-    const obs = new IntersectionObserver((entries) => {
-      entries.forEach((e) => {
-        if (e.isIntersecting) { e.target.classList.add('jh-animate'); obs.unobserve(e.target) }
-      })
-    }, { threshold: 0.5 })
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
 
   const onSubmit = async (event) => {
     event.preventDefault()
@@ -47,13 +31,6 @@ export default function ContactSection() {
         setStatus({ msg: `Thanks, ${name}! Your message has been sent.`, color: 'var(--accent-success)' })
         showToast('Message sent, thanks for reaching out')
         form.reset()
-        const btn = submitRef.current
-        if (btn && !prefersReducedMotion()) {
-          btn.classList.remove('burst'); void btn.offsetWidth; btn.classList.add('burst')
-          setTimeout(() => btn.classList.remove('burst'), 750)
-          const r = btn.getBoundingClientRect()
-          burstConfetti(r.left + r.width / 2, r.top + r.height / 2)
-        }
       } else {
         setStatus({ msg: 'Something went wrong, please try again later.', color: 'var(--accent-2)' })
       }
@@ -73,13 +50,9 @@ export default function ContactSection() {
 
   return (
     <section id="contact" className="section contact" data-screen-label="Contact">
-      <div className="blob-glow" aria-hidden="true"></div>
-      <div className="contact-finale-visual reveal" ref={visualRef} aria-hidden="true">
-        <svg viewBox="0 0 400 40"><path d="M0 20 C 100 20, 140 4, 200 20 S 300 36, 400 20" pathLength="1" /></svg>
-      </div>
       <div className="section-head reveal" style={{ textAlign: 'center' }}>
         <span className="eyebrow" style={{ marginInline: 'auto' }}>Get in touch</span>
-        <h2>Building something technical, weird, or ambitious?</h2>
+        <h2 style={{ marginInline: 'auto' }}>Building something technical, weird, or ambitious?</h2>
         <p style={{ marginInline: 'auto' }}>Send it.</p>
       </div>
       <div className="callout reveal" role="note">
@@ -88,7 +61,7 @@ export default function ContactSection() {
           <strong>Currently open to internships &amp; collaborations</strong>
         </div>
       </div>
-      <div className="contact-card border-beam reveal">
+      <div className="contact-card reveal">
         <div className="persona-row">
           <span className="avatar">
             <img src="/assets/images/jerry-huang-headshot.webp" alt="" />

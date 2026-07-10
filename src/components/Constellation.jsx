@@ -73,7 +73,7 @@ export default function Constellation() {
   const renderNode = (node, kind) => (
     <button
       key={node.id}
-      className={`cst-node cst-node--${kind} ripple${stateFor(node.id)}`}
+      className={`cst-node cst-node--${kind} ${stateFor(node.id)}`}
       data-node={node.id}
       onMouseEnter={() => { if (!selected) setHovered(node.id) }}
       onMouseLeave={() => { if (!selected) setHovered(null) }}
@@ -87,7 +87,6 @@ export default function Constellation() {
 
   return (
     <Section id="constellation" screenLabel="Build Graph" num="03" eyebrow="Build graph" title="Projects and skills, connected." lead="Hover or focus a project or a skill to see how they connect.">
-      <div className="flicker-grid" aria-hidden="true"></div>
       <div className="constellation" ref={wrapRef}>
         <svg className="cst-edges" ref={edgesRef} aria-hidden="true"></svg>
         <div className="cst-col cst-col--projects">

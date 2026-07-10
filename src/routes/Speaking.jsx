@@ -22,11 +22,11 @@ export default function Speaking() {
       </div>
       <StageWall />
       <div className="hero-cta reveal" style={{ justifyContent: 'center', paddingBottom: 'clamp(3rem, 7vw, 5rem)' }}>
-        <Link className="btn btn-primary magnetic ripple" to="/contact">
+        <Link className="btn btn-primary magnetic" to="/contact">
           Get in touch
           <ArrowRight />
         </Link>
-        <Link className="btn btn-ghost magnetic ripple" to="/experience#exp-empoweraim">
+        <Link className="btn btn-ghost magnetic" to="/experience#exp-empoweraim">
           See the EmpowerAIM story
         </Link>
       </div>

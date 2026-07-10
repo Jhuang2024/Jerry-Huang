@@ -7,7 +7,6 @@ import MobileMenu from './MobileMenu'
 import Navbar from './Navbar'
 import PageTransition from './PageTransition'
 import ScrollManager from './ScrollManager'
-import SectionRail from './SectionRail'
 import ToTop from './ToTop'
 import { useInteractionEffects } from '../hooks/useInteractionEffects'
 import { useRevealOnScroll } from '../hooks/useRevealOnScroll'
@@ -52,7 +51,6 @@ export default function Layout() {
         onOpenCmdk={() => setCmdkOpen(true)}
       />
       <MobileMenu open={menuOpen} onClose={closeMenu} />
-      <SectionRail />
       <PageTransition>
         <main>
           <Outlet />

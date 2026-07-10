@@ -66,7 +66,7 @@ export default function BuilderStack() {
                 {catGroup.skills.map((skill) => (
                   <button
                     key={skill.label}
-                    className={`bs-skill ripple${activeSkill?.label === skill.label ? ' bs-active' : ''}`}
+                    className={`bs-skill${activeSkill?.label === skill.label ? ' bs-active' : ''}`}
                     onClick={() => onSkillClick(skill)}
                   >
                     {skill.label}

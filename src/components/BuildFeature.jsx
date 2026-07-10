@@ -8,10 +8,10 @@ const BF_LINKS = [
   [200, 40], [320, 110], [320, 200], [200, 262], [80, 200], [80, 110],
 ]
 
-/* "Current build: Helicyn" feature panel, border beam, drawing orbit
-   graphic, sparkles, and the animated build-stage progress bar.
-   `brief` trims it to the short homepage teaser (no bullets/progress bar);
-   the full version with those details lives on the projects page. */
+/* "Current build: Helicyn" feature panel with the drawing orbit graphic
+   and the animated build-stage progress bar. `brief` trims it to the
+   short homepage teaser (no bullets/progress bar); the full version with
+   those details lives on the projects page. */
 export default function BuildFeature({ num = '01', brief = false }) {
   const sectionRef = useRef(null)
 
@@ -28,8 +28,8 @@ export default function BuildFeature({ num = '01', brief = false }) {
   }, [])
 
   return (
-    <section id="build" className="section build-feature" data-screen-label="Current Build" data-num={num} ref={sectionRef}>
-      <div className="bf-panel border-beam blur-in reveal">
+    <section id="build" className="section build-feature" data-screen-label="Current Build" ref={sectionRef}>
+      <div className="bf-panel reveal">
         <div className="bf-graphic" aria-hidden="true">
           <svg viewBox="0 0 400 300" className="bf-svg">
             <g className="bf-orbit">
@@ -44,11 +44,8 @@ export default function BuildFeature({ num = '01', brief = false }) {
           </svg>
         </div>
         <div className="bf-content">
-          <span className="eyebrow">Current build</span>
-          <h2 className="sparkle-wrap">Helicyn
-            <i className="sparkle" aria-hidden="true"></i><i className="sparkle" aria-hidden="true"></i>
-            <i className="sparkle" aria-hidden="true"></i><i className="sparkle" aria-hidden="true"></i>
-          </h2>
+          <span className="eyebrow"><span className="sec-num">({num})</span>Current build</span>
+          <h2>Helicyn</h2>
           <p className="bf-lead">A machine-learning startup based in San Francisco. Early, technical, and building in the open.</p>
           {!brief && (
             <ul className="bf-bullets">
@@ -69,7 +66,7 @@ export default function BuildFeature({ num = '01', brief = false }) {
               </div>
             </div>
           )}
-          <MagneticButton href={SITE.helicyn} variant="primary" ripple={false} pulse>
+          <MagneticButton href={SITE.helicyn} variant="primary">
             Visit Helicyn
             <ArrowUpRight />
           </MagneticButton>

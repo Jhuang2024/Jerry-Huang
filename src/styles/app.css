@@ -1,80 +1,79 @@
 /* =========================================================
    React-app additions: page transitions, route-level chrome,
-   explore cards, 404 page, footer nav. Everything else lives
-   in global.css (the original design system, preserved).
+   explore cards, 404 page. Core design system lives in
+   global.css.
    ========================================================= */
 
 /* ---------- PAGE TRANSITION (entrance per route) ---------- */
 .page-transition { animation: page-in var(--dur-slow) var(--ease-premium) both; }
 @keyframes page-in {
-  from { opacity: 0; transform: translateY(14px); }
+  from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) { .page-transition { animation: none; } }
 
-/* ---------- PAGE HERO (compact intro header on inner pages) ---------- */
+/* ---------- PAGE HERO (editorial intro header on inner pages) ---------- */
 .page-head {
   max-width: var(--content-max); margin: 0 auto;
-  padding: clamp(6.5rem, 14vh, 8.5rem) clamp(1.25rem, 5vw, 3rem) 0;
+  padding: calc(var(--nav-h) + clamp(3rem, 9vh, 5.5rem)) var(--gutter) 0;
 }
 .page-head h1 {
-  font-family: var(--font-display); font-weight: 700;
-  font-size: clamp(2.4rem, 6.5vw, 4.2rem); letter-spacing: -0.03em; line-height: 1.02;
-  animation: hero-h1-wipe 1s var(--ease-premium) 0.1s both;
+  font-weight: 800; font-stretch: 116%;
+  font-size: clamp(2.8rem, 9vw, 7rem); letter-spacing: -0.01em; line-height: 0.9;
+  margin-left: -0.03em;
+  animation: page-h1-up 0.9s var(--ease-premium) 0.05s both;
 }
-.page-head .page-lead { color: var(--ink-muted); margin-top: 0.9rem; max-width: 58ch; font-size: clamp(0.98rem, 2vw, 1.12rem); }
+@keyframes page-h1-up {
+  from { opacity: 0; transform: translateY(0.3em); }
+  to { opacity: 1; transform: none; }
+}
+.page-head .page-lead {
+  color: var(--ink-muted); margin-top: 1.2rem; max-width: 52ch;
+  font-size: clamp(1rem, 2vw, 1.15rem);
+}
 .page-head + .section { padding-top: clamp(2.5rem, 5vw, 4rem); }
 @media (prefers-reduced-motion: reduce) { .page-head h1 { animation: none; } }
 
-/* ---------- EXPLORE GRID (homepage links into deeper pages) ---------- */
-.explore-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+/* ---------- EXPLORE GRID (homepage index into deeper pages) ---------- */
+.explore-grid { display: grid; grid-template-columns: 1fr; border-top: 1px solid var(--border); }
 .explore-card {
-  position: relative; isolation: isolate; display: flex; flex-direction: column; gap: 0.45rem;
-  background: var(--surface); border: 1px solid var(--border); border-radius: var(--r-card);
-  padding: 1.4rem 1.5rem; box-shadow: var(--shadow-card); overflow: hidden;
-  transition: transform var(--dur-standard) var(--ease-standard), border-color var(--dur-standard) var(--ease-standard), box-shadow var(--dur-standard) var(--ease-standard);
+  position: relative; display: grid; grid-template-columns: 4rem 1fr auto; align-items: baseline; gap: 1.5rem;
+  padding: clamp(1.4rem, 3vw, 2rem) 0.2rem;
+  border-bottom: 1px solid var(--border);
+  transition: background var(--dur-standard) var(--ease-standard), padding-left var(--dur-standard) var(--ease-standard);
 }
-.explore-card::before {
-  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; border-radius: inherit;
-  background: radial-gradient(260px circle at var(--sx, 50%) var(--sy, 50%), var(--glow), transparent 72%);
-  opacity: 0; transition: opacity 0.35s ease;
-}
-.explore-card:hover::before { opacity: 1; }
-.explore-card:hover { transform: translateY(-5px); border-color: var(--border-strong); box-shadow: var(--shadow-hover); }
+.explore-card:hover { background: var(--surface); padding-left: 1rem; }
 .explore-card .xc-num { font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent); }
 .explore-card h3 {
-  font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; letter-spacing: -0.01em;
-  display: flex; align-items: center; justify-content: space-between; gap: 0.6rem;
+  font-family: var(--font-display); font-stretch: 114%; font-weight: 800;
+  text-transform: uppercase; font-size: clamp(1.5rem, 3.6vw, 2.6rem); line-height: 1;
+  display: flex; align-items: center; gap: 0.8rem;
+  transition: color var(--dur-standard) var(--ease-standard);
 }
-.explore-card h3 svg { width: 16px; height: 16px; flex: none; color: var(--accent); transition: transform var(--dur-standard) var(--ease-standard); }
-.explore-card:hover h3 svg { transform: translate(3px, -3px); }
-.explore-card p { color: var(--ink-muted); font-size: 0.88rem; }
-@media (max-width: 620px) { .explore-grid { grid-template-columns: 1fr; } }
+.explore-card h3 svg {
+  width: clamp(16px, 2vw, 24px); height: clamp(16px, 2vw, 24px); flex: none;
+  color: var(--ink-muted); transition: transform var(--dur-standard) var(--ease-standard), color var(--dur-standard) var(--ease-standard);
+}
+.explore-card:hover h3 svg { transform: translate(4px, -4px); color: var(--accent); }
+.explore-card p { color: var(--ink-muted); font-size: 0.9rem; max-width: 38ch; text-align: right; justify-self: end; }
+@media (max-width: 720px) {
+  .explore-card { grid-template-columns: 2.6rem 1fr; }
+  .explore-card p { grid-column: 2; text-align: left; justify-self: start; max-width: 48ch; }
+}
 
 /* ---------- SECTION-LEVEL "view all" CTA row ---------- */
-.section-cta { display: flex; justify-content: center; margin-top: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: clamp(2rem, 6vw, 4rem); }
-
-/* ---------- FOOTER NAV (site map across routed pages) ---------- */
-.footer-nav { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3rem 1.1rem; margin-bottom: 1.2rem; }
-.footer-nav a { color: var(--ink-soft); transition: color 0.2s ease; padding: 0.2rem 0.2rem; }
-.footer-nav a:hover, .footer-nav a.active { color: var(--accent); }
+.section-cta { display: flex; justify-content: center; margin-top: clamp(1.6rem, 4vw, 2.4rem); margin-bottom: clamp(1rem, 3vw, 2rem); }
 
 /* ---------- 404 ---------- */
 .notfound {
   min-height: 72vh; display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 7rem clamp(1.25rem, 5vw, 3rem) 4rem; position: relative;
+  text-align: center; padding: 7rem var(--gutter) 4rem; position: relative;
 }
 .notfound .nf-code {
-  font-family: var(--font-display); font-weight: 700; line-height: 1;
-  font-size: clamp(5.5rem, 20vw, 11rem); letter-spacing: -0.04em;
-  background: linear-gradient(110deg, var(--accent) 22%, var(--accent-2) 55%, var(--accent) 78%);
-  background-size: 250% 100%;
-  -webkit-background-clip: text; background-clip: text; color: transparent;
-  animation: accent-shimmer 5.5s ease-in-out infinite;
+  font-family: var(--font-display); font-stretch: 116%; font-weight: 800; line-height: 1;
+  font-size: clamp(6rem, 22vw, 13rem); letter-spacing: -0.02em;
+  color: transparent; -webkit-text-stroke: 2px var(--ink);
 }
-.notfound h1 { font-family: var(--font-display); font-weight: 600; font-size: clamp(1.4rem, 4vw, 2rem); letter-spacing: -0.02em; margin-top: 0.6rem; }
+.notfound h1 { font-weight: 800; font-size: clamp(1.4rem, 4vw, 2rem); letter-spacing: 0; margin-top: 0.6rem; }
 .notfound p { color: var(--ink-muted); margin: 0.8rem 0 1.8rem; max-width: 44ch; }
 .notfound .hero-cta { justify-content: center; }
-
-/* Router <NavLink> reuses the .top-links styles from global.css; mobile
-   menu link states are unchanged. Nothing else overridden. */

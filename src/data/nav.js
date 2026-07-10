@@ -18,33 +18,6 @@ export const MOBILE_LINKS = [
   { to: '/contact', label: 'Contact' },
 ]
 
-/* Dot-rail sections per route (the rail is now a per-page scroll-spy). */
-export const RAIL_SECTIONS = {
-  '/': [
-    { id: 'home', label: 'Home' },
-    { id: 'overview', label: 'Overview' },
-    { id: 'work', label: 'Work' },
-    { id: 'explore', label: 'Explore' },
-  ],
-  '/about': [
-    { id: 'facets', label: 'Facets' },
-    { id: 'trajectory', label: 'Trajectory' },
-    { id: 'education', label: 'Education' },
-  ],
-  '/projects': [
-    { id: 'build', label: 'Helicyn' },
-    { id: 'work', label: 'Work' },
-    { id: 'constellation', label: 'Graph' },
-  ],
-  '/experience': [
-    { id: 'timeline', label: 'Timeline' },
-    { id: 'proof', label: 'Proof' },
-    { id: 'skills', label: 'Stack' },
-  ],
-  '/speaking': [],
-  '/contact': [],
-}
-
 /* Old one-page anchors (`/#work`, `/#about`…) redirect to their new homes
    so every pre-refactor deep link keeps working. */
 export const LEGACY_HASH_ROUTES = {

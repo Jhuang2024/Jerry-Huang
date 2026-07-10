@@ -7,20 +7,11 @@ export default function MagneticButton({
   to,
   href,
   variant = 'primary',
-  ripple = true,
-  pulse = false,
   className = '',
   children,
   ...rest
 }) {
-  const cls = [
-    'btn',
-    `btn-${variant}`,
-    'magnetic',
-    ripple ? 'ripple' : '',
-    pulse ? 'pulse-cta' : '',
-    className,
-  ].filter(Boolean).join(' ')
+  const cls = ['btn', `btn-${variant}`, 'magnetic', className].filter(Boolean).join(' ')
 
   if (to) return <Link className={cls} to={to} {...rest}>{children}</Link>
   if (href) return (

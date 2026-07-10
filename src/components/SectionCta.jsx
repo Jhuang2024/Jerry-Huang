@@ -6,7 +6,7 @@ import { ArrowRight } from './Icons'
 export default function SectionCta({ to, children, style }) {
   return (
     <div className="section-cta reveal" style={style}>
-      <Link className="btn btn-ghost magnetic ripple" to={to}>
+      <Link className="btn btn-ghost magnetic" to={to}>
         {children}
         <ArrowRight />
       </Link>

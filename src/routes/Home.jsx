@@ -1,10 +1,9 @@
 import BuildFeature from '../components/BuildFeature'
 import ExploreGrid from '../components/ExploreGrid'
 import Hero from '../components/Hero'
-import { LogoMarquee } from '../components/Marquees'
+import { LogoMarquee, TextMarquee } from '../components/Marquees'
 import Overview from '../components/Overview'
 import SectionCta from '../components/SectionCta'
-import Separator from '../components/Separator'
 import WorkSection from '../components/WorkSection'
 import { usePageMeta } from '../hooks/usePageMeta'
 
@@ -18,11 +17,10 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <TextMarquee />
       <Overview />
       <LogoMarquee />
-      <Separator />
       <BuildFeature num="01" brief />
-      <Separator />
       <WorkSection
         limit={2}
         num="02"

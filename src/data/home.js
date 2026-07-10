@@ -1,21 +1,4 @@
-/* Homepage-specific content: hero scene nodes, stats, logo strip, explore
-   links. */
-
-/* Positions are computed in HeroScene from a fixed orbit radius (polar
-   coordinates), not hardcoded here, so every node lands exactly on the
-   ring regardless of screen size. Order is clockwise from the top. */
-export const HERO_NODES = [
-  { label: 'Helicyn', to: '/projects#build' },
-  { label: 'UC Berkeley', to: '/about#trajectory' },
-  { label: 'AI Research', to: '/projects#work' },
-  { label: 'Global Forums', to: '/speaking' },
-  { label: 'EmpowerAIM', to: '/experience#exp-empoweraim' },
-  { label: 'KidsToKids', to: '/experience#exp-kidstokids' },
-  { label: 'AWS', to: '/experience#exp-aws' },
-  { label: 'Summer Programs', to: '/experience#exp-upenn' },
-]
-
-export const ROLES = ['Founder', 'Builder', 'Researcher', 'Speaker']
+/* Homepage-specific content: stats, logo strip, explore links. */
 
 export const HERO_STATS = [
   { count: 550, suffix: '+', display: '550', label: 'Students empowered' },

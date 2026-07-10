@@ -5,7 +5,7 @@ import { SITE } from '../data/site'
 import { useTheme } from '../context/ThemeContext'
 import { ArrowUpRight, LinkedInIcon, MenuBars, CloseIcon, MoonIcon, SunIcon, SearchIcon } from './Icons'
 
-/* Persistent header: brand hover-card, route-aware top links, Helicyn CTA,
+/* Persistent header: wordmark, route-aware top links, Helicyn CTA,
    ⌘K trigger, LinkedIn, theme toggle, and the mobile menu toggle. */
 export default function Navbar({ menuOpen, onToggleMenu, onOpenCmdk }) {
   const { toggleTheme } = useTheme()
@@ -20,19 +20,8 @@ export default function Navbar({ menuOpen, onToggleMenu, onOpenCmdk }) {
 
   return (
     <header id="header" className={scrolled ? 'scrolled' : ''}>
-      <Link className="brand hover-card-trigger" to="/">
-        <span className="mark">JH</span>
-        <span>Jerry&nbsp;Huang</span>
-        <div className="hover-card" role="tooltip">
-          <span className="avatar">
-            <img src="/assets/images/jerry-huang-headshot.webp" alt="" />
-            <span className="avatar-status" aria-hidden="true"></span>
-          </span>
-          <div className="hover-card-body">
-            <strong>Jerry Huang</strong>
-            <p>Founder, Helicyn · UC Berkeley '30</p>
-          </div>
-        </div>
+      <Link className="brand" to="/">
+        Jerry&nbsp;Huang
       </Link>
       <div className="top-actions">
         <nav className="top-links" aria-label="Primary">
@@ -43,8 +32,7 @@ export default function Navbar({ menuOpen, onToggleMenu, onOpenCmdk }) {
           ))}
         </nav>
         <a className="helicyn-btn" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">
-          <img src="/assets/images/helicyn_mark.png" alt="" aria-hidden="true" />
-          <span className="hb-text">Visit&nbsp;<b>Helicyn</b></span>
+          <span className="hb-text">Helicyn</span>
           <ArrowUpRight />
         </a>
         <button

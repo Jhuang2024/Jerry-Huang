@@ -41,14 +41,13 @@ export default function Trajectory() {
           value={current}
           onChange={onSlider}
           aria-label="Scrub trajectory year"
-          style={{ background: `linear-gradient(90deg, var(--accent), var(--accent-2) ${sliderPct}%, var(--surface-2) ${sliderPct}%)` }}
+          style={{ background: `linear-gradient(90deg, var(--ink) ${sliderPct}%, var(--surface-2) ${sliderPct}%)` }}
         />
       </div>
       <div className="traj-track reveal">
         <div className="traj-axis">
           <div className="traj-line" aria-hidden="true">
             <i className="traj-line-fill" ref={fillRef}></i>
-            <i className="traj-comet"></i>
           </div>
           <div className="traj-dots">
             {TRAJECTORY.map((n, i) => (

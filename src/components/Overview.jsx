@@ -5,9 +5,9 @@ import { SITE } from '../data/site'
 import { prefersReducedMotion } from '../lib/media'
 import { ArrowRight, ArrowUpRight } from './Icons'
 
-/* The wordier hero beat: lead, CTAs, and the count-up stat strip.
-   The HTML renders each stat's final value; the animation counts over it
-   and always lands back on that value (same as the original). */
+/* The statement beat under the hero: lead, CTAs, and the count-up stat
+   strip. The HTML renders each stat's final value; the animation counts
+   over it and always lands back on that value. */
 export default function Overview() {
   const statsRef = useRef(null)
 
@@ -52,26 +52,26 @@ export default function Overview() {
 
   return (
     <section id="overview" className="overview" data-screen-label="Overview">
-      <p className="hero-lead reveal in-view">
+      <p className="hero-lead reveal">
         Currently building <a className="lead-link" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">Helicyn</a>,
-        a machine-learning startup in San Francisco, after founding EmpowerAIM, leading KidsToKids,
+        a machine-learning startup in San Francisco — after founding EmpowerAIM, leading KidsToKids,
         and presenting at UN and global forums along the way.
       </p>
-      <div className="hero-cta reveal in-view">
-        <Link className="btn btn-primary magnetic ripple" to="/projects">
+      <div className="hero-cta reveal" data-delay="1">
+        <Link className="btn btn-primary magnetic" to="/projects">
           View work
           <ArrowRight />
         </Link>
-        <a className="btn btn-ghost magnetic ripple" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">
+        <a className="btn btn-ghost magnetic" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">
           Visit Helicyn
           <ArrowUpRight />
         </a>
-        <Link className="btn btn-ghost magnetic ripple" to="/contact">
+        <Link className="btn btn-ghost magnetic" to="/contact">
           Contact
         </Link>
       </div>
 
-      <div className="hero-stats reveal in-view" ref={statsRef}>
+      <div className="hero-stats reveal" data-delay="2" ref={statsRef}>
         {HERO_STATS.map((s) => (
           <div className="stat" key={s.label}>
             <div className="num" data-count={s.count} data-prefix={s.prefix} data-suffix={s.suffix}>

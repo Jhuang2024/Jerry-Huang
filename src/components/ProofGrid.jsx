@@ -44,7 +44,7 @@ export default function ProofGrid() {
         {PROOF_CATEGORIES.map((c) => (
           <button
             key={c.id}
-            className={`chip ripple${cat === c.id ? ' active' : ''}`}
+            className={`chip${cat === c.id ? ' active' : ''}`}
             onClick={() => setCat(c.id)}
           >
             {c.label}

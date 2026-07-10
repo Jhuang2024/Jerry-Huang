@@ -1,8 +1,9 @@
 # jerry-huang.com
 
 Personal site for Jerry Huang: a multi-page React app built with Vite and
-React Router. Refactored from the original one-page vanilla HTML/CSS/JS site;
-all content, animations, and the visual system were preserved.
+React Router. The visual system is an editorial monochrome design — true-black
+surfaces, oversized Archivo display type, Instrument Serif accents, hairline
+borders, and a single electric-blue accent used sparingly.
 
 ## Develop
 
@@ -19,15 +20,15 @@ npm run preview   # serve the production build locally
 - `src/routes/`: one component per page: `/`, `/about`, `/projects`,
   `/experience`, `/speaking`, `/contact`, plus the styled 404.
 - `src/components/`: layout chrome (Navbar, MobileMenu, CommandMenu,
-  SectionRail, Footer…) and feature sections (Hero, Timeline, WorkSection,
+  Footer…) and feature sections (Hero, Timeline, WorkSection,
   Constellation, ProofGrid, BuilderStack…).
 - `src/data/`: all content as data: projects, experience, proof, stage,
   skills, education, nav config, FAQ, evidence registry.
-- `src/hooks/`: reveal-on-scroll, page metadata, delegated pointer
-  microinteractions (tilt, magnetic, ripple, spotlight).
-- `src/styles/global.css`: the original design system, carried over intact.
+- `src/hooks/`: reveal-on-scroll, page metadata, and the magnetic-button
+  pointer microinteraction.
+- `src/styles/global.css`: the design system (tokens, type, components).
 - `src/styles/app.css`: router-era additions (page transitions, explore
-  cards, 404, footer nav).
+  index, 404).
 - `public/`: static assets served at the site root (`/assets/images/...`
   URLs are unchanged from the old site), `robots.txt`, `sitemap.xml`, and a
   `_redirects` SPA fallback.

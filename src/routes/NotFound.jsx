@@ -18,11 +18,11 @@ export default function NotFound() {
         that was here still exists; it just has a new home.
       </p>
       <div className="hero-cta">
-        <Link className="btn btn-primary magnetic ripple" to="/">
+        <Link className="btn btn-primary magnetic" to="/">
           Back home
           <ArrowRight />
         </Link>
-        <Link className="btn btn-ghost magnetic ripple" to="/projects">
+        <Link className="btn btn-ghost magnetic" to="/projects">
           View projects
         </Link>
       </div>
