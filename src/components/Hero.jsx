@@ -28,7 +28,7 @@ export default function Hero() {
       <div className="hero-meta">
         <span className="hero-status">
           <span className="pulse" aria-hidden="true"></span>
-          Founder — Helicyn
+          Founder, Helicyn
         </span>
         <span className="sep" aria-hidden="true"></span>
         <span className="meta-item">UC Berkeley '30</span>
@@ -42,7 +42,7 @@ export default function Hero() {
       </h1>
 
       <div className="hero-baseline">
-        <p className="hero-position">AI founder &amp; builder — shipping machine-learning systems in the open.</p>
+        <p className="hero-position">AI founder &amp; builder, shipping machine-learning systems in the open.</p>
         <a className="hero-scroll" href="#overview" aria-label="Scroll for more">
           Scroll
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

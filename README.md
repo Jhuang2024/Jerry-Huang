@@ -1,7 +1,7 @@
 # jerry-huang.com
 
 Personal site for Jerry Huang: a multi-page React app built with Vite and
-React Router. The visual system is an editorial monochrome design — true-black
+React Router. The visual system is an editorial monochrome design: true-black
 surfaces, oversized Archivo display type, Instrument Serif accents, hairline
 borders, and a single electric-blue accent used sparingly.
 

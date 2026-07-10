@@ -44,7 +44,7 @@
   --nav-h: 68px;
   --gutter: clamp(1.25rem, 4vw, 3.5rem);
 
-  /* radii — sharp, editorial */
+  /* radii: sharp, editorial */
   --r-card: 6px;
   --r-pill: 999px;
   --r-btn: 3px;

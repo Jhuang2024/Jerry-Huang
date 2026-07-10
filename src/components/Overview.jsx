@@ -54,7 +54,7 @@ export default function Overview() {
     <section id="overview" className="overview" data-screen-label="Overview">
       <p className="hero-lead reveal">
         Currently building <a className="lead-link" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">Helicyn</a>,
-        a machine-learning startup in San Francisco — after founding EmpowerAIM, leading KidsToKids,
+        a machine-learning startup in San Francisco, after founding EmpowerAIM, leading KidsToKids,
         and presenting at UN and global forums along the way.
       </p>
       <div className="hero-cta reveal" data-delay="1">
