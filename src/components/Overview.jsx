@@ -52,23 +52,32 @@ export default function Overview() {
 
   return (
     <section id="overview" className="overview" data-screen-label="Overview">
-      <p className="hero-lead reveal">
-        Currently building <a className="lead-link" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">Helicyn</a>,
-        a machine-learning startup in San Francisco, after founding EmpowerAIM, leading KidsToKids,
-        and presenting at UN and global forums along the way.
-      </p>
-      <div className="hero-cta reveal" data-delay="1">
-        <Link className="btn btn-primary magnetic" to="/projects">
-          View work
-          <ArrowRight />
-        </Link>
-        <a className="btn btn-ghost magnetic" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">
-          Visit Helicyn
-          <ArrowUpRight />
-        </a>
-        <Link className="btn btn-ghost magnetic" to="/contact">
-          Contact
-        </Link>
+      <div className="overview-top">
+        <img
+          className="overview-portrait reveal"
+          src="/assets/images/jerry-huang-headshot.webp"
+          alt="Portrait of Jerry Huang"
+        />
+        <div className="overview-copy">
+          <p className="hero-lead reveal">
+            Currently building <a className="lead-link" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">Helicyn</a>,
+            a machine-learning startup in San Francisco, after founding EmpowerAIM, leading KidsToKids,
+            and presenting at UN and global forums along the way.
+          </p>
+          <div className="hero-cta reveal" data-delay="1">
+            <Link className="btn btn-primary magnetic" to="/projects">
+              View work
+              <ArrowRight />
+            </Link>
+            <a className="btn btn-ghost magnetic" href={SITE.helicyn} target="_blank" rel="noopener noreferrer">
+              Visit Helicyn
+              <ArrowUpRight />
+            </a>
+            <Link className="btn btn-ghost magnetic" to="/contact">
+              Contact
+            </Link>
+          </div>
+        </div>
       </div>
 
       <div className="hero-stats reveal" data-delay="2" ref={statsRef}>
