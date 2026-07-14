@@ -60,7 +60,12 @@ export default function FacetsTabs() {
                 <div className="facet-photos">
                   {f.photos.map((photo) => (
                     <figure className="facet-photo" key={photo.src}>
-                      <img src={photo.src} alt={photo.alt} loading="lazy" />
+                      <img
+                        src={photo.src}
+                        alt={photo.alt}
+                        loading="lazy"
+                        style={photo.pos ? { objectPosition: photo.pos } : undefined}
+                      />
                       <figcaption>{photo.caption}</figcaption>
                     </figure>
                   ))}
