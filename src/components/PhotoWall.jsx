@@ -121,7 +121,11 @@ function PhotoLightbox({ index, onClose, onNavigate }) {
         <ArrowRight />
       </button>
       <figure onClick={(e) => e.stopPropagation()}>
-        <img src={photo.src} alt={photo.alt} />
+        <img
+          src={photo.full ?? photo.src}
+          className={photo.full ? 'full-res' : undefined}
+          alt={photo.alt}
+        />
         <figcaption>
           {photo.caption}
           <span className="lightbox-count">{current + 1} / {count}</span>

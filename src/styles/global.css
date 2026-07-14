@@ -1216,13 +1216,14 @@ footer {
 .photo-lightbox figure { margin: 0; max-width: 1100px; text-align: center; cursor: default; }
 .photo-lightbox img {
   display: block; margin: 0 auto;
-  /* The source assets are 640x800; never upscale past native resolution
-     or the expanded view goes soft. Raise these caps if larger files land. */
+  /* Photos without a -full variant are 640x800 thumbnails; never upscale
+     past native resolution or the expanded view goes soft. */
   max-width: min(100%, 640px); max-height: min(80vh, 800px); object-fit: contain;
   border: 1px solid var(--border-strong);
   transform: scale(0.975); transition: transform var(--dur-standard) var(--ease-premium);
 }
 .photo-lightbox.show img { transform: scale(1); }
+.photo-lightbox img.full-res { max-width: 100%; max-height: 80vh; }
 .photo-lightbox figcaption {
   font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em;
   color: oklch(0.85 0 0); margin-top: 0.8rem;

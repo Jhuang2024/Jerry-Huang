@@ -13,6 +13,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-egret.webp',
+    full: '/assets/images/photography/jerry-huang-photo-egret-full.webp',
     alt: 'A white bird perched in the trees in Costa Rica',
     caption: 'A bird in Costa Rica',
   },
@@ -23,6 +24,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-horizon.webp',
+    full: '/assets/images/photography/jerry-huang-photo-horizon-full.webp',
     alt: 'Sundown fading over the horizon on the West Coast',
     caption: 'Sundown on the West Coast',
   },
@@ -63,16 +65,19 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-palace-fine-arts.webp',
+    full: '/assets/images/photography/jerry-huang-photo-palace-fine-arts-full.webp',
     alt: 'The Palace of Fine Arts reflected in its lagoon, San Francisco',
     caption: 'Palace of Fine Arts, San Francisco',
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-golden-gate.webp',
+    full: '/assets/images/photography/jerry-huang-photo-golden-gate-full.webp',
     alt: 'The Golden Gate Bridge from the coastal headlands',
     caption: 'Golden Gate Bridge, San Francisco',
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-san-francisco.webp',
+    full: '/assets/images/photography/jerry-huang-photo-san-francisco-full.webp',
     alt: 'Downtown San Francisco from Twin Peaks under a clear sky',
     caption: 'Downtown San Francisco',
   },
