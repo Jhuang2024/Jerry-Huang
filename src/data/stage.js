@@ -4,7 +4,7 @@ export const STAGE = [
   {
     org: 'United Nations',
     date: '2025',
-    title: 'UN STI Forum',
+    title: 'UN Science, Technology and Innovation Forum',
     text: "Presented EmpowerAIM's work on AI-driven education equity, contributing youth perspectives for the Sustainable Development Goals.",
     links: [],
   },

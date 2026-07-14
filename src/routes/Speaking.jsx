@@ -6,7 +6,7 @@ import { usePageMeta } from '../hooks/usePageMeta'
 export default function Speaking() {
   usePageMeta({
     title: 'Public Stage · Jerry Huang',
-    description: 'UN STI Forum, UNESCO Forum on Education × AI, Climate Week NYC: presenting EmpowerAIM globally as a UN Youth Delegate.',
+    description: 'UN Science, Technology and Innovation Forum, UNESCO Forum on Education × AI, Climate Week NYC: presenting EmpowerAIM globally as a UN Youth Delegate.',
     path: '/speaking',
   })
 

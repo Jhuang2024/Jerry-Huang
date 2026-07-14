@@ -9,12 +9,12 @@ export const FACETS = [
   {
     id: 'speaker',
     label: 'Speaker',
-    text: ['UN Youth Delegate presenting ', { b: 'EmpowerAIM' }, ' at 5+ global forums, including the UN STI Forum, Climate Week NYC, and the UNESCO Forum on Education × AI.'],
+    text: ['UN Youth Delegate presenting ', { b: 'EmpowerAIM' }, ' at 5+ global forums, including the UN Science, Technology and Innovation Forum, Climate Week NYC, and the UNESCO Forum on Education × AI.'],
     photos: [
       {
         src: '/assets/images/jerry-huang-un-sti-forum.webp',
-        alt: 'Jerry Huang at the UN STI Forum in New York',
-        caption: 'UN STI Forum, New York',
+        alt: 'Jerry Huang at the UN Science, Technology and Innovation Forum in New York',
+        caption: 'UN Science, Technology and Innovation Forum',
       },
       {
         src: '/assets/images/jerry-huang-un-panel.webp',
@@ -66,7 +66,7 @@ export const TRAJECTORY = [
     pos: 50,
     period: '2024–2025',
     title: 'Global Stage',
-    text: ['UN Youth Delegate presenting EmpowerAIM at the UN STI Forum, Asia-Pacific Forum on Sustainable Development, Climate Week NYC, and the UNESCO Forum on Education × AI.'],
+    text: ['UN Youth Delegate presenting EmpowerAIM at the UN Science, Technology and Innovation Forum, Asia-Pacific Forum on Sustainable Development, Climate Week NYC, and the UNESCO Forum on Education × AI.'],
   },
   {
     pos: 75,
