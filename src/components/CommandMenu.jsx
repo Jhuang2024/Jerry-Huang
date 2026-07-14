@@ -29,6 +29,7 @@ export default function CommandMenu({ open, onClose }) {
     { group: 'Navigate', label: 'Build graph', action: () => navigate('/projects#constellation') },
     { group: 'Navigate', label: 'Experience timeline', action: () => navigate('/experience#timeline') },
     { group: 'Navigate', label: 'Public stage', action: () => navigate('/speaking') },
+    { group: 'Navigate', label: 'Photography', action: () => navigate('/photography') },
     { group: 'Navigate', label: 'Proof', action: () => navigate('/experience#proof') },
     { group: 'Navigate', label: 'Builder stack', action: () => navigate('/experience#skills') },
     { group: 'Navigate', label: 'Contact', action: () => navigate('/contact') },

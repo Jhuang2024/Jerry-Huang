@@ -6,12 +6,12 @@ import Section from './Section'
 export default function PhotoWall() {
   return (
     <Section
-      id="photography"
-      screenLabel="Photography"
-      num="03"
-      eyebrow="Amateur photographer"
-      title="Through the lens."
-      lead="One more lens, literally. Landscapes, coastlines, and city lights collected between meets, forums, and flights."
+      id="photo-wall"
+      screenLabel="Photo Wall"
+      num="01"
+      eyebrow="Selected frames"
+      title="Sixteen favorites."
+      lead="Shot mostly on a phone, edited on it too. Hover a frame for color."
     >
       <div className="photo-wall reveal">
         {PHOTOGRAPHY.map((photo) => (

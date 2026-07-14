@@ -38,6 +38,14 @@ export const PHOTOGRAPHY = [
     alt: 'A turquoise bay with an islet off a rocky shore',
   },
   {
+    src: '/assets/images/photography/jerry-huang-photo-coast-surf.webp',
+    alt: 'Surf breaking on dark rocks along a sandy cove',
+  },
+  {
+    src: '/assets/images/photography/jerry-huang-photo-sea-cliffs.webp',
+    alt: 'Waves churning at the base of layered sea cliffs',
+  },
+  {
     src: '/assets/images/photography/jerry-huang-photo-pavilion.webp',
     alt: 'A historic pavilion lit up at night',
   },
@@ -48,5 +56,13 @@ export const PHOTOGRAPHY = [
   {
     src: '/assets/images/photography/jerry-huang-photo-golden-gate.webp',
     alt: 'The Golden Gate Bridge from the coastal headlands',
+  },
+  {
+    src: '/assets/images/photography/jerry-huang-photo-san-francisco.webp',
+    alt: 'San Francisco from Twin Peaks under a clear sky',
+  },
+  {
+    src: '/assets/images/photography/jerry-huang-photo-wing-sunset.webp',
+    alt: 'Sunset clouds over an airplane wing',
   },
 ]

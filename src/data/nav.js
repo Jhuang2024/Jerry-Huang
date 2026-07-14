@@ -6,6 +6,7 @@ export const NAV_LINKS = [
   { to: '/projects', label: 'Projects' },
   { to: '/experience', label: 'Experience' },
   { to: '/speaking', label: 'Speaking' },
+  { to: '/photography', label: 'Photography' },
   { to: '/contact', label: 'Contact' },
 ]
 
@@ -15,6 +16,7 @@ export const MOBILE_LINKS = [
   { to: '/projects', label: 'Projects' },
   { to: '/experience', label: 'Experience' },
   { to: '/speaking', label: 'Public Stage' },
+  { to: '/photography', label: 'Photography' },
   { to: '/contact', label: 'Contact' },
 ]
 
