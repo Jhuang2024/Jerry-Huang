@@ -1178,6 +1178,21 @@ footer {
   color: var(--ink-muted); margin-top: 0.5rem;
 }
 
+/* ---------- PHOTO WALL (amateur photography grid) ---------- */
+.photo-wall {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.6rem, 1.5vw, 1rem);
+}
+.photo-wall img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
+  border: 1px solid var(--border-strong);
+  filter: grayscale(0.65) contrast(1.05);
+  transition: filter 0.4s ease;
+}
+.photo-wall img:hover { filter: grayscale(0) contrast(1); }
+@media (max-width: 900px) { .photo-wall { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 560px) { .photo-wall { grid-template-columns: repeat(2, 1fr); } }
+
 /* ---------- SLIDER (trajectory scrub) ---------- */
 .range-block { max-width: 360px; margin: 1.6rem 0 0.5rem; }
 .range-top { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-muted); margin-bottom: 0.5rem; }

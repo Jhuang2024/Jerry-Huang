@@ -1,5 +1,6 @@
 import EducationList from '../components/EducationList'
 import FacetsTabs from '../components/FacetsTabs'
+import PhotoWall from '../components/PhotoWall'
 import SectionCta from '../components/SectionCta'
 import Separator from '../components/Separator'
 import Trajectory from '../components/Trajectory'
@@ -26,6 +27,8 @@ export default function About() {
       <Trajectory />
       <Separator />
       <EducationList />
+      <Separator />
+      <PhotoWall />
       <SectionCta to="/projects">See the work</SectionCta>
     </>
   )
