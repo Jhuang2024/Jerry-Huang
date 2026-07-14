@@ -1216,7 +1216,9 @@ footer {
 .photo-lightbox figure { margin: 0; max-width: 1100px; text-align: center; cursor: default; }
 .photo-lightbox img {
   display: block; margin: 0 auto;
-  max-width: 100%; max-height: 80vh; object-fit: contain;
+  /* The source assets are 640x800; never upscale past native resolution
+     or the expanded view goes soft. Raise these caps if larger files land. */
+  max-width: min(100%, 640px); max-height: min(80vh, 800px); object-fit: contain;
   border: 1px solid var(--border-strong);
   transform: scale(0.975); transition: transform var(--dur-standard) var(--ease-premium);
 }
