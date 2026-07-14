@@ -1183,6 +1183,7 @@ footer {
   display: grid; grid-template-columns: repeat(4, 1fr);
   gap: clamp(0.6rem, 1.5vw, 1rem);
 }
+.photo-wall figure { margin: 0; }
 .photo-wall img {
   width: 100%; aspect-ratio: 4 / 5; object-fit: cover;
   border: 1px solid var(--border-strong);
@@ -1190,6 +1191,10 @@ footer {
   transition: filter 0.4s ease;
 }
 .photo-wall img:hover { filter: grayscale(0) contrast(1); }
+.photo-wall figcaption {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  color: var(--ink-muted); margin-top: 0.5rem;
+}
 @media (max-width: 900px) { .photo-wall { grid-template-columns: repeat(3, 1fr); } }
 @media (max-width: 560px) { .photo-wall { grid-template-columns: repeat(2, 1fr); } }
 

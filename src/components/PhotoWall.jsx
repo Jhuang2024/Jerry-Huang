@@ -15,7 +15,10 @@ export default function PhotoWall() {
     >
       <div className="photo-wall reveal">
         {PHOTOGRAPHY.map((photo) => (
-          <img key={photo.src} src={photo.src} alt={photo.alt} loading="lazy" />
+          <figure key={photo.src}>
+            <img src={photo.src} alt={photo.alt} loading="lazy" />
+            <figcaption>{photo.caption}</figcaption>
+          </figure>
         ))}
       </div>
     </Section>
