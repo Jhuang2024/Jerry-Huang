@@ -3,6 +3,7 @@
 export const PHOTOGRAPHY = [
   {
     src: '/assets/images/photography/jerry-huang-photo-waterfall.webp',
+    full: '/assets/images/photography/jerry-huang-photo-waterfall-full.webp',
     alt: 'The La Fortuna waterfall dropping through rainforest in Costa Rica',
     caption: 'La Fortuna waterfall, Costa Rica',
   },
@@ -19,6 +20,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-skyline-ice.webp',
+    full: '/assets/images/photography/jerry-huang-photo-skyline-ice-full.webp',
     alt: 'The Detroit skyline across a river of broken ice',
     caption: 'Detroit from across the river',
   },
@@ -30,6 +32,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-valley.webp',
+    full: '/assets/images/photography/jerry-huang-photo-valley-full.webp',
     alt: 'The Jurassic Park ranch valley winding under heavy clouds in Hawaii',
     caption: 'Jurassic Park ranch, Hawaii',
   },
@@ -40,6 +43,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-mountains-aerial.webp',
+    full: '/assets/images/photography/jerry-huang-photo-mountains-aerial-full.webp',
     alt: 'The Rocky Mountains under snow from a plane window',
     caption: 'Rocky Mountains from the plane',
   },
@@ -55,6 +59,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-sea-cliffs.webp',
+    full: '/assets/images/photography/jerry-huang-photo-sea-cliffs-full.webp',
     alt: 'Waves churning at the base of layered sea cliffs in Hawaii',
     caption: 'Hawaii coastline',
   },
