@@ -15,6 +15,18 @@ export const FACETS = [
     id: 'athlete',
     label: 'Athlete',
     text: ['Varsity swim captain with ', { b: 'OFSAA' }, ' and ', { b: 'CISAA' }, ' medals, a National Lifeguard, and a certified swim/lifesaving instructor.'],
+    photos: [
+      {
+        src: '/assets/images/jerry-huang-swim-post-race.webp',
+        alt: 'Jerry Huang on the pool deck after a race',
+        caption: 'Post-race on deck',
+      },
+      {
+        src: '/assets/images/jerry-huang-swim-cisaa-podium.webp',
+        alt: 'Jerry Huang and teammates holding championship plaques and a trophy at the pool',
+        caption: 'Championship hardware',
+      },
+    ],
   },
 ]
 

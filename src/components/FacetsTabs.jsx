@@ -56,6 +56,16 @@ export default function FacetsTabs() {
               hidden={active !== f.id}
             >
               <p><Rich parts={f.text} /></p>
+              {f.photos && (
+                <div className="facet-photos">
+                  {f.photos.map((photo) => (
+                    <figure className="facet-photo" key={photo.src}>
+                      <img src={photo.src} alt={photo.alt} loading="lazy" />
+                      <figcaption>{photo.caption}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+              )}
             </div>
           ))}
         </div>

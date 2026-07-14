@@ -1163,6 +1163,21 @@ footer {
 @keyframes tab-panel-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @media (prefers-reduced-motion: reduce) { .tabs-panel { animation: none; } }
 
+/* photo pair inside a facet panel (athlete) */
+.facet-photos { display: flex; gap: clamp(0.8rem, 2vw, 1.2rem); margin-top: 1.4rem; }
+.facet-photo { margin: 0; flex: 1; max-width: 200px; }
+.facet-photo img {
+  width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%;
+  border: 1px solid var(--border-strong);
+  filter: grayscale(0.65) contrast(1.05);
+  transition: filter 0.4s ease;
+}
+.facet-photo img:hover { filter: grayscale(0) contrast(1); }
+.facet-photo figcaption {
+  font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.06em;
+  color: var(--ink-muted); margin-top: 0.5rem;
+}
+
 /* ---------- SLIDER (trajectory scrub) ---------- */
 .range-block { max-width: 360px; margin: 1.6rem 0 0.5rem; }
 .range-top { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-muted); margin-bottom: 0.5rem; }
