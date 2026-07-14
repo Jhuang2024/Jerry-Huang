@@ -4,20 +4,22 @@ import { prefersReducedMotion } from '../lib/media'
 import { ArrowUpRight } from './Icons'
 import MagneticButton from './MagneticButton'
 
-const BF_LINKS = [
-  [200, 40], [320, 110], [320, 200], [200, 262], [80, 200], [80, 110],
-]
-
-/* "Current build: Helicyn" feature panel with the drawing orbit graphic
-   and the animated build-stage progress bar. `brief` trims it to the
-   short homepage teaser (no bullets/progress bar); the full version with
-   those details lives on the projects page. */
+/* "Current build: Helicyn" feature panel with the Helicyn logo (teal
+   sweep passing across it every few seconds) and the animated
+   build-stage progress bar (driven by the jh-animate class on scroll
+   into view). `brief` trims it to the short homepage teaser (no
+   bullets/progress bar); the full version with those details lives on
+   the projects page. */
 export default function BuildFeature({ num = '01', brief = false }) {
   const sectionRef = useRef(null)
 
   useEffect(() => {
     const el = sectionRef.current
-    if (!el || prefersReducedMotion()) return
+    if (!el) return
+    if (prefersReducedMotion()) {
+      el.classList.add('jh-animate')
+      return
+    }
     const obs = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) { e.target.classList.add('jh-animate'); obs.unobserve(e.target) }
@@ -31,17 +33,7 @@ export default function BuildFeature({ num = '01', brief = false }) {
     <section id="build" className="section build-feature" data-screen-label="Current Build" ref={sectionRef}>
       <div className="bf-panel reveal">
         <div className="bf-graphic" aria-hidden="true">
-          <svg viewBox="0 0 400 300" className="bf-svg">
-            <g className="bf-orbit">
-              {BF_LINKS.map(([x2, y2], i) => (
-                <line key={i} className="bf-link" style={{ '--i': i }} x1="200" y1="150" x2={x2} y2={y2} pathLength="1" />
-              ))}
-            </g>
-            {BF_LINKS.map(([cx, cy], i) => (
-              <circle key={i} className="bf-node" cx={cx} cy={cy} r="7" />
-            ))}
-            <polygon className="bf-core" points="200,110 240,150 200,190 160,150" />
-          </svg>
+          <div className="bf-logo"></div>
         </div>
         <div className="bf-content">
           <span className="eyebrow"><span className="sec-num">({num})</span>Current build</span>

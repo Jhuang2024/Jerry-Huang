@@ -602,24 +602,24 @@ body.menu-open .mobile-menu-nav a:nth-child(7) { animation-delay: 0.29s; }
   padding: clamp(1.8rem, 4vw, 3.2rem); overflow: hidden; position: relative;
 }
 .bf-graphic { display: flex; align-items: center; justify-content: center; }
-.bf-svg { width: 100%; max-width: 340px; overflow: visible; }
-.bf-link {
-  stroke: var(--border-strong); stroke-width: 1.2; stroke-dasharray: 1; stroke-dashoffset: 0;
-  transition: stroke var(--dur-standard) var(--ease-standard);
+.bf-logo {
+  --helicyn-teal: #38d6c4;
+  width: 100%; max-width: 340px; aspect-ratio: 1017 / 253;
+  -webkit-mask: url('/assets/images/helicyn_logo.png') center / contain no-repeat;
+  mask: url('/assets/images/helicyn_logo.png') center / contain no-repeat;
+  background:
+    linear-gradient(105deg, transparent 44%, var(--helicyn-teal) 50%, transparent 56%)
+    100% 0 / 300% 100% no-repeat,
+    var(--ink);
+  animation: helicyn-sweep 6s linear infinite;
+  transition: transform var(--dur-standard) var(--ease-standard);
 }
-.build-feature.jh-animate .bf-link {
-  animation: hs-draw var(--dur-cinematic) var(--ease-premium) backwards;
-  animation-delay: calc(var(--i, 0) * 0.1s);
+.bf-panel:hover .bf-logo { transform: scale(1.03); }
+@keyframes helicyn-sweep {
+  0%, 60% { background-position: 100% 0; }
+  85%, 100% { background-position: 0% 0; }
 }
-@keyframes hs-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
-.bf-node {
-  fill: var(--surface-2); stroke: var(--border-strong); stroke-width: 1.2;
-  transition: fill var(--dur-standard) var(--ease-standard);
-}
-.bf-core { fill: var(--accent); transform-origin: 200px 150px; transition: transform var(--dur-standard) var(--ease-standard); }
-.bf-panel:hover .bf-node { fill: var(--ink-muted); }
-.bf-panel:hover .bf-link { stroke: var(--ink-muted); }
-.bf-panel:hover .bf-core { transform: scale(1.06); }
+@media (prefers-reduced-motion: reduce) { .bf-logo { animation: none; } }
 .bf-content .eyebrow { display: flex; }
 .bf-content h2 {
   font-weight: 800; font-size: clamp(2.2rem, 4.5vw, 3.4rem);
@@ -1306,7 +1306,7 @@ footer {
   .timeline::before, .timeline-fill { left: 21px; }
   .drawer { width: 100vw; }
   .bf-panel { grid-template-columns: 1fr; text-align: left; }
-  .bf-svg { max-width: 220px; }
+  .bf-logo { max-width: 240px; }
 
   .hero { min-height: 92svh; }
   .hero h1 { font-size: clamp(3.2rem, 16.5vw, 6rem); }
