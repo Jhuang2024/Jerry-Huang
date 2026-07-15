@@ -9,6 +9,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-beach.webp',
+    full: '/assets/images/photography/jerry-huang-photo-beach-full.webp',
     alt: 'Footprints along an empty Hawaiian beach under a stormy sky',
     caption: 'Hawaii coastline',
   },
@@ -38,6 +39,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-city-lights.webp',
+    full: '/assets/images/photography/jerry-huang-photo-city-lights-full.webp',
     alt: 'Los Angeles glowing at night from the air',
     caption: 'LA at night',
   },
@@ -49,11 +51,13 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-bay.webp',
+    full: '/assets/images/photography/jerry-huang-photo-bay-full.webp',
     alt: 'A turquoise Hawaiian bay with an islet off a rocky shore',
     caption: 'Hawaii coastline',
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-coast-surf.webp',
+    full: '/assets/images/photography/jerry-huang-photo-coast-surf-full.webp',
     alt: 'Surf breaking on dark rocks along a Hawaiian cove',
     caption: 'Hawaii coastline',
   },
@@ -88,6 +92,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-wing-sunset.webp',
+    full: '/assets/images/photography/jerry-huang-photo-wing-sunset-full.webp',
     alt: 'Pink sundown clouds over an airplane wing',
     caption: 'Pink sundown from the plane',
   },
