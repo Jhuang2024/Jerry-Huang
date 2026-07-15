@@ -69,6 +69,7 @@ export const PHOTOGRAPHY = [
   },
   {
     src: '/assets/images/photography/jerry-huang-photo-pavilion.webp',
+    full: '/assets/images/photography/jerry-huang-photo-pavilion-full.webp',
     alt: 'Tengwang Pavilion lit up at night in Nanchang',
     caption: 'Tengwang Pavilion, Nanchang',
   },
