@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import CardLinks from './CardLinks'
 import { CloseIcon } from './Icons'
 import { prefersReducedMotion } from '../lib/media'
@@ -56,7 +57,14 @@ export default function ProjectDrawer({ project, onClose }) {
   const { detail } = current
   const catText = detail.cat.split('·')[0].trim()
 
-  return (
+  // Rendered through a portal on document.body so the fixed drawer escapes the
+  // `.page-transition` wrapper. That wrapper keeps a persisted identity transform
+  // from its entrance animation, which (a) makes it the containing block for the
+  // fixed drawer — collapsing it to full page height instead of the viewport and
+  // scrolling the close button off-screen on focus — and (b) establishes a
+  // stacking context that traps the drawer below the header, so the header
+  // intercepts clicks on the close button. Portaling to the body root fixes both.
+  return createPortal(
     <>
       <div className={`drawer-overlay${visible ? ' show' : ''}`} onClick={onClose} />
       <aside
@@ -89,6 +97,7 @@ export default function ProjectDrawer({ project, onClose }) {
           <CardLinks links={detail.links} />
         </div>
       </aside>
-    </>
+    </>,
+    document.body,
   )
 }
