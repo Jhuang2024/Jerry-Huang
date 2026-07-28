@@ -74,6 +74,12 @@ export const PHOTOGRAPHY = [
     caption: 'Tengwang Pavilion, Nanchang',
   },
   {
+    src: '/assets/images/photography/jerry-huang-photo-jiangxi.webp',
+    full: '/assets/images/photography/jerry-huang-photo-jiangxi-full.webp',
+    alt: 'Rice paddies running out to low mountains under heavy clouds, seen from a train window in rural Jiangxi',
+    caption: 'Rural Jiangxi',
+  },
+  {
     src: '/assets/images/photography/jerry-huang-photo-palace-fine-arts.webp',
     full: '/assets/images/photography/jerry-huang-photo-palace-fine-arts-full.webp',
     alt: 'The Palace of Fine Arts reflected in its lagoon, San Francisco',

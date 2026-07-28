@@ -16,7 +16,7 @@ export default function PhotoWall() {
       screenLabel="Photo Wall"
       num="01"
       eyebrow="Selected frames"
-      title="Sixteen favorites."
+      title="Seventeen favorites."
       lead="Shot mostly on a phone, edited on it too. Hover a frame for color, click to expand."
     >
       <div className="photo-wall reveal">
