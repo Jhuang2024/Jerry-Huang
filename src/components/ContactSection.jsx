@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { SITE } from '../data/site'
 import { useToast } from '../context/ToastContext'
 import { CheckCircle, CopyIcon, SendIcon } from './Icons'
@@ -7,21 +7,28 @@ import { CheckCircle, CopyIcon, SendIcon } from './Icons'
    validation and a toast on success. */
 export default function ContactSection() {
   const showToast = useToast()
-  const submitRef = useRef(null)
+  const submittingRef = useRef(false)
+  const [submitting, setSubmitting] = useState(false)
+  const copyTimer = useRef(null)
   const [status, setStatus] = useState({ msg: '', color: '' })
   const [copyLabel, setCopyLabel] = useState(SITE.email)
   const [copied, setCopied] = useState(false)
 
+  useEffect(() => () => clearTimeout(copyTimer.current), [])
+
   const onSubmit = async (event) => {
     event.preventDefault()
-    const form = event.target
-    const name = form.name.value.trim()
-    const email = form.email.value.trim()
-    const subject = form.subject.value.trim()
-    const message = form.message.value.trim()
+    if (submittingRef.current) return
+    const form = event.currentTarget
+    const name = form.elements.namedItem('name').value.trim()
+    const email = form.elements.namedItem('email').value.trim()
+    const subject = form.elements.namedItem('subject').value.trim()
+    const message = form.elements.namedItem('message').value.trim()
     if (!name || !email || !subject || !message) return setStatus({ msg: 'Please fill out all fields.', color: 'var(--accent-2)' })
     if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(email)) return setStatus({ msg: 'Please enter a valid email.', color: 'var(--accent-2)' })
     if (message.length < 10) return setStatus({ msg: 'Message must be at least 10 characters.', color: 'var(--accent-2)' })
+    submittingRef.current = true
+    setSubmitting(true)
     setStatus({ msg: 'Sending…', color: 'var(--ink-muted)' })
     try {
       const res = await fetch(SITE.formspree, {
@@ -37,15 +44,19 @@ export default function ContactSection() {
     } catch (err) {
       console.error(err)
       setStatus({ msg: 'Network error. Check your connection and retry.', color: 'var(--accent-2)' })
-    }
+    } finally { submittingRef.current = false; setSubmitting(false) }
   }
 
   const copyEmail = async () => {
-    try { await navigator.clipboard.writeText(SITE.email) } catch (e) { /* noop */ }
+    try { await navigator.clipboard.writeText(SITE.email) } catch {
+      showToast(`Copy unavailable. Email: ${SITE.email}`)
+      return
+    }
     setCopyLabel('Copied to clipboard')
     setCopied(true)
     showToast('Email address copied to clipboard')
-    setTimeout(() => { setCopyLabel(SITE.email); setCopied(false) }, 1500)
+    clearTimeout(copyTimer.current)
+    copyTimer.current = setTimeout(() => { setCopyLabel(SITE.email); setCopied(false) }, 1500)
   }
 
   return (
@@ -73,9 +84,9 @@ export default function ContactSection() {
           <label>Name<input type="text" name="name" required /></label>
           <label>Email<input type="email" name="email" required /></label>
           <label className="full">Subject<input type="text" name="subject" required /></label>
-          <label className="full">Message<textarea name="message" required></textarea></label>
-          <button type="submit" ref={submitRef} className="btn btn-primary full magnetic">
-            Send message
+          <label className="full">Message<textarea name="message" minLength={10} required></textarea></label>
+          <button type="submit" disabled={submitting} aria-busy={submitting} className="btn btn-primary full magnetic">
+            {submitting ? 'Sending…' : 'Send message'}
             <SendIcon />
           </button>
           <p className="status" role="status" style={{ color: status.color }}>{status.msg}</p>

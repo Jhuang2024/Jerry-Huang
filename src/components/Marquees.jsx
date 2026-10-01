@@ -5,6 +5,7 @@ export function LogoMarquee() {
   return (
     <div className="logo-marquee-wrap">
       <p className="logo-marquee-label">Presented, trained &amp; built alongside</p>
+      <span className="sr-only">{LOGO_MARQUEE.map(l => l.alt).join(', ')}</span>
       <div className="logo-marquee" aria-hidden="true">
         <div className="logo-marquee-track">
           <div className="logo-marquee-set">

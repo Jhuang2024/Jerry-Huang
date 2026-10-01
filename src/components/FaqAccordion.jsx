@@ -16,11 +16,11 @@ export default function FaqAccordion() {
       <div className="accordion reveal">
         {FAQ.map((item, i) => (
           <div key={item.q} className={`accordion-item${open[i] ? ' open' : ''}`}>
-            <button className="accordion-trigger" aria-expanded={open[i]} onClick={() => toggle(i)}>
+            <button className="accordion-trigger" aria-expanded={open[i]} aria-controls={`faq-${i}`} onClick={() => toggle(i)}>
               <span>{item.q}</span>
               <ChevronDown className="accordion-chevron" />
             </button>
-            <div className="accordion-panel">
+            <div className="accordion-panel" id={`faq-${i}`} inert={!open[i] ? '' : undefined} aria-hidden={!open[i]}>
               <div className="accordion-panel-inner"><p><Rich parts={item.a} /></p></div>
             </div>
           </div>

@@ -17,7 +17,7 @@ export default function FacetsTabs() {
       const trigger = list.querySelector('.tabs-trigger.active')
       if (!trigger) return
       indicator.style.width = trigger.offsetWidth + 'px'
-      indicator.style.transform = `translateX(${trigger.offsetLeft}px)`
+      indicator.style.transform = `translateX(${trigger.offsetLeft - indicator.offsetLeft}px)`
     }
     const raf = requestAnimationFrame(setIndicator)
     window.addEventListener('resize', setIndicator)
@@ -37,6 +37,17 @@ export default function FacetsTabs() {
               key={f.id}
               className={`tabs-trigger${active === f.id ? ' active' : ''}`}
               role="tab"
+              tabIndex={active === f.id ? 0 : -1}
+              aria-controls={`panel-${f.id}`}
+              onKeyDown={(e) => {
+                const keys = ['ArrowRight', 'ArrowLeft', 'Home', 'End']
+                if (!keys.includes(e.key)) return
+                e.preventDefault()
+                const i = FACETS.findIndex(item => item.id === active)
+                const next = e.key === 'Home' ? 0 : e.key === 'End' ? FACETS.length - 1 : (i + (e.key === 'ArrowRight' ? 1 : -1) + FACETS.length) % FACETS.length
+                setActive(FACETS[next].id)
+                listRef.current.querySelectorAll('[role="tab"]')[next].focus()
+              }}
               aria-selected={active === f.id}
               id={`tab-${f.id}`}
               onClick={() => setActive(f.id)}
@@ -51,6 +62,7 @@ export default function FacetsTabs() {
             <div
               key={f.id}
               className={`tabs-panel${active === f.id ? ' active' : ''}`}
+              id={`panel-${f.id}`}
               role="tabpanel"
               aria-labelledby={`tab-${f.id}`}
               hidden={active !== f.id}

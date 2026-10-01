@@ -9,6 +9,8 @@ import { ArrowUpRight, LinkedInIcon, MenuBars, CloseIcon, MoonIcon, SunIcon, Sea
    ⌘K trigger, LinkedIn, theme toggle, and the mobile menu toggle. */
 export default function Navbar({ menuOpen, onToggleMenu, onOpenCmdk }) {
   const { toggleTheme } = useTheme()
+  const [motionPaused, setMotionPaused] = useState(false)
+  useEffect(() => { document.documentElement.dataset.motion = motionPaused ? 'paused' : 'running' }, [motionPaused])
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -47,6 +49,9 @@ export default function Navbar({ menuOpen, onToggleMenu, onOpenCmdk }) {
         <a className="icon-btn" href={SITE.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
           <LinkedInIcon />
         </a>
+        <button className="icon-btn motion-toggle" onClick={() => setMotionPaused(v => !v)} aria-pressed={motionPaused} aria-label={motionPaused ? 'Resume animations' : 'Pause animations'} title={motionPaused ? 'Resume animations' : 'Pause animations'}>
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{motionPaused ? <path d="M7 4v16l13-8z" /> : <path d="M6 5h4v14H6zm8 0h4v14h-4z" />}</svg>
+        </button>
         <button className="icon-btn theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
           <MoonIcon className="moon" />
           <SunIcon className="sun" />

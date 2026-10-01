@@ -15,10 +15,11 @@ function setMeta(attr, key, content) {
 /* Per-route document metadata: title, description, canonical, OG/Twitter.
    Kept dependency-free (no react-helmet); the base tags ship in index.html
    for crawlers/social scrapers; this keeps them accurate as routes change. */
-export function usePageMeta({ title, description, path = '/' }) {
+export function usePageMeta({ title, description, path = '/', noIndex = false }) {
   useEffect(() => {
     document.title = title
     setMeta('name', 'description', description)
+    setMeta('name', 'robots', noIndex ? 'noindex, follow' : 'index, follow')
     setMeta('property', 'og:title', title)
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:url', SITE_URL + path)
@@ -26,5 +27,5 @@ export function usePageMeta({ title, description, path = '/' }) {
     setMeta('name', 'twitter:description', description)
     let canonical = document.head.querySelector('link[rel="canonical"]')
     if (canonical) canonical.setAttribute('href', SITE_URL + path)
-  }, [title, description, path])
+  }, [title, description, path, noIndex])
 }

@@ -21,7 +21,7 @@ export function useRevealOnScroll(watchKey) {
           }
         })
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      { threshold: 0, rootMargin: '0px 0px -5% 0px' }
     )
     items.forEach((el) => io.observe(el))
     return () => io.disconnect()

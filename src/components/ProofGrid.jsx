@@ -45,6 +45,7 @@ export default function ProofGrid() {
           <button
             key={c.id}
             className={`chip${cat === c.id ? ' active' : ''}`}
+            aria-pressed={cat === c.id}
             onClick={() => setCat(c.id)}
           >
             {c.label}

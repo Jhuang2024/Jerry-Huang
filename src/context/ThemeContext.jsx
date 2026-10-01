@@ -1,5 +1,4 @@
-import { createContext, useCallback, useContext, useState } from 'react'
-import { useToast } from './ToastContext'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
 
 /* Light/dark theme, synced across the header icon and the mobile-menu
    switch, persisted to the same localStorage key as the original site.
@@ -8,20 +7,17 @@ import { useToast } from './ToastContext'
 const ThemeContext = createContext({ theme: 'dark', toggleTheme: () => {} })
 
 export function ThemeProvider({ children }) {
-  const showToast = useToast()
   const [theme, setTheme] = useState(
-    () => document.documentElement.getAttribute('data-theme') || 'dark'
+    () => document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark'
   )
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    try { localStorage.setItem('jh-theme', theme) } catch { /* Storage can be unavailable. */ }
+  }, [theme])
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => {
-      const next = prev === 'light' ? 'dark' : 'light'
-      document.documentElement.setAttribute('data-theme', next)
-      try { localStorage.setItem('jh-theme', next) } catch (e) { /* noop */ }
-      showToast(`Switched to ${next} theme`)
-      return next
-    })
-  }, [showToast])
+    setTheme(prev => prev === 'light' ? 'dark' : 'light')
+  }, [])
 
   return <ThemeContext.Provider value={{ theme, toggleTheme }}>{children}</ThemeContext.Provider>
 }

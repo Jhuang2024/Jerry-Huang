@@ -67,6 +67,7 @@ export default function BuilderStack() {
                   <button
                     key={skill.label}
                     className={`bs-skill${activeSkill?.label === skill.label ? ' bs-active' : ''}`}
+                    aria-pressed={activeSkill?.label === skill.label}
                     onClick={() => onSkillClick(skill)}
                   >
                     {skill.label}

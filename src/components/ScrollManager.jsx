@@ -21,11 +21,13 @@ export default function ScrollManager() {
       }
     }
     if (hash) {
-      const id = hash.slice(1)
+      let id
+      try { id = decodeURIComponent(hash.slice(1)) } catch { id = hash.slice(1) }
       // wait a frame so the destination page has rendered
-      requestAnimationFrame(() => {
+      const frame = requestAnimationFrame(() => {
         if (!flashScrollTo(id)) window.scrollTo({ top: 0, behavior: 'instant' })
       })
+      return () => cancelAnimationFrame(frame)
     } else {
       window.scrollTo({ top: 0, behavior: 'instant' })
     }

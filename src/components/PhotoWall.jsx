@@ -1,9 +1,9 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { PHOTOGRAPHY } from '../data/photography'
 import Section from './Section'
 import { ArrowRight, CloseIcon } from './Icons'
-import { prefersReducedMotion } from '../lib/media'
+import { useModal } from '../hooks/useModal'
 
 /* Amateur-photography wall: a uniform 4:5 grid in the site's monochrome
    treatment, color on hover. Click a frame to expand it in a lightbox. */
@@ -42,60 +42,25 @@ export default function PhotoWall() {
 /* Expanded-photo lightbox with overlay, Escape close, arrow-key prev/next,
    and focus trap, following the ProjectDrawer open/close orchestration. */
 function PhotoLightbox({ index, onClose, onNavigate }) {
-  const [visible, setVisible] = useState(false)
-  const [current, setCurrent] = useState(null)
   const boxRef = useRef(null)
   const closeBtnRef = useRef(null)
-  const lastFocusedRef = useRef(null)
+  const closeRef = useRef(onClose)
+  closeRef.current = onClose
+  const stableClose = useCallback(() => closeRef.current(), [])
+  useModal(index !== null, boxRef, stableClose, closeBtnRef)
   const count = PHOTOGRAPHY.length
-
-  // open / close orchestration (mount → .show; .show off → unmount)
-  useEffect(() => {
-    if (index !== null) {
-      if (current === null) {
-        lastFocusedRef.current = document.activeElement
-        document.body.style.overflow = 'hidden'
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          setVisible(true)
-          closeBtnRef.current?.focus()
-        }))
-      }
-      setCurrent(index)
-    } else if (current !== null) {
-      setVisible(false)
-      document.body.style.overflow = ''
-      const t = setTimeout(() => setCurrent(null), prefersReducedMotion() ? 0 : 280)
-      lastFocusedRef.current?.focus?.()
-      return () => clearTimeout(t)
-    }
-  }, [index]) // eslint-disable-line react-hooks/exhaustive-deps
-
-  // restore scroll if unmounted while open
-  useEffect(() => () => { document.body.style.overflow = '' }, [])
-
   useEffect(() => {
     if (index === null) return
-    const onKey = (e) => {
-      if (e.key === 'Escape') onClose()
-      else if (e.key === 'ArrowRight') onNavigate((index + 1) % count)
-      else if (e.key === 'ArrowLeft') onNavigate((index - 1 + count) % count)
+    const onKey = e => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); onNavigate((index + 1) % count) }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); onNavigate((index - 1 + count) % count) }
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
-  }, [index, count, onClose, onNavigate])
-
-  const trapFocus = (e) => {
-    if (e.key !== 'Tab' || !boxRef.current) return
-    const focusables = [...boxRef.current.querySelectorAll('button')]
-      .filter((el) => el.offsetParent !== null)
-    if (!focusables.length) return
-    const first = focusables[0]
-    const last = focusables[focusables.length - 1]
-    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus() }
-    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus() }
-  }
-
-  if (current === null) return null
+  }, [index, count, onNavigate])
+  if (index === null) return null
+  const current = index
+  const visible = true
   const photo = PHOTOGRAPHY[current]
 
   // Portaled to <body>: the page-transition wrapper keeps a transform applied,
@@ -108,7 +73,7 @@ function PhotoLightbox({ index, onClose, onNavigate }) {
       aria-modal="true"
       aria-label={`Expanded photo: ${photo.caption}`}
       onClick={onClose}
-      onKeyDown={trapFocus}
+      tabIndex={-1}
     >
       <button className="lightbox-close" ref={closeBtnRef} onClick={onClose} aria-label="Close expanded photo">
         <CloseIcon />

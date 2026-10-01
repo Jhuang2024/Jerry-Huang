@@ -1,22 +1,39 @@
 import { useEffect, useRef } from 'react'
+import { useLocation } from 'react-router-dom'
+import { hasFinePointer, prefersReducedMotion } from '../lib/media'
 
-/* Page-wide chrome, reduced to a single deliberate element: the hairline
-   scroll-progress indicator. The old ambient layers (aurora mesh, grid,
-   film grain, cursor/scroll glows) are gone; the design now leans on
-   typography, imagery, and space instead of effects. */
 export default function AmbientChrome() {
   const progressRef = useRef(null)
-
+  const glowRef = useRef(null)
+  const { pathname } = useLocation()
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY
-      const h = document.documentElement.scrollHeight - window.innerHeight
-      if (progressRef.current) progressRef.current.style.width = (h > 0 ? (y / h) * 100 : 0) + '%'
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const height = document.documentElement.scrollHeight - window.innerHeight
+      progressRef.current.style.transform = `scaleX(${height > 0 ? Math.min(1, Math.max(0, window.scrollY / height)) : 0})`
     }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener('scroll', onScroll)
+    const schedule = () => { if (!frame) frame = requestAnimationFrame(update) }
+    const observer = new ResizeObserver(schedule)
+    observer.observe(document.body)
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    schedule()
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule) }
+  }, [pathname])
+  useEffect(() => {
+    if (!hasFinePointer() || prefersReducedMotion()) return
+    let frame = 0
+    let x = 0, y = 0
+    const move = e => {
+      x = e.clientX; y = e.clientY
+      if (!frame) frame = requestAnimationFrame(() => {
+        glowRef.current.style.transform = `translate(${x}px, ${y}px)`
+        frame = 0
+      })
+    }
+    window.addEventListener('pointermove', move, { passive: true })
+    return () => { cancelAnimationFrame(frame); window.removeEventListener('pointermove', move) }
   }, [])
-
-  return <div className="scroll-progress" ref={progressRef}></div>
+  return <><div className="ambient-field" aria-hidden="true"><i /><i /></div><div className="pointer-light" ref={glowRef} aria-hidden="true" /><div className="scroll-progress" ref={progressRef} aria-hidden="true" /></>
 }

@@ -7,6 +7,7 @@ export default function NotFound() {
     title: 'Page not found · Jerry Huang',
     description: 'That page drifted out of orbit. Head back to jerry-huang.com.',
     path: '/404',
+    noIndex: true,
   })
 
   return (

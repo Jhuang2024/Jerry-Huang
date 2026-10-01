@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { SITE } from '../data/site'
 import { useTheme } from '../context/ThemeContext'
 import { useToast } from '../context/ToastContext'
-import { prefersReducedMotion } from '../lib/media'
+import { useModal } from '../hooks/useModal'
+import { createPortal } from 'react-dom'
 import { ArrowRight, SearchIcon } from './Icons'
 
 /* Command menu (⌘K), ported from script.js. Navigation commands now route
@@ -14,11 +15,10 @@ export default function CommandMenu({ open, onClose }) {
   const showToast = useToast()
   const [query, setQuery] = useState('')
   const [activeIdx, setActiveIdx] = useState(0)
-  const [visible, setVisible] = useState(false) // drives the .show transition
-  const [mounted, setMounted] = useState(false) // drives hidden/unmount timing
   const inputRef = useRef(null)
   const listRef = useRef(null)
-  const lastFocusRef = useRef(null)
+  const dialogRef = useRef(null)
+  useModal(open, dialogRef, onClose, inputRef)
 
   const commands = useMemo(() => [
     { group: 'Navigate', label: 'Home', action: () => navigate('/') },
@@ -39,8 +39,10 @@ export default function CommandMenu({ open, onClose }) {
     {
       group: 'Actions', label: 'Copy email address',
       action: async () => {
-        try { await navigator.clipboard.writeText(SITE.email) } catch (e) { /* noop */ }
-        showToast('Email address copied to clipboard')
+        try {
+          await navigator.clipboard.writeText(SITE.email)
+          showToast('Email address copied to clipboard')
+        } catch { showToast(`Copy unavailable. Email: ${SITE.email}`) }
       },
     },
   ], [navigate, toggleTheme, showToast])
@@ -52,26 +54,8 @@ export default function CommandMenu({ open, onClose }) {
 
   useEffect(() => { setActiveIdx(0) }, [query])
 
-  // open/close orchestration (mount → .show, .show off → unmount)
-  useEffect(() => {
-    if (open) {
-      lastFocusRef.current = document.activeElement
-      setMounted(true)
-      setQuery('')
-      setActiveIdx(0)
-      document.body.style.overflow = 'hidden'
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        setVisible(true)
-        inputRef.current?.focus()
-      }))
-    } else if (mounted) {
-      setVisible(false)
-      document.body.style.overflow = ''
-      const t = setTimeout(() => setMounted(false), prefersReducedMotion() ? 0 : 220)
-      lastFocusRef.current?.focus?.()
-      return () => clearTimeout(t)
-    }
-  }, [open]) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (open) { setQuery(''); setActiveIdx(0) } }, [open])
+  useEffect(() => { listRef.current?.querySelector('.active')?.scrollIntoView({ block: 'nearest' }) }, [activeIdx])
 
   const run = (idx) => {
     const cmd = filtered[idx]
@@ -83,12 +67,10 @@ export default function CommandMenu({ open, onClose }) {
   const onKeyDown = (e) => {
     if (e.key === 'ArrowDown') {
       e.preventDefault()
-      setActiveIdx((i) => Math.min(i + 1, filtered.length - 1))
-      queueMicrotask(() => listRef.current?.querySelector('.active')?.scrollIntoView({ block: 'nearest' }))
+      setActiveIdx((i) => Math.max(0, Math.min(i + 1, filtered.length - 1)))
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       setActiveIdx((i) => Math.max(i - 1, 0))
-      queueMicrotask(() => listRef.current?.querySelector('.active')?.scrollIntoView({ block: 'nearest' }))
     } else if (e.key === 'Enter') {
       e.preventDefault()
       run(activeIdx)
@@ -98,14 +80,17 @@ export default function CommandMenu({ open, onClose }) {
     }
   }
 
-  if (!mounted) return null
+  if (!open) return null
+  const visible = true
 
   let lastGroup = null
-  return (
+  return createPortal(
     <>
       <div className={`cmdk-overlay${visible ? ' show' : ''}`} onClick={onClose} />
       <div
         className={`cmdk${visible ? ' show' : ''}`}
+        ref={dialogRef}
+        tabIndex={-1}
         role="dialog"
         aria-modal="true"
         aria-label="Command menu"
@@ -114,6 +99,10 @@ export default function CommandMenu({ open, onClose }) {
         <div className="cmdk-input-row">
           <SearchIcon className="cmdk-search-icon" />
           <input
+            role="combobox"
+            aria-expanded="true"
+            aria-controls="command-results"
+            aria-activedescendant={filtered.length ? `command-${activeIdx}` : undefined}
             ref={inputRef}
             type="text"
             placeholder="Jump to a page or run a command…"
@@ -125,7 +114,7 @@ export default function CommandMenu({ open, onClose }) {
           />
           <kbd className="kbd">Esc</kbd>
         </div>
-        <div className="cmdk-list" ref={listRef} role="listbox">
+        <div className="cmdk-list" id="command-results" aria-label="Commands" ref={listRef} role="listbox">
           {!filtered.length && <div className="cmdk-empty">No matching command.</div>}
           {filtered.map((cmd, i) => {
             const groupLabel = cmd.group !== lastGroup ? cmd.group : null
@@ -135,6 +124,7 @@ export default function CommandMenu({ open, onClose }) {
                 {groupLabel && <div className="cmdk-group-label">{groupLabel}</div>}
                 <div
                   className={`cmdk-item${i === activeIdx ? ' active' : ''}`}
+                  id={`command-${i}`}
                   role="option"
                   aria-selected={i === activeIdx}
                   onClick={() => run(i)}
@@ -148,6 +138,6 @@ export default function CommandMenu({ open, onClose }) {
           })}
         </div>
       </div>
-    </>
+    </>, document.body
   )
 }

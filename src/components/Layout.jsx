@@ -30,6 +30,7 @@ export default function Layout() {
     const onKey = (e) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault()
+        setMenuOpen(false)
         setCmdkOpen((v) => !v)
       }
     }
@@ -42,17 +43,18 @@ export default function Layout() {
 
   return (
     <>
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <ScrollManager />
       <AmbientChrome />
       <CommandMenu open={cmdkOpen} onClose={closeCmdk} />
       <Navbar
         menuOpen={menuOpen}
-        onToggleMenu={() => setMenuOpen((v) => !v)}
-        onOpenCmdk={() => setCmdkOpen(true)}
+        onToggleMenu={() => { setCmdkOpen(false); setMenuOpen((v) => !v) }}
+        onOpenCmdk={() => { setMenuOpen(false); setCmdkOpen(true) }}
       />
       <MobileMenu open={menuOpen} onClose={closeMenu} />
       <PageTransition>
-        <main>
+        <main id="main-content" tabIndex={-1}>
           <Outlet />
         </main>
       </PageTransition>

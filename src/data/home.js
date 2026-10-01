@@ -2,7 +2,7 @@
 
 export const HERO_STATS = [
   { count: 550, suffix: '+', display: '550', label: 'Students empowered' },
-  { count: 40, prefix: '$', suffix: 'K+', display: '$40', label: 'Raised for youth' },
+  { count: 40, prefix: '$', suffix: 'K+', display: '40', label: 'Raised for youth' },
   { count: 5, suffix: '+', display: '5', label: 'UN forums presented' },
   { count: 1000, suffix: '+', display: '1,000', label: 'Youth impacted' },
 ]

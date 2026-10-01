@@ -75,6 +75,7 @@ export default function Constellation() {
       key={node.id}
       className={`cst-node cst-node--${kind} ${stateFor(node.id)}`}
       data-node={node.id}
+      aria-pressed={selected === node.id}
       onMouseEnter={() => { if (!selected) setHovered(node.id) }}
       onMouseLeave={() => { if (!selected) setHovered(null) }}
       onFocus={() => setHovered(node.id)}
